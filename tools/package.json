@@ -1,0 +1,13 @@
+{
+  "name": "@0xintuition/automation-tools",
+  "private": true,
+  "dependencies": {},
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "generators": "./generators.json",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
+    "lint:fix": "pnpm lint --fix"
+  }
+}

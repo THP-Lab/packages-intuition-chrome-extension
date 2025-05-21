@@ -1,0 +1,37 @@
+import { Canvas, Controls, Meta, Story, Title } from '@storybook/blocks'
+
+import * as ProgressStories from './Progress.stories'
+
+<Meta of={ProgressStories} />
+
+<Title />
+
+A progress indicator component built on top of Radix UI Progress primitive.
+
+## Usage
+
+<Canvas of={ProgressStories.Default} />
+
+```tsx
+import { Progress } from '@0xintuition/1ui'
+
+;<Progress value={50} />
+```
+
+## Examples
+
+### With Custom Value
+
+<Canvas of={ProgressStories.WithValue} />
+
+### Custom Styles
+
+<Canvas of={ProgressStories.CustomStyles} />
+
+### Indeterminate State
+
+<Canvas of={ProgressStories.Indeterminate} />
+
+## API Reference
+
+<Controls />
