@@ -60,11 +60,6 @@ fragment AtomVaultDetails on atoms {
           }
         }
       }
-      positions_aggregate {
-        aggregate {
-          count
-        }
-      }
       positions {
         id
         account {
@@ -72,6 +67,11 @@ fragment AtomVaultDetails on atoms {
           id
         }
         shares
+      }
+    }
+    positions_aggregate {
+      aggregate {
+        count
       }
     }
   }
