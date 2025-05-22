@@ -1,7 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
 import type { Types } from '@graphql-codegen/plugin-helpers'
 
-import { API_URL_DEV } from './src/constants'
+import { API_URL_PROD } from './src/constants'
 
 const commonGenerateOptions: Types.ConfiguredOutput = {
   config: {
@@ -37,7 +37,7 @@ const config: CodegenConfig = {
   overwrite: true,
   hooks: { afterAllFileWrite: ['prettier --write'] },
   schema: {
-    [API_URL_DEV]: {
+    [API_URL_PROD]: {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,12 +47,37 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
   documents: ['**/*.graphql'],
   generates: {
+    // Main output using react-query
     './src/generated/index.ts': {
       config: {
         ...commonGenerateOptions.config,
       },
       plugins: commonGenerateOptions.plugins,
     },
+
+    // Apollo Client output for subscriptions
+    './src/generated/subscriptions.ts': {
+      documents: ['src/graphql/subscriptions/**/*.graphql'], // Or wherever you place your .graphql subscription ops
+      plugins: [
+        'typescript',
+        '@graphql-codegen/typescript-operations',
+        '@graphql-codegen/typescript-react-apollo',
+      ],
+      config: {
+        withHooks: true,
+        withHOC: false,
+        withComponent: false,
+        scalars: {
+          Date: 'Date',
+          JSON: 'Record<string, any>',
+          ID: 'string',
+          Void: 'void',
+        },
+        documentMode: 'documentNode',
+      },
+    },
+
+    // Optional: export your schema
     './schema.graphql': {
       plugins: ['schema-ast'],
       config: {
@@ -64,3 +89,4 @@ const config: CodegenConfig = {
 }
 
 export default config
+

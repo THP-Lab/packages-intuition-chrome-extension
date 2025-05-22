@@ -11442,6 +11442,20 @@ export type VaultFieldsForTripleFragment = {
   }>
 }
 
+export type PinPersonMutationVariables = Exact<{
+  name: Scalars['String']['input']
+  description?: InputMaybe<Scalars['String']['input']>
+  image?: InputMaybe<Scalars['String']['input']>
+  url?: InputMaybe<Scalars['String']['input']>
+  email?: InputMaybe<Scalars['String']['input']>
+  identifier?: InputMaybe<Scalars['String']['input']>
+}>
+
+export type PinPersonMutation = {
+  __typename?: 'mutation_root'
+  pinPerson?: { __typename?: 'PinOutput'; uri?: string | null } | null
+}
+
 export type PinThingMutationVariables = Exact<{
   name: Scalars['String']['input']
   description?: InputMaybe<Scalars['String']['input']>
@@ -19097,6 +19111,13 @@ export type GetTriplesWithPositionsQuery = {
     }
     term?: {
       __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
       vaults: Array<{
         __typename?: 'vaults'
         total_shares: any
@@ -19115,6 +19136,13 @@ export type GetTriplesWithPositionsQuery = {
     } | null
     counter_term?: {
       __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
       vaults: Array<{
         __typename?: 'vaults'
         total_shares: any
@@ -19715,6 +19743,11 @@ export const AtomVaultDetailsFragmentDoc = `
           sum {
             shares
           }
+        }
+      }
+      positions_aggregate {
+        aggregate {
+          count
         }
       }
       positions {
@@ -20437,6 +20470,52 @@ export const AtomMetadataMaybedeletethisFragmentDoc = `
   ...AtomValue
 }
     `
+export const PinPersonDocument = `
+    mutation pinPerson($name: String!, $description: String, $image: String, $url: String, $email: String, $identifier: String) {
+  pinPerson(
+    person: {name: $name, description: $description, image: $image, url: $url, email: $email, identifier: $identifier}
+  ) {
+    uri
+  }
+}
+    `
+
+export const usePinPersonMutation = <TError = unknown, TContext = unknown>(
+  options?: UseMutationOptions<
+    PinPersonMutation,
+    TError,
+    PinPersonMutationVariables,
+    TContext
+  >,
+) => {
+  return useMutation<
+    PinPersonMutation,
+    TError,
+    PinPersonMutationVariables,
+    TContext
+  >({
+    mutationKey: ['pinPerson'],
+    mutationFn: (variables?: PinPersonMutationVariables) =>
+      fetcher<PinPersonMutation, PinPersonMutationVariables>(
+        PinPersonDocument,
+        variables,
+      )(),
+    ...options,
+  })
+}
+
+usePinPersonMutation.getKey = () => ['pinPerson']
+
+usePinPersonMutation.fetcher = (
+  variables: PinPersonMutationVariables,
+  options?: RequestInit['headers'],
+) =>
+  fetcher<PinPersonMutation, PinPersonMutationVariables>(
+    PinPersonDocument,
+    variables,
+    options,
+  )
+
 export const PinThingDocument = `
     mutation pinThing($name: String!, $description: String, $image: String, $url: String) {
   pinThing(
@@ -20567,7 +20646,7 @@ export const useInfiniteGetAccountsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAccounts.infinite']
             : ['GetAccounts.infinite', variables],
         queryFn: (metaData) =>
@@ -20677,7 +20756,7 @@ export const useInfiniteGetAccountsWithAggregatesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAccountsWithAggregates.infinite']
             : ['GetAccountsWithAggregates.infinite', variables],
         queryFn: (metaData) =>
@@ -20775,7 +20854,7 @@ export const useInfiniteGetAccountsCountQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAccountsCount.infinite']
             : ['GetAccountsCount.infinite', variables],
         queryFn: (metaData) =>
@@ -21170,7 +21249,7 @@ export const useInfiniteGetAtomsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAtoms.infinite']
             : ['GetAtoms.infinite', variables],
         queryFn: (metaData) =>
@@ -21313,7 +21392,7 @@ export const useInfiniteGetAtomsWithPositionsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAtomsWithPositions.infinite']
             : ['GetAtomsWithPositions.infinite', variables],
         queryFn: (metaData) =>
@@ -21433,7 +21512,7 @@ export const useInfiniteGetAtomsWithAggregatesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAtomsWithAggregates.infinite']
             : ['GetAtomsWithAggregates.infinite', variables],
         queryFn: (metaData) =>
@@ -21528,7 +21607,7 @@ export const useInfiniteGetAtomsCountQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAtomsCount.infinite']
             : ['GetAtomsCount.infinite', variables],
         queryFn: (metaData) =>
@@ -22241,7 +22320,7 @@ export const useInfiniteGetClaimsByAddressQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetClaimsByAddress.infinite']
             : ['GetClaimsByAddress.infinite', variables],
         queryFn: (metaData) =>
@@ -22481,7 +22560,7 @@ export const useInfiniteGetClaimsByUriQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetClaimsByUri.infinite']
             : ['GetClaimsByUri.infinite', variables],
         queryFn: (metaData) =>
@@ -22695,7 +22774,7 @@ export const useInfiniteGetEventsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetEvents.infinite']
             : ['GetEvents.infinite', variables],
         queryFn: (metaData) =>
@@ -22817,7 +22896,7 @@ export const useInfiniteGetEventsWithAggregatesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetEventsWithAggregates.infinite']
             : ['GetEventsWithAggregates.infinite', variables],
         queryFn: (metaData) =>
@@ -22912,7 +22991,7 @@ export const useInfiniteGetEventsCountQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetEventsCount.infinite']
             : ['GetEventsCount.infinite', variables],
         queryFn: (metaData) =>
@@ -23015,7 +23094,7 @@ export const useInfiniteGetEventsDataQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetEventsData.infinite']
             : ['GetEventsData.infinite', variables],
         queryFn: (metaData) =>
@@ -23113,7 +23192,7 @@ export const useInfiniteGetDebugEventsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetDebugEvents.infinite']
             : ['GetDebugEvents.infinite', variables],
         queryFn: (metaData) =>
@@ -24301,7 +24380,7 @@ export const useInfiniteGetListsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetLists.infinite']
             : ['GetLists.infinite', variables],
         queryFn: (metaData) =>
@@ -24398,7 +24477,7 @@ export const useInfiniteGetListItemsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetListItems.infinite']
             : ['GetListItems.infinite', variables],
         queryFn: (metaData) =>
@@ -24559,7 +24638,7 @@ export const useInfiniteGetListDetailsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetListDetails.infinite']
             : ['GetListDetails.infinite', variables],
         queryFn: (metaData) =>
@@ -24744,7 +24823,7 @@ export const useInfiniteGetListDetailsWithPositionQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetListDetailsWithPosition.infinite']
             : ['GetListDetailsWithPosition.infinite', variables],
         queryFn: (metaData) =>
@@ -25016,7 +25095,7 @@ export const useInfiniteGetListDetailsWithUserQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetListDetailsWithUser.infinite']
             : ['GetListDetailsWithUser.infinite', variables],
         queryFn: (metaData) =>
@@ -25215,7 +25294,7 @@ export const useInfiniteGetPositionsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetPositions.infinite']
             : ['GetPositions.infinite', variables],
         queryFn: (metaData) =>
@@ -25454,7 +25533,7 @@ export const useInfiniteGetPositionsWithAggregatesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetPositionsWithAggregates.infinite']
             : ['GetPositionsWithAggregates.infinite', variables],
         queryFn: (metaData) =>
@@ -25559,7 +25638,7 @@ export const useInfiniteGetPositionsCountQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetPositionsCount.infinite']
             : ['GetPositionsCount.infinite', variables],
         queryFn: (metaData) =>
@@ -25750,7 +25829,7 @@ export const useInfiniteGetPositionsCountByTypeQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetPositionsCountByType.infinite']
             : ['GetPositionsCountByType.infinite', variables],
         queryFn: (metaData) =>
@@ -25989,7 +26068,7 @@ export const useInfiniteGetSignalsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetSignals.infinite']
             : ['GetSignals.infinite', variables],
         queryFn: (metaData) =>
@@ -26064,7 +26143,7 @@ export const useInfiniteGetStatsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetStats.infinite']
             : ['GetStats.infinite', variables],
         queryFn: (metaData) =>
@@ -26236,7 +26315,7 @@ export const useInfiniteGetTagsCustomQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTagsCustom.infinite']
             : ['GetTagsCustom.infinite', variables],
         queryFn: (metaData) =>
@@ -26351,7 +26430,7 @@ export const useInfiniteGetListsTagsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetListsTags.infinite']
             : ['GetListsTags.infinite', variables],
         queryFn: (metaData) =>
@@ -26598,7 +26677,7 @@ export const useInfiniteGetTriplesByCreatorQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTriplesByCreator.infinite']
             : ['GetTriplesByCreator.infinite', variables],
         queryFn: (metaData) =>
@@ -26700,7 +26779,7 @@ export const useInfiniteGetTriplesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTriples.infinite']
             : ['GetTriples.infinite', variables],
         queryFn: (metaData) =>
@@ -26818,7 +26897,7 @@ export const useInfiniteGetTriplesWithAggregatesQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTriplesWithAggregates.infinite']
             : ['GetTriplesWithAggregates.infinite', variables],
         queryFn: (metaData) =>
@@ -26912,7 +26991,7 @@ export const useInfiniteGetTriplesCountQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTriplesCount.infinite']
             : ['GetTriplesCount.infinite', variables],
         queryFn: (metaData) =>
@@ -27103,7 +27182,7 @@ export const useInfiniteGetAtomTriplesWithPositionsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetAtomTriplesWithPositions.infinite']
             : ['GetAtomTriplesWithPositions.infinite', variables],
         queryFn: (metaData) =>
@@ -27162,6 +27241,11 @@ export const GetTriplesWithPositionsDocument = `
       image
     }
     term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       vaults {
         total_shares
         position_count
@@ -27176,6 +27260,11 @@ export const GetTriplesWithPositionsDocument = `
       }
     }
     counter_term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       vaults {
         total_shares
         position_count
@@ -27252,7 +27341,7 @@ export const useInfiniteGetTriplesWithPositionsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetTriplesWithPositions.infinite']
             : ['GetTriplesWithPositions.infinite', variables],
         queryFn: (metaData) =>
@@ -27379,7 +27468,7 @@ export const useInfiniteGetVaultsQuery = <
       const { queryKey: optionsQueryKey, ...restOptions } = options
       return {
         queryKey:
-          optionsQueryKey ?? variables === undefined
+          (optionsQueryKey ?? variables === undefined)
             ? ['GetVaults.infinite']
             : ['GetVaults.infinite', variables],
         queryFn: (metaData) =>
@@ -28784,6 +28873,28 @@ export const AtomVaultDetails = {
                                         },
                                       ],
                                     },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
                                   },
                                 ],
                               },
@@ -34920,6 +35031,140 @@ export const AtomMetadataMaybedeletethis = {
     },
   ],
 } as unknown as DocumentNode
+export const PinPerson = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'pinPerson' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'name' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'description' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'image' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'url' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'email' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'identifier' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pinPerson' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'person' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'name' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'name' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'description' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'description' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'image' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'image' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'url' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'url' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'email' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'email' },
+                      },
+                    },
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'identifier' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'identifier' },
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'uri' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode
 export const PinThing = {
   kind: 'Document',
   definitions: [
@@ -37136,6 +37381,28 @@ export const GetAccount = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -39164,6 +39431,28 @@ export const GetAtoms = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -40365,6 +40654,28 @@ export const GetAtomsWithAggregates = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -40776,6 +41087,28 @@ export const GetAtom = {
                                         },
                                       ],
                                     },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
                                   },
                                 ],
                               },
@@ -41386,6 +41719,28 @@ export const GetAtomByData = {
                                         },
                                       ],
                                     },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
                                   },
                                 ],
                               },
@@ -64072,6 +64427,28 @@ export const GetTriplesWithPositions = {
                     selections: [
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'vaults' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -64173,6 +64550,28 @@ export const GetTriplesWithPositions = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'vaults' },
