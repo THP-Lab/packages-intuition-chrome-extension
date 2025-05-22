@@ -9572,6 +9572,13 @@ export type AtomVaultDetailsFragment = {
         account?: { __typename?: 'accounts'; label: string; id: string } | null
       }>
     }>
+    positions_aggregate: {
+      __typename?: 'positions_aggregate'
+      aggregate?: {
+        __typename?: 'positions_aggregate_fields'
+        count: number
+      } | null
+    }
   }
 }
 
@@ -11699,6 +11706,13 @@ export type GetAccountQuery = {
             } | null
           }>
         }>
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
       }
       value?: {
         __typename?: 'atom_values'
@@ -12054,6 +12068,13 @@ export type GetAtomsQuery = {
           } | null
         }>
       }>
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
     }
     as_subject_triples: Array<{
       __typename?: 'triples'
@@ -12358,6 +12379,13 @@ export type GetAtomsWithAggregatesQuery = {
             } | null
           }>
         }>
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
       }
       value?: {
         __typename?: 'atom_values'
@@ -12455,6 +12483,13 @@ export type GetAtomQuery = {
           } | null
         }>
       }>
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
     }
     as_subject_triples: Array<{
       __typename?: 'triples'
@@ -12653,6 +12688,13 @@ export type GetAtomByDataQuery = {
           } | null
         }>
       }>
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
     }
     as_subject_triples: Array<{
       __typename?: 'triples'
@@ -19745,11 +19787,6 @@ export const AtomVaultDetailsFragmentDoc = `
           }
         }
       }
-      positions_aggregate {
-        aggregate {
-          count
-        }
-      }
       positions {
         id
         account {
@@ -19757,6 +19794,11 @@ export const AtomVaultDetailsFragmentDoc = `
           id
         }
         shares
+      }
+    }
+    positions_aggregate {
+      aggregate {
+        count
       }
     }
   }
@@ -28882,28 +28924,6 @@ export const AtomVaultDetails = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -28932,6 +28952,28 @@ export const AtomVaultDetails = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
@@ -37381,28 +37423,6 @@ export const GetAccount = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -37431,6 +37451,28 @@ export const GetAccount = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
@@ -39431,28 +39473,6 @@ export const GetAtoms = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -39481,6 +39501,28 @@ export const GetAtoms = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
@@ -40654,28 +40696,6 @@ export const GetAtomsWithAggregates = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -40704,6 +40724,28 @@ export const GetAtomsWithAggregates = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
@@ -41099,28 +41141,6 @@ export const GetAtom = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -41149,6 +41169,28 @@ export const GetAtom = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
@@ -41731,28 +41773,6 @@ export const GetAtomByData = {
                       },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'positions_aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'aggregate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'count' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'positions' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -41781,6 +41801,28 @@ export const GetAtomByData = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'shares' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'count' },
                             },
                           ],
                         },
