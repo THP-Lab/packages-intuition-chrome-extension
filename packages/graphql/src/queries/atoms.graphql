@@ -137,8 +137,8 @@ query GetAtomByData($data: String!) {
 }
 
 # App specific queries
-query GetVerifiedAtomDetails($term_id: numeric!, $userPositionAddress: String!) {
-  atom(term_id: $term_id) {
+query GetVerifiedAtomDetails($id: numeric!, $userPositionAddress: String!) {
+  atom(term_id: $id) {
     term_id
     label
     wallet_id
@@ -157,7 +157,7 @@ query GetVerifiedAtomDetails($term_id: numeric!, $userPositionAddress: String!) 
       }
     }
     term {
-      vaults(where: { curve_id: { _eq: "1" }, term_id: { _eq: $term_id } }) {
+      vaults(where: { curve_id: { _eq: "1" }, term_id: { _eq: $id } }) {
         current_share_price
         total_shares
         position_count
@@ -223,8 +223,8 @@ query GetVerifiedAtomDetails($term_id: numeric!, $userPositionAddress: String!) 
   }
 }
 
-query GetAtomDetails($term_id: numeric!, $userPositionAddress: String!) {
-  atom(term_id: $term_id) {
+query GetAtomDetails($id: numeric!, $userPositionAddress: String!) {
+  atom(term_id: $id) {
     term_id
     label
     wallet_id
