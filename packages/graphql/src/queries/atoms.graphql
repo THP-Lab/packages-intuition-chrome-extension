@@ -121,6 +121,11 @@ query GetAtom($id: numeric!) {
       ...AccountMetadata
     }
     ...AtomTriple
+    positions_aggregate {
+      aggregate {
+        count
+      }
+    }
   }
 }
 
