@@ -120,7 +120,7 @@ query GetAtom($id: numeric!) {
     creator {
       ...AccountMetadata
     }
-    ...AtomTriple
+    ...AtomTriple 
   }
 }
 
