@@ -12421,7 +12421,7 @@ export type GetAtomsCountQuery = {
 }
 
 export type GetAtomQueryVariables = Exact<{
-  id: Scalars['numeric']['input']
+  term_id: Scalars['numeric']['input']
 }>
 
 export type GetAtomQuery = {
@@ -33605,7 +33605,10 @@ export const GetAtomDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'id' } },
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'term_id' },
+          },
           type: {
             kind: 'NonNullType',
             type: {
@@ -33627,7 +33630,7 @@ export const GetAtomDocument = {
                 name: { kind: 'Name', value: 'term_id' },
                 value: {
                   kind: 'Variable',
-                  name: { kind: 'Name', value: 'id' },
+                  name: { kind: 'Name', value: 'term_id' },
                 },
               },
             ],
@@ -34222,7 +34225,7 @@ export const GetAtomDocument = {
  * @example
  * const { data, loading, error } = useGetAtomQuery({
  *   variables: {
- *      id: // value for 'id'
+ *      term_id: // value for 'term_id'
  *   },
  * });
  */
