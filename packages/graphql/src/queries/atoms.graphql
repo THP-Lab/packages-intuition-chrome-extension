@@ -120,12 +120,7 @@ query GetAtom($id: numeric!) {
     creator {
       ...AccountMetadata
     }
-    ...AtomTriple
-    positions_aggregate {
-      aggregate {
-        count
-      }
-    }
+    ...AtomTriple 
   }
 }
 

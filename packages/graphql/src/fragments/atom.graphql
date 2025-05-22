@@ -60,6 +60,11 @@ fragment AtomVaultDetails on atoms {
           }
         }
       }
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       positions {
         id
         account {
