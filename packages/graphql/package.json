@@ -1,5 +1,5 @@
 {
-  "name": "@0xintuition/graphql",
+  "name": "@warzieram/graphql",
   "description": "GraphQL",
   "version": "0.5.6",
   "main": "./dist/index.js",
