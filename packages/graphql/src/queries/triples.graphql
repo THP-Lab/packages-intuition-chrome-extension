@@ -178,3 +178,65 @@ query GetTriplesWithPositions(
     }
   }
 }
+
+
+query GetTriplesByAtom($term_id: numeric, $address: String) {
+  triples_aggregate(
+    where: {
+      _or: [
+        { object_id: { _eq: $term_id } }
+        { subject_id: { _eq: $term_id } }
+        { predicate_id: { _eq: $term_id } }
+      ]
+    }
+  ) {
+    aggregate {
+      count
+    }
+    nodes {
+      term_id
+      subject {
+        term_id
+        label
+        image
+        type
+      }
+      predicate {
+        term_id
+        label
+        image
+        type
+      }
+      object {
+        term_id
+        label
+        image
+        type
+      }
+      term {
+        id
+        positions(where: { account_id: { _eq: $address } }) {
+          shares
+          account_id 
+        }
+        positions_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+      counter_term {
+        id
+        positions(where: { account_id: { _eq: $address } }) {
+          shares
+          account_id
+        }
+        positions_aggregate {
+          aggregate {
+            count
+          }
+        }
+      }
+    }
+  }
+}
