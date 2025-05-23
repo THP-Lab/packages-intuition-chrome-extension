@@ -1,5 +1,4 @@
 import { CodegenConfig } from '@graphql-codegen/cli'
-import type { Types } from '@graphql-codegen/plugin-helpers'
 
 import { API_URL_PROD } from './src/constants'
 
@@ -17,15 +16,11 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
   documents: ['**/*.graphql'],
   generates: {
-    './src/generated/index.ts': {
-      documents: [
-        'src/graphql/**/*.graphql', // Inclut tout, y compris les subscriptions
-      ],
+    'src/generated/index.ts': {
       plugins: [
         'typescript',
-        '@graphql-codegen/typescript-operations',
-        '@graphql-codegen/typescript-react-query',
-        '@graphql-codegen/typescript-react-apollo',
+        'typescript-operations',
+        'typescript-react-apollo',
         'typescript-document-nodes',
       ],
       config: {
@@ -42,9 +37,6 @@ const config: CodegenConfig = {
         enumsAsTypes: true,
         dedupeFragments: true,
         documentMode: 'documentNode',
-        withHooks: true,
-        withHOC: false,
-        withComponent: false,
         scalars: {
           Date: 'Date',
           JSON: 'Record<string, any>',
@@ -53,7 +45,6 @@ const config: CodegenConfig = {
         },
       },
     },
-
     './schema.graphql': {
       plugins: ['schema-ast'],
       config: {
