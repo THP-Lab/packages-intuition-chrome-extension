@@ -5234,6 +5234,10 @@ input positions_bool_exp {
   vault: vaults_bool_exp
 }
 
+input positions_from_following_args {
+  address: String
+}
+
 """
 aggregate max on columns
 """
@@ -5473,7 +5477,6 @@ input positions_variance_order_by {
 columns and relationships of "predicate_object"
 """
 type predicate_objects {
-  claim_count: Int!
   id: String!
   """
   An object relationship
@@ -5545,7 +5548,6 @@ input predicate_objects_aggregate_order_by {
 aggregate avg on columns
 """
 type predicate_objects_avg_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5555,7 +5557,6 @@ type predicate_objects_avg_fields {
 order by avg() on columns of table "predicate_object"
 """
 input predicate_objects_avg_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5568,7 +5569,6 @@ input predicate_objects_bool_exp {
   _and: [predicate_objects_bool_exp!]
   _not: predicate_objects_bool_exp
   _or: [predicate_objects_bool_exp!]
-  claim_count: Int_comparison_exp
   id: String_comparison_exp
   object: atoms_bool_exp
   object_id: numeric_comparison_exp
@@ -5581,7 +5581,6 @@ input predicate_objects_bool_exp {
 aggregate max on columns
 """
 type predicate_objects_max_fields {
-  claim_count: Int
   id: String
   object_id: numeric
   predicate_id: numeric
@@ -5592,7 +5591,6 @@ type predicate_objects_max_fields {
 order by max() on columns of table "predicate_object"
 """
 input predicate_objects_max_order_by {
-  claim_count: order_by
   id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -5603,7 +5601,6 @@ input predicate_objects_max_order_by {
 aggregate min on columns
 """
 type predicate_objects_min_fields {
-  claim_count: Int
   id: String
   object_id: numeric
   predicate_id: numeric
@@ -5614,7 +5611,6 @@ type predicate_objects_min_fields {
 order by min() on columns of table "predicate_object"
 """
 input predicate_objects_min_order_by {
-  claim_count: order_by
   id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -5625,7 +5621,6 @@ input predicate_objects_min_order_by {
 Ordering options when selecting data from "predicate_object".
 """
 input predicate_objects_order_by {
-  claim_count: order_by
   id: order_by
   object: atoms_order_by
   object_id: order_by
@@ -5638,10 +5633,6 @@ input predicate_objects_order_by {
 select columns of table "predicate_object"
 """
 enum predicate_objects_select_column {
-  """
-  column name
-  """
-  claim_count
   """
   column name
   """
@@ -5664,7 +5655,6 @@ enum predicate_objects_select_column {
 aggregate stddev on columns
 """
 type predicate_objects_stddev_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5674,7 +5664,6 @@ type predicate_objects_stddev_fields {
 order by stddev() on columns of table "predicate_object"
 """
 input predicate_objects_stddev_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5684,7 +5673,6 @@ input predicate_objects_stddev_order_by {
 aggregate stddev_pop on columns
 """
 type predicate_objects_stddev_pop_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5694,7 +5682,6 @@ type predicate_objects_stddev_pop_fields {
 order by stddev_pop() on columns of table "predicate_object"
 """
 input predicate_objects_stddev_pop_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5704,7 +5691,6 @@ input predicate_objects_stddev_pop_order_by {
 aggregate stddev_samp on columns
 """
 type predicate_objects_stddev_samp_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5714,7 +5700,6 @@ type predicate_objects_stddev_samp_fields {
 order by stddev_samp() on columns of table "predicate_object"
 """
 input predicate_objects_stddev_samp_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5738,7 +5723,6 @@ input predicate_objects_stream_cursor_input {
 Initial value of the column from where the streaming should start
 """
 input predicate_objects_stream_cursor_value_input {
-  claim_count: Int
   id: String
   object_id: numeric
   predicate_id: numeric
@@ -5749,7 +5733,6 @@ input predicate_objects_stream_cursor_value_input {
 aggregate sum on columns
 """
 type predicate_objects_sum_fields {
-  claim_count: Int
   object_id: numeric
   predicate_id: numeric
   triple_count: Int
@@ -5759,7 +5742,6 @@ type predicate_objects_sum_fields {
 order by sum() on columns of table "predicate_object"
 """
 input predicate_objects_sum_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5769,7 +5751,6 @@ input predicate_objects_sum_order_by {
 aggregate var_pop on columns
 """
 type predicate_objects_var_pop_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5779,7 +5760,6 @@ type predicate_objects_var_pop_fields {
 order by var_pop() on columns of table "predicate_object"
 """
 input predicate_objects_var_pop_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5789,7 +5769,6 @@ input predicate_objects_var_pop_order_by {
 aggregate var_samp on columns
 """
 type predicate_objects_var_samp_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5799,7 +5778,6 @@ type predicate_objects_var_samp_fields {
 order by var_samp() on columns of table "predicate_object"
 """
 input predicate_objects_var_samp_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -5809,7 +5787,6 @@ input predicate_objects_var_samp_order_by {
 aggregate variance on columns
 """
 type predicate_objects_variance_fields {
-  claim_count: Float
   object_id: Float
   predicate_id: Float
   triple_count: Float
@@ -5819,7 +5796,6 @@ type predicate_objects_variance_fields {
 order by variance() on columns of table "predicate_object"
 """
 input predicate_objects_variance_order_by {
-  claim_count: order_by
   object_id: order_by
   predicate_id: order_by
   triple_count: order_by
@@ -6815,6 +6791,64 @@ type query_root {
     where: positions_bool_exp
   ): positions_aggregate!
   """
+  execute function "positions_from_following" which returns "position"
+  """
+  positions_from_following(
+    """
+    input parameters for function "positions_from_following"
+    """
+    args: positions_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [positions_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [positions_order_by!]
+    """
+    filter the rows returned
+    """
+    where: positions_bool_exp
+  ): [positions!]!
+  """
+  execute function "positions_from_following" and query aggregates on result of table type "position"
+  """
+  positions_from_following_aggregate(
+    """
+    input parameters for function "positions_from_following_aggregate"
+    """
+    args: positions_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [positions_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [positions_order_by!]
+    """
+    filter the rows returned
+    """
+    where: positions_bool_exp
+  ): positions_aggregate!
+  """
   fetch data from the table: "predicate_object"
   """
   predicate_objects(
@@ -6923,11 +6957,127 @@ type query_root {
     where: redemptions_bool_exp
   ): redemptions_aggregate!
   """
+  execute function "search_term" which returns "term"
+  """
+  search_term(
+    """
+    input parameters for function "search_term"
+    """
+    args: search_term_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): [terms!]!
+  """
+  execute function "search_term" and query aggregates on result of table type "term"
+  """
+  search_term_aggregate(
+    """
+    input parameters for function "search_term_aggregate"
+    """
+    args: search_term_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): terms_aggregate!
+  """
+  execute function "search_term_from_following" which returns "term"
+  """
+  search_term_from_following(
+    """
+    input parameters for function "search_term_from_following"
+    """
+    args: search_term_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): [terms!]!
+  """
+  execute function "search_term_from_following" and query aggregates on result of table type "term"
+  """
+  search_term_from_following_aggregate(
+    """
+    input parameters for function "search_term_from_following_aggregate"
+    """
+    args: search_term_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): terms_aggregate!
+  """
   fetch data from the table: "share_price_change" using primary key columns
   """
   share_price_change(id: bigint!): share_price_changes
   """
-  An array relationship
+  fetch data from the table: "share_price_change"
   """
   share_price_changes(
     """
@@ -6952,7 +7102,7 @@ type query_root {
     where: share_price_changes_bool_exp
   ): [share_price_changes!]!
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "share_price_change"
   """
   share_price_changes_aggregate(
     """
@@ -7930,6 +8080,15 @@ input redemptions_variance_order_by {
   term_id: order_by
 }
 
+input search_term_args {
+  query: String
+}
+
+input search_term_from_following_args {
+  address: String
+  query: String
+}
+
 """
 columns and relationships of "share_price_change"
 """
@@ -7962,17 +8121,6 @@ type share_price_changes_aggregate {
   nodes: [share_price_changes!]!
 }
 
-input share_price_changes_aggregate_bool_exp {
-  count: share_price_changes_aggregate_bool_exp_count
-}
-
-input share_price_changes_aggregate_bool_exp_count {
-  arguments: [share_price_changes_select_column!]
-  distinct: Boolean
-  filter: share_price_changes_bool_exp
-  predicate: Int_comparison_exp!
-}
-
 """
 aggregate fields of "share_price_change"
 """
@@ -7991,23 +8139,6 @@ type share_price_changes_aggregate_fields {
 }
 
 """
-order by aggregate values of table "share_price_change"
-"""
-input share_price_changes_aggregate_order_by {
-  avg: share_price_changes_avg_order_by
-  count: order_by
-  max: share_price_changes_max_order_by
-  min: share_price_changes_min_order_by
-  stddev: share_price_changes_stddev_order_by
-  stddev_pop: share_price_changes_stddev_pop_order_by
-  stddev_samp: share_price_changes_stddev_samp_order_by
-  sum: share_price_changes_sum_order_by
-  var_pop: share_price_changes_var_pop_order_by
-  var_samp: share_price_changes_var_samp_order_by
-  variance: share_price_changes_variance_order_by
-}
-
-"""
 aggregate avg on columns
 """
 type share_price_changes_avg_fields {
@@ -8019,20 +8150,6 @@ type share_price_changes_avg_fields {
   term_id: Float
   total_assets: Float
   total_shares: Float
-}
-
-"""
-order by avg() on columns of table "share_price_change"
-"""
-input share_price_changes_avg_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
 }
 
 """
@@ -8073,22 +8190,6 @@ type share_price_changes_max_fields {
 }
 
 """
-order by max() on columns of table "share_price_change"
-"""
-input share_price_changes_max_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-  transaction_hash: order_by
-  updated_at: order_by
-}
-
-"""
 aggregate min on columns
 """
 type share_price_changes_min_fields {
@@ -8102,22 +8203,6 @@ type share_price_changes_min_fields {
   total_shares: numeric
   transaction_hash: String
   updated_at: timestamptz
-}
-
-"""
-order by min() on columns of table "share_price_change"
-"""
-input share_price_changes_min_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-  transaction_hash: order_by
-  updated_at: order_by
 }
 
 """
@@ -8199,20 +8284,6 @@ type share_price_changes_stddev_fields {
 }
 
 """
-order by stddev() on columns of table "share_price_change"
-"""
-input share_price_changes_stddev_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-}
-
-"""
 aggregate stddev_pop on columns
 """
 type share_price_changes_stddev_pop_fields {
@@ -8227,20 +8298,6 @@ type share_price_changes_stddev_pop_fields {
 }
 
 """
-order by stddev_pop() on columns of table "share_price_change"
-"""
-input share_price_changes_stddev_pop_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-}
-
-"""
 aggregate stddev_samp on columns
 """
 type share_price_changes_stddev_samp_fields {
@@ -8252,20 +8309,6 @@ type share_price_changes_stddev_samp_fields {
   term_id: Float
   total_assets: Float
   total_shares: Float
-}
-
-"""
-order by stddev_samp() on columns of table "share_price_change"
-"""
-input share_price_changes_stddev_samp_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
 }
 
 """
@@ -8313,20 +8356,6 @@ type share_price_changes_sum_fields {
 }
 
 """
-order by sum() on columns of table "share_price_change"
-"""
-input share_price_changes_sum_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-}
-
-"""
 aggregate var_pop on columns
 """
 type share_price_changes_var_pop_fields {
@@ -8338,20 +8367,6 @@ type share_price_changes_var_pop_fields {
   term_id: Float
   total_assets: Float
   total_shares: Float
-}
-
-"""
-order by var_pop() on columns of table "share_price_change"
-"""
-input share_price_changes_var_pop_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
 }
 
 """
@@ -8369,20 +8384,6 @@ type share_price_changes_var_samp_fields {
 }
 
 """
-order by var_samp() on columns of table "share_price_change"
-"""
-input share_price_changes_var_samp_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
-}
-
-"""
 aggregate variance on columns
 """
 type share_price_changes_variance_fields {
@@ -8394,20 +8395,6 @@ type share_price_changes_variance_fields {
   term_id: Float
   total_assets: Float
   total_shares: Float
-}
-
-"""
-order by variance() on columns of table "share_price_change"
-"""
-input share_price_changes_variance_order_by {
-  block_number: order_by
-  block_timestamp: order_by
-  curve_id: order_by
-  id: order_by
-  share_price: order_by
-  term_id: order_by
-  total_assets: order_by
-  total_shares: order_by
 }
 
 """
@@ -10385,6 +10372,64 @@ type subscription_root {
     where: positions_bool_exp
   ): positions_aggregate!
   """
+  execute function "positions_from_following" which returns "position"
+  """
+  positions_from_following(
+    """
+    input parameters for function "positions_from_following"
+    """
+    args: positions_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [positions_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [positions_order_by!]
+    """
+    filter the rows returned
+    """
+    where: positions_bool_exp
+  ): [positions!]!
+  """
+  execute function "positions_from_following" and query aggregates on result of table type "position"
+  """
+  positions_from_following_aggregate(
+    """
+    input parameters for function "positions_from_following_aggregate"
+    """
+    args: positions_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [positions_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [positions_order_by!]
+    """
+    filter the rows returned
+    """
+    where: positions_bool_exp
+  ): positions_aggregate!
+  """
   fetch data from the table in a streaming manner: "position"
   """
   positions_stream(
@@ -10544,11 +10589,127 @@ type subscription_root {
     where: redemptions_bool_exp
   ): [redemptions!]!
   """
+  execute function "search_term" which returns "term"
+  """
+  search_term(
+    """
+    input parameters for function "search_term"
+    """
+    args: search_term_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): [terms!]!
+  """
+  execute function "search_term" and query aggregates on result of table type "term"
+  """
+  search_term_aggregate(
+    """
+    input parameters for function "search_term_aggregate"
+    """
+    args: search_term_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): terms_aggregate!
+  """
+  execute function "search_term_from_following" which returns "term"
+  """
+  search_term_from_following(
+    """
+    input parameters for function "search_term_from_following"
+    """
+    args: search_term_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): [terms!]!
+  """
+  execute function "search_term_from_following" and query aggregates on result of table type "term"
+  """
+  search_term_from_following_aggregate(
+    """
+    input parameters for function "search_term_from_following_aggregate"
+    """
+    args: search_term_from_following_args!
+    """
+    distinct select on columns
+    """
+    distinct_on: [terms_select_column!]
+    """
+    limit the number of rows returned
+    """
+    limit: Int
+    """
+    skip the first n rows. Use only with order_by
+    """
+    offset: Int
+    """
+    sort the rows by one or more columns
+    """
+    order_by: [terms_order_by!]
+    """
+    filter the rows returned
+    """
+    where: terms_bool_exp
+  ): terms_aggregate!
+  """
   fetch data from the table: "share_price_change" using primary key columns
   """
   share_price_change(id: bigint!): share_price_changes
   """
-  An array relationship
+  fetch data from the table: "share_price_change"
   """
   share_price_changes(
     """
@@ -10573,7 +10734,7 @@ type subscription_root {
     where: share_price_changes_bool_exp
   ): [share_price_changes!]!
   """
-  An aggregate relationship
+  fetch aggregated fields from the table: "share_price_change"
   """
   share_price_changes_aggregate(
     """
@@ -11355,56 +11516,6 @@ type terms {
   """
   An array relationship
   """
-  share_price_changes(
-    """
-    distinct select on columns
-    """
-    distinct_on: [share_price_changes_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [share_price_changes_order_by!]
-    """
-    filter the rows returned
-    """
-    where: share_price_changes_bool_exp
-  ): [share_price_changes!]!
-  """
-  An aggregate relationship
-  """
-  share_price_changes_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [share_price_changes_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [share_price_changes_order_by!]
-    """
-    filter the rows returned
-    """
-    where: share_price_changes_bool_exp
-  ): share_price_changes_aggregate!
-  """
-  An array relationship
-  """
   signals(
     """
     distinct select on columns
@@ -11516,9 +11627,6 @@ type terms {
   ): vaults_aggregate!
 }
 
-"""
-aggregated selection of "term"
-"""
 type terms_aggregate {
   aggregate: terms_aggregate_fields
   nodes: [terms!]!
@@ -11569,8 +11677,6 @@ input terms_bool_exp {
   positions_aggregate: positions_aggregate_bool_exp
   redemptions: redemptions_bool_exp
   redemptions_aggregate: redemptions_aggregate_bool_exp
-  share_price_changes: share_price_changes_bool_exp
-  share_price_changes_aggregate: share_price_changes_aggregate_bool_exp
   signals: signals_bool_exp
   signals_aggregate: signals_aggregate_bool_exp
   total_assets: numeric_comparison_exp
@@ -11618,7 +11724,6 @@ input terms_order_by {
   id: order_by
   positions_aggregate: positions_aggregate_order_by
   redemptions_aggregate: redemptions_aggregate_order_by
-  share_price_changes_aggregate: share_price_changes_aggregate_order_by
   signals_aggregate: signals_aggregate_order_by
   total_assets: order_by
   total_market_cap: order_by
@@ -12885,56 +12990,6 @@ type vaults {
   """
   An array relationship
   """
-  share_price_changes(
-    """
-    distinct select on columns
-    """
-    distinct_on: [share_price_changes_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [share_price_changes_order_by!]
-    """
-    filter the rows returned
-    """
-    where: share_price_changes_bool_exp
-  ): [share_price_changes!]!
-  """
-  An aggregate relationship
-  """
-  share_price_changes_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [share_price_changes_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [share_price_changes_order_by!]
-    """
-    filter the rows returned
-    """
-    where: share_price_changes_bool_exp
-  ): share_price_changes_aggregate!
-  """
-  An array relationship
-  """
   signals(
     """
     distinct select on columns
@@ -13087,8 +13142,6 @@ input vaults_bool_exp {
   positions_aggregate: positions_aggregate_bool_exp
   redemptions: redemptions_bool_exp
   redemptions_aggregate: redemptions_aggregate_bool_exp
-  share_price_changes: share_price_changes_bool_exp
-  share_price_changes_aggregate: share_price_changes_aggregate_bool_exp
   signals: signals_bool_exp
   signals_aggregate: signals_aggregate_bool_exp
   term: terms_bool_exp
@@ -13160,7 +13213,6 @@ input vaults_order_by {
   position_count: order_by
   positions_aggregate: positions_aggregate_order_by
   redemptions_aggregate: redemptions_aggregate_order_by
-  share_price_changes_aggregate: share_price_changes_aggregate_order_by
   signals_aggregate: signals_aggregate_order_by
   term: terms_order_by
   term_id: order_by

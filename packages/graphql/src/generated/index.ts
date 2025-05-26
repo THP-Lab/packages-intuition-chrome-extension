@@ -3988,6 +3988,10 @@ export type Positions_Bool_Exp = {
   vault?: InputMaybe<Vaults_Bool_Exp>
 }
 
+export type Positions_From_Following_Args = {
+  address?: InputMaybe<Scalars['String']['input']>
+}
+
 /** aggregate max on columns */
 export type Positions_Max_Fields = {
   __typename?: 'positions_max_fields'
@@ -4176,7 +4180,6 @@ export type Positions_Variance_Order_By = {
 /** columns and relationships of "predicate_object" */
 export type Predicate_Objects = {
   __typename?: 'predicate_objects'
-  claim_count: Scalars['Int']['output']
   id: Scalars['String']['output']
   /** An object relationship */
   object: Atoms
@@ -4245,7 +4248,6 @@ export type Predicate_Objects_Aggregate_Order_By = {
 /** aggregate avg on columns */
 export type Predicate_Objects_Avg_Fields = {
   __typename?: 'predicate_objects_avg_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4253,7 +4255,6 @@ export type Predicate_Objects_Avg_Fields = {
 
 /** order by avg() on columns of table "predicate_object" */
 export type Predicate_Objects_Avg_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4264,7 +4265,6 @@ export type Predicate_Objects_Bool_Exp = {
   _and?: InputMaybe<Array<Predicate_Objects_Bool_Exp>>
   _not?: InputMaybe<Predicate_Objects_Bool_Exp>
   _or?: InputMaybe<Array<Predicate_Objects_Bool_Exp>>
-  claim_count?: InputMaybe<Int_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
   object?: InputMaybe<Atoms_Bool_Exp>
   object_id?: InputMaybe<Numeric_Comparison_Exp>
@@ -4276,7 +4276,6 @@ export type Predicate_Objects_Bool_Exp = {
 /** aggregate max on columns */
 export type Predicate_Objects_Max_Fields = {
   __typename?: 'predicate_objects_max_fields'
-  claim_count?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
@@ -4285,7 +4284,6 @@ export type Predicate_Objects_Max_Fields = {
 
 /** order by max() on columns of table "predicate_object" */
 export type Predicate_Objects_Max_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -4295,7 +4293,6 @@ export type Predicate_Objects_Max_Order_By = {
 /** aggregate min on columns */
 export type Predicate_Objects_Min_Fields = {
   __typename?: 'predicate_objects_min_fields'
-  claim_count?: Maybe<Scalars['Int']['output']>
   id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
@@ -4304,7 +4301,6 @@ export type Predicate_Objects_Min_Fields = {
 
 /** order by min() on columns of table "predicate_object" */
 export type Predicate_Objects_Min_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -4313,7 +4309,6 @@ export type Predicate_Objects_Min_Order_By = {
 
 /** Ordering options when selecting data from "predicate_object". */
 export type Predicate_Objects_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   object?: InputMaybe<Atoms_Order_By>
   object_id?: InputMaybe<Order_By>
@@ -4324,8 +4319,6 @@ export type Predicate_Objects_Order_By = {
 
 /** select columns of table "predicate_object" */
 export type Predicate_Objects_Select_Column =
-  /** column name */
-  | 'claim_count'
   /** column name */
   | 'id'
   /** column name */
@@ -4338,7 +4331,6 @@ export type Predicate_Objects_Select_Column =
 /** aggregate stddev on columns */
 export type Predicate_Objects_Stddev_Fields = {
   __typename?: 'predicate_objects_stddev_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4346,7 +4338,6 @@ export type Predicate_Objects_Stddev_Fields = {
 
 /** order by stddev() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4355,7 +4346,6 @@ export type Predicate_Objects_Stddev_Order_By = {
 /** aggregate stddev_pop on columns */
 export type Predicate_Objects_Stddev_Pop_Fields = {
   __typename?: 'predicate_objects_stddev_pop_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4363,7 +4353,6 @@ export type Predicate_Objects_Stddev_Pop_Fields = {
 
 /** order by stddev_pop() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Pop_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4372,7 +4361,6 @@ export type Predicate_Objects_Stddev_Pop_Order_By = {
 /** aggregate stddev_samp on columns */
 export type Predicate_Objects_Stddev_Samp_Fields = {
   __typename?: 'predicate_objects_stddev_samp_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4380,7 +4368,6 @@ export type Predicate_Objects_Stddev_Samp_Fields = {
 
 /** order by stddev_samp() on columns of table "predicate_object" */
 export type Predicate_Objects_Stddev_Samp_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4396,7 +4383,6 @@ export type Predicate_Objects_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Predicate_Objects_Stream_Cursor_Value_Input = {
-  claim_count?: InputMaybe<Scalars['Int']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   object_id?: InputMaybe<Scalars['numeric']['input']>
   predicate_id?: InputMaybe<Scalars['numeric']['input']>
@@ -4406,7 +4392,6 @@ export type Predicate_Objects_Stream_Cursor_Value_Input = {
 /** aggregate sum on columns */
 export type Predicate_Objects_Sum_Fields = {
   __typename?: 'predicate_objects_sum_fields'
-  claim_count?: Maybe<Scalars['Int']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
   triple_count?: Maybe<Scalars['Int']['output']>
@@ -4414,7 +4399,6 @@ export type Predicate_Objects_Sum_Fields = {
 
 /** order by sum() on columns of table "predicate_object" */
 export type Predicate_Objects_Sum_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4423,7 +4407,6 @@ export type Predicate_Objects_Sum_Order_By = {
 /** aggregate var_pop on columns */
 export type Predicate_Objects_Var_Pop_Fields = {
   __typename?: 'predicate_objects_var_pop_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4431,7 +4414,6 @@ export type Predicate_Objects_Var_Pop_Fields = {
 
 /** order by var_pop() on columns of table "predicate_object" */
 export type Predicate_Objects_Var_Pop_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4440,7 +4422,6 @@ export type Predicate_Objects_Var_Pop_Order_By = {
 /** aggregate var_samp on columns */
 export type Predicate_Objects_Var_Samp_Fields = {
   __typename?: 'predicate_objects_var_samp_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4448,7 +4429,6 @@ export type Predicate_Objects_Var_Samp_Fields = {
 
 /** order by var_samp() on columns of table "predicate_object" */
 export type Predicate_Objects_Var_Samp_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4457,7 +4437,6 @@ export type Predicate_Objects_Var_Samp_Order_By = {
 /** aggregate variance on columns */
 export type Predicate_Objects_Variance_Fields = {
   __typename?: 'predicate_objects_variance_fields'
-  claim_count?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
   triple_count?: Maybe<Scalars['Float']['output']>
@@ -4465,7 +4444,6 @@ export type Predicate_Objects_Variance_Fields = {
 
 /** order by variance() on columns of table "predicate_object" */
 export type Predicate_Objects_Variance_Order_By = {
-  claim_count?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
   triple_count?: InputMaybe<Order_By>
@@ -4577,6 +4555,10 @@ export type Query_Root = {
   positions: Array<Positions>
   /** An aggregate relationship */
   positions_aggregate: Positions_Aggregate
+  /** execute function "positions_from_following" which returns "position" */
+  positions_from_following: Array<Positions>
+  /** execute function "positions_from_following" and query aggregates on result of table type "position" */
+  positions_from_following_aggregate: Positions_Aggregate
   /** fetch data from the table: "predicate_object" */
   predicate_objects: Array<Predicate_Objects>
   /** fetch aggregated fields from the table: "predicate_object" */
@@ -4589,11 +4571,19 @@ export type Query_Root = {
   redemptions: Array<Redemptions>
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
+  /** execute function "search_term" which returns "term" */
+  search_term: Array<Terms>
+  /** execute function "search_term" and query aggregates on result of table type "term" */
+  search_term_aggregate: Terms_Aggregate
+  /** execute function "search_term_from_following" which returns "term" */
+  search_term_from_following: Array<Terms>
+  /** execute function "search_term_from_following" and query aggregates on result of table type "term" */
+  search_term_from_following_aggregate: Terms_Aggregate
   /** fetch data from the table: "share_price_change" using primary key columns */
   share_price_change?: Maybe<Share_Price_Changes>
-  /** An array relationship */
+  /** fetch data from the table: "share_price_change" */
   share_price_changes: Array<Share_Price_Changes>
-  /** An aggregate relationship */
+  /** fetch aggregated fields from the table: "share_price_change" */
   share_price_changes_aggregate: Share_Price_Changes_Aggregate
   /** fetch data from the table: "signal" using primary key columns */
   signal?: Maybe<Signals>
@@ -5001,6 +4991,24 @@ export type Query_RootPositions_AggregateArgs = {
   where?: InputMaybe<Positions_Bool_Exp>
 }
 
+export type Query_RootPositions_From_FollowingArgs = {
+  args: Positions_From_Following_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
+export type Query_RootPositions_From_Following_AggregateArgs = {
+  args: Positions_From_Following_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
 export type Query_RootPredicate_ObjectsArgs = {
   distinct_on?: InputMaybe<Array<Predicate_Objects_Select_Column>>
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -5039,6 +5047,42 @@ export type Query_RootRedemptions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Redemptions_Order_By>>
   where?: InputMaybe<Redemptions_Bool_Exp>
+}
+
+export type Query_RootSearch_TermArgs = {
+  args: Search_Term_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Query_RootSearch_Term_AggregateArgs = {
+  args: Search_Term_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Query_RootSearch_Term_From_FollowingArgs = {
+  args: Search_Term_From_Following_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Query_RootSearch_Term_From_Following_AggregateArgs = {
+  args: Search_Term_From_Following_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
 }
 
 export type Query_RootShare_Price_ChangeArgs = {
@@ -5660,6 +5704,15 @@ export type Redemptions_Variance_Order_By = {
   term_id?: InputMaybe<Order_By>
 }
 
+export type Search_Term_Args = {
+  query?: InputMaybe<Scalars['String']['input']>
+}
+
+export type Search_Term_From_Following_Args = {
+  address?: InputMaybe<Scalars['String']['input']>
+  query?: InputMaybe<Scalars['String']['input']>
+}
+
 /** columns and relationships of "share_price_change" */
 export type Share_Price_Changes = {
   __typename?: 'share_price_changes'
@@ -5686,17 +5739,6 @@ export type Share_Price_Changes_Aggregate = {
   nodes: Array<Share_Price_Changes>
 }
 
-export type Share_Price_Changes_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Share_Price_Changes_Aggregate_Bool_Exp_Count>
-}
-
-export type Share_Price_Changes_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
-  distinct?: InputMaybe<Scalars['Boolean']['input']>
-  filter?: InputMaybe<Share_Price_Changes_Bool_Exp>
-  predicate: Int_Comparison_Exp
-}
-
 /** aggregate fields of "share_price_change" */
 export type Share_Price_Changes_Aggregate_Fields = {
   __typename?: 'share_price_changes_aggregate_fields'
@@ -5719,21 +5761,6 @@ export type Share_Price_Changes_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']['input']>
 }
 
-/** order by aggregate values of table "share_price_change" */
-export type Share_Price_Changes_Aggregate_Order_By = {
-  avg?: InputMaybe<Share_Price_Changes_Avg_Order_By>
-  count?: InputMaybe<Order_By>
-  max?: InputMaybe<Share_Price_Changes_Max_Order_By>
-  min?: InputMaybe<Share_Price_Changes_Min_Order_By>
-  stddev?: InputMaybe<Share_Price_Changes_Stddev_Order_By>
-  stddev_pop?: InputMaybe<Share_Price_Changes_Stddev_Pop_Order_By>
-  stddev_samp?: InputMaybe<Share_Price_Changes_Stddev_Samp_Order_By>
-  sum?: InputMaybe<Share_Price_Changes_Sum_Order_By>
-  var_pop?: InputMaybe<Share_Price_Changes_Var_Pop_Order_By>
-  var_samp?: InputMaybe<Share_Price_Changes_Var_Samp_Order_By>
-  variance?: InputMaybe<Share_Price_Changes_Variance_Order_By>
-}
-
 /** aggregate avg on columns */
 export type Share_Price_Changes_Avg_Fields = {
   __typename?: 'share_price_changes_avg_fields'
@@ -5745,18 +5772,6 @@ export type Share_Price_Changes_Avg_Fields = {
   term_id?: Maybe<Scalars['Float']['output']>
   total_assets?: Maybe<Scalars['Float']['output']>
   total_shares?: Maybe<Scalars['Float']['output']>
-}
-
-/** order by avg() on columns of table "share_price_change" */
-export type Share_Price_Changes_Avg_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "share_price_change". All fields are combined with a logical 'AND'. */
@@ -5793,20 +5808,6 @@ export type Share_Price_Changes_Max_Fields = {
   updated_at?: Maybe<Scalars['timestamptz']['output']>
 }
 
-/** order by max() on columns of table "share_price_change" */
-export type Share_Price_Changes_Max_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-  transaction_hash?: InputMaybe<Order_By>
-  updated_at?: InputMaybe<Order_By>
-}
-
 /** aggregate min on columns */
 export type Share_Price_Changes_Min_Fields = {
   __typename?: 'share_price_changes_min_fields'
@@ -5820,20 +5821,6 @@ export type Share_Price_Changes_Min_Fields = {
   total_shares?: Maybe<Scalars['numeric']['output']>
   transaction_hash?: Maybe<Scalars['String']['output']>
   updated_at?: Maybe<Scalars['timestamptz']['output']>
-}
-
-/** order by min() on columns of table "share_price_change" */
-export type Share_Price_Changes_Min_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-  transaction_hash?: InputMaybe<Order_By>
-  updated_at?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "share_price_change". */
@@ -5888,18 +5875,6 @@ export type Share_Price_Changes_Stddev_Fields = {
   total_shares?: Maybe<Scalars['Float']['output']>
 }
 
-/** order by stddev() on columns of table "share_price_change" */
-export type Share_Price_Changes_Stddev_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-}
-
 /** aggregate stddev_pop on columns */
 export type Share_Price_Changes_Stddev_Pop_Fields = {
   __typename?: 'share_price_changes_stddev_pop_fields'
@@ -5913,18 +5888,6 @@ export type Share_Price_Changes_Stddev_Pop_Fields = {
   total_shares?: Maybe<Scalars['Float']['output']>
 }
 
-/** order by stddev_pop() on columns of table "share_price_change" */
-export type Share_Price_Changes_Stddev_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-}
-
 /** aggregate stddev_samp on columns */
 export type Share_Price_Changes_Stddev_Samp_Fields = {
   __typename?: 'share_price_changes_stddev_samp_fields'
@@ -5936,18 +5899,6 @@ export type Share_Price_Changes_Stddev_Samp_Fields = {
   term_id?: Maybe<Scalars['Float']['output']>
   total_assets?: Maybe<Scalars['Float']['output']>
   total_shares?: Maybe<Scalars['Float']['output']>
-}
-
-/** order by stddev_samp() on columns of table "share_price_change" */
-export type Share_Price_Changes_Stddev_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
 }
 
 /** Streaming cursor of the table "share_price_changes" */
@@ -5985,18 +5936,6 @@ export type Share_Price_Changes_Sum_Fields = {
   total_shares?: Maybe<Scalars['numeric']['output']>
 }
 
-/** order by sum() on columns of table "share_price_change" */
-export type Share_Price_Changes_Sum_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-}
-
 /** aggregate var_pop on columns */
 export type Share_Price_Changes_Var_Pop_Fields = {
   __typename?: 'share_price_changes_var_pop_fields'
@@ -6008,18 +5947,6 @@ export type Share_Price_Changes_Var_Pop_Fields = {
   term_id?: Maybe<Scalars['Float']['output']>
   total_assets?: Maybe<Scalars['Float']['output']>
   total_shares?: Maybe<Scalars['Float']['output']>
-}
-
-/** order by var_pop() on columns of table "share_price_change" */
-export type Share_Price_Changes_Var_Pop_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
 }
 
 /** aggregate var_samp on columns */
@@ -6035,18 +5962,6 @@ export type Share_Price_Changes_Var_Samp_Fields = {
   total_shares?: Maybe<Scalars['Float']['output']>
 }
 
-/** order by var_samp() on columns of table "share_price_change" */
-export type Share_Price_Changes_Var_Samp_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
-}
-
 /** aggregate variance on columns */
 export type Share_Price_Changes_Variance_Fields = {
   __typename?: 'share_price_changes_variance_fields'
@@ -6058,18 +5973,6 @@ export type Share_Price_Changes_Variance_Fields = {
   term_id?: Maybe<Scalars['Float']['output']>
   total_assets?: Maybe<Scalars['Float']['output']>
   total_shares?: Maybe<Scalars['Float']['output']>
-}
-
-/** order by variance() on columns of table "share_price_change" */
-export type Share_Price_Changes_Variance_Order_By = {
-  block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
-  curve_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  share_price?: InputMaybe<Order_By>
-  term_id?: InputMaybe<Order_By>
-  total_assets?: InputMaybe<Order_By>
-  total_shares?: InputMaybe<Order_By>
 }
 
 /** columns and relationships of "signal" */
@@ -6826,6 +6729,10 @@ export type Subscription_Root = {
   positions: Array<Positions>
   /** An aggregate relationship */
   positions_aggregate: Positions_Aggregate
+  /** execute function "positions_from_following" which returns "position" */
+  positions_from_following: Array<Positions>
+  /** execute function "positions_from_following" and query aggregates on result of table type "position" */
+  positions_from_following_aggregate: Positions_Aggregate
   /** fetch data from the table in a streaming manner: "position" */
   positions_stream: Array<Positions>
   /** fetch data from the table: "predicate_object" */
@@ -6844,11 +6751,19 @@ export type Subscription_Root = {
   redemptions_aggregate: Redemptions_Aggregate
   /** fetch data from the table in a streaming manner: "redemption" */
   redemptions_stream: Array<Redemptions>
+  /** execute function "search_term" which returns "term" */
+  search_term: Array<Terms>
+  /** execute function "search_term" and query aggregates on result of table type "term" */
+  search_term_aggregate: Terms_Aggregate
+  /** execute function "search_term_from_following" which returns "term" */
+  search_term_from_following: Array<Terms>
+  /** execute function "search_term_from_following" and query aggregates on result of table type "term" */
+  search_term_from_following_aggregate: Terms_Aggregate
   /** fetch data from the table: "share_price_change" using primary key columns */
   share_price_change?: Maybe<Share_Price_Changes>
-  /** An array relationship */
+  /** fetch data from the table: "share_price_change" */
   share_price_changes: Array<Share_Price_Changes>
-  /** An aggregate relationship */
+  /** fetch aggregated fields from the table: "share_price_change" */
   share_price_changes_aggregate: Share_Price_Changes_Aggregate
   /** fetch data from the table in a streaming manner: "share_price_change" */
   share_price_changes_stream: Array<Share_Price_Changes>
@@ -7362,6 +7277,24 @@ export type Subscription_RootPositions_AggregateArgs = {
   where?: InputMaybe<Positions_Bool_Exp>
 }
 
+export type Subscription_RootPositions_From_FollowingArgs = {
+  args: Positions_From_Following_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
+export type Subscription_RootPositions_From_Following_AggregateArgs = {
+  args: Positions_From_Following_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
 export type Subscription_RootPositions_StreamArgs = {
   batch_size: Scalars['Int']['input']
   cursor: Array<InputMaybe<Positions_Stream_Cursor_Input>>
@@ -7418,6 +7351,42 @@ export type Subscription_RootRedemptions_StreamArgs = {
   batch_size: Scalars['Int']['input']
   cursor: Array<InputMaybe<Redemptions_Stream_Cursor_Input>>
   where?: InputMaybe<Redemptions_Bool_Exp>
+}
+
+export type Subscription_RootSearch_TermArgs = {
+  args: Search_Term_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Subscription_RootSearch_Term_AggregateArgs = {
+  args: Search_Term_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Subscription_RootSearch_Term_From_FollowingArgs = {
+  args: Search_Term_From_Following_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
+}
+
+export type Subscription_RootSearch_Term_From_Following_AggregateArgs = {
+  args: Search_Term_From_Following_Args
+  distinct_on?: InputMaybe<Array<Terms_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Terms_Order_By>>
+  where?: InputMaybe<Terms_Bool_Exp>
 }
 
 export type Subscription_RootShare_Price_ChangeArgs = {
@@ -7682,10 +7651,6 @@ export type Terms = {
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
   /** An array relationship */
-  share_price_changes: Array<Share_Price_Changes>
-  /** An aggregate relationship */
-  share_price_changes_aggregate: Share_Price_Changes_Aggregate
-  /** An array relationship */
   signals: Array<Signals>
   /** An aggregate relationship */
   signals_aggregate: Signals_Aggregate
@@ -7758,24 +7723,6 @@ export type TermsRedemptions_AggregateArgs = {
 }
 
 /** columns and relationships of "term" */
-export type TermsShare_Price_ChangesArgs = {
-  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
-  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
-}
-
-/** columns and relationships of "term" */
-export type TermsShare_Price_Changes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
-  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
-}
-
-/** columns and relationships of "term" */
 export type TermsSignalsArgs = {
   distinct_on?: InputMaybe<Array<Signals_Select_Column>>
   limit?: InputMaybe<Scalars['Int']['input']>
@@ -7811,7 +7758,6 @@ export type TermsVaults_AggregateArgs = {
   where?: InputMaybe<Vaults_Bool_Exp>
 }
 
-/** aggregated selection of "term" */
 export type Terms_Aggregate = {
   __typename?: 'terms_aggregate'
   aggregate?: Maybe<Terms_Aggregate_Fields>
@@ -7865,8 +7811,6 @@ export type Terms_Bool_Exp = {
   positions_aggregate?: InputMaybe<Positions_Aggregate_Bool_Exp>
   redemptions?: InputMaybe<Redemptions_Bool_Exp>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Bool_Exp>
-  share_price_changes?: InputMaybe<Share_Price_Changes_Bool_Exp>
-  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Bool_Exp>
   signals?: InputMaybe<Signals_Bool_Exp>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Bool_Exp>
   total_assets?: InputMaybe<Numeric_Comparison_Exp>
@@ -7910,7 +7854,6 @@ export type Terms_Order_By = {
   id?: InputMaybe<Order_By>
   positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Order_By>
-  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Order_By>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Order_By>
   total_assets?: InputMaybe<Order_By>
   total_market_cap?: InputMaybe<Order_By>
@@ -8810,10 +8753,6 @@ export type Vaults = {
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
   /** An array relationship */
-  share_price_changes: Array<Share_Price_Changes>
-  /** An aggregate relationship */
-  share_price_changes_aggregate: Share_Price_Changes_Aggregate
-  /** An array relationship */
   signals: Array<Signals>
   /** An aggregate relationship */
   signals_aggregate: Signals_Aggregate
@@ -8876,24 +8815,6 @@ export type VaultsRedemptions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Redemptions_Order_By>>
   where?: InputMaybe<Redemptions_Bool_Exp>
-}
-
-/** columns and relationships of "vault" */
-export type VaultsShare_Price_ChangesArgs = {
-  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
-  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
-}
-
-/** columns and relationships of "vault" */
-export type VaultsShare_Price_Changes_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
-  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
 }
 
 /** columns and relationships of "vault" */
@@ -9007,8 +8928,6 @@ export type Vaults_Bool_Exp = {
   positions_aggregate?: InputMaybe<Positions_Aggregate_Bool_Exp>
   redemptions?: InputMaybe<Redemptions_Bool_Exp>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Bool_Exp>
-  share_price_changes?: InputMaybe<Share_Price_Changes_Bool_Exp>
-  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Bool_Exp>
   signals?: InputMaybe<Signals_Bool_Exp>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Bool_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
@@ -9072,7 +8991,6 @@ export type Vaults_Order_By = {
   position_count?: InputMaybe<Order_By>
   positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Order_By>
-  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Order_By>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Order_By>
   term?: InputMaybe<Terms_Order_By>
   term_id?: InputMaybe<Order_By>
@@ -14635,33 +14553,6 @@ export type GetPersonsByIdentifierQuery = {
     email?: string | null
     url?: string | null
     identifier?: string | null
-  }>
-}
-
-export type GetListsQueryVariables = Exact<{
-  where?: InputMaybe<Predicate_Objects_Bool_Exp>
-}>
-
-export type GetListsQuery = {
-  __typename?: 'query_root'
-  predicate_objects_aggregate: {
-    __typename?: 'predicate_objects_aggregate'
-    aggregate?: {
-      __typename?: 'predicate_objects_aggregate_fields'
-      count: number
-    } | null
-  }
-  predicate_objects: Array<{
-    __typename?: 'predicate_objects'
-    id: string
-    claim_count: number
-    triple_count: number
-    object: {
-      __typename?: 'atoms'
-      term_id: any
-      label?: string | null
-      image?: string | null
-    }
   }>
 }
 
@@ -45543,195 +45434,6 @@ export type GetPersonsByIdentifierSuspenseQueryHookResult = ReturnType<
 export type GetPersonsByIdentifierQueryResult = Apollo.QueryResult<
   GetPersonsByIdentifierQuery,
   GetPersonsByIdentifierQueryVariables
->
-export const GetListsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetLists' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'predicate_objects_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'predicate_objects_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'predicate_objects' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ListValue',
-                  values: [
-                    {
-                      kind: 'ObjectValue',
-                      fields: [
-                        {
-                          kind: 'ObjectField',
-                          name: { kind: 'Name', value: 'claim_count' },
-                          value: { kind: 'EnumValue', value: 'desc' },
-                        },
-                      ],
-                    },
-                    {
-                      kind: 'ObjectValue',
-                      fields: [
-                        {
-                          kind: 'ObjectField',
-                          name: { kind: 'Name', value: 'triple_count' },
-                          value: { kind: 'EnumValue', value: 'desc' },
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'claim_count' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'triple_count' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'object' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetListsQuery__
- *
- * To run a query within a React component, call `useGetListsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetListsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetListsQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetListsQuery(
-  baseOptions?: Apollo.QueryHookOptions<GetListsQuery, GetListsQueryVariables>,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetListsQuery, GetListsQueryVariables>(
-    GetListsDocument,
-    options,
-  )
-}
-export function useGetListsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetListsQuery,
-    GetListsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetListsQuery, GetListsQueryVariables>(
-    GetListsDocument,
-    options,
-  )
-}
-export function useGetListsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetListsQuery, GetListsQueryVariables>,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetListsQuery, GetListsQueryVariables>(
-    GetListsDocument,
-    options,
-  )
-}
-export type GetListsQueryHookResult = ReturnType<typeof useGetListsQuery>
-export type GetListsLazyQueryHookResult = ReturnType<
-  typeof useGetListsLazyQuery
->
-export type GetListsSuspenseQueryHookResult = ReturnType<
-  typeof useGetListsSuspenseQuery
->
-export type GetListsQueryResult = Apollo.QueryResult<
-  GetListsQuery,
-  GetListsQueryVariables
 >
 export const GetListItemsDocument = {
   kind: 'Document',
@@ -86562,132 +86264,6 @@ export const GetPersonsByIdentifier = {
                 { kind: 'Field', name: { kind: 'Name', value: 'email' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'url' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'identifier' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetLists = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetLists' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'predicate_objects_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'predicate_objects_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'predicate_objects' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ListValue',
-                  values: [
-                    {
-                      kind: 'ObjectValue',
-                      fields: [
-                        {
-                          kind: 'ObjectField',
-                          name: { kind: 'Name', value: 'claim_count' },
-                          value: { kind: 'EnumValue', value: 'desc' },
-                        },
-                      ],
-                    },
-                    {
-                      kind: 'ObjectValue',
-                      fields: [
-                        {
-                          kind: 'ObjectField',
-                          name: { kind: 'Name', value: 'triple_count' },
-                          value: { kind: 'EnumValue', value: 'desc' },
-                        },
-                      ],
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'claim_count' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'triple_count' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'object' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-                    ],
-                  },
-                },
               ],
             },
           },
