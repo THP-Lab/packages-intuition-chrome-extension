@@ -93,6 +93,11 @@ query GetTaggedObjects(
       positions (where: { account_id: { _eq: $address } }){
         shares
       }
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
     }
 
     counter_term {
@@ -103,6 +108,11 @@ query GetTaggedObjects(
         positions (where: { account_id: { _eq: $address } }){
           shares
         }
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
     }
   }
 }
