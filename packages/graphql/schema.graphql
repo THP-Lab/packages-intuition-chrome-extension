@@ -12885,7 +12885,7 @@ type vaults {
     """
     where: deposits_bool_exp
   ): deposits_aggregate!
-  market_cap: numeric
+  market_cap: numeric!
   position_count: Int!
   """
   An array relationship
@@ -13042,7 +13042,7 @@ type vaults {
   """
   term: terms!
   term_id: numeric!
-  total_assets: numeric
+  total_assets: numeric!
   total_shares: numeric!
 }
 
