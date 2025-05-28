@@ -30,24 +30,30 @@ query GetClaimsByAddress($address: String) {
   }
 }
 
-query GetClaimsByUri($address: String, $uri: String){
+query GetClaimsByUri($address: String, $uri: String) {
   atoms(
     where: {
-    _or: [
-  { data: { _eq: $uri } }
-  { value: { thing: { url: { _eq: $uri } } } }
-  { value: { person: { url: { _eq: $uri } } } }
-  { value: { organization: { url: { _eq: $uri } } } }
-  { value: { book: { url: { _eq: $uri } } } }
-    ]
-  }
-    ) {
+      _or: [
+        { data: { _eq: $uri } }
+        { value: { thing: { url: { _eq: $uri } } } }
+        { value: { person: { url: { _eq: $uri } } } }
+        { value: { organization: { url: { _eq: $uri } } } }
+        { value: { book: { url: { _eq: $uri } } } }
+      ]
+    }
+  ) {
     as_subject_triples_aggregate {
       aggregate {
         count
       }
       nodes {
         term_id
+        subject {
+          label
+          image
+          type
+          term_id
+        }
         predicate {
           label
           image
@@ -130,53 +136,7 @@ query GetClaimsByUri($address: String, $uri: String){
         }
       }
     }
-    as_predicate_triples_aggregate {
-      aggregate {
-        count
-      }
-      nodes {
-        term_id
-        predicate {
-          image
-          label
-          type
-          term_id
-        }
-        subject {
-          label
-          image
-          type
-          term_id
-        }
-        object {
-          label
-          image
-          type
-          term_id
-        }
-        positions_aggregate {
-          aggregate {
-            count
-          }
-        }
-        positions(where: { account_id: { _eq: $address } }) {
-          shares
-        }
-        counter_positions_aggregate {
-          aggregate {
-            count
-          }
-        }
-        counter_positions(where: { account_id: { _eq: $address } }) {
-          shares
-        }
-        creator {
-          label
-          id
-          type
-        }
-      }
-    }
+    
     term_id
     label
     image
@@ -193,4 +153,3 @@ query GetClaimsByUri($address: String, $uri: String){
     }
   }
 }
-
