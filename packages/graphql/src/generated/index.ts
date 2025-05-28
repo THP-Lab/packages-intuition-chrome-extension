@@ -8742,7 +8742,7 @@ export type Vaults = {
   deposits: Array<Deposits>
   /** An aggregate relationship */
   deposits_aggregate: Deposits_Aggregate
-  market_cap?: Maybe<Scalars['numeric']['output']>
+  market_cap: Scalars['numeric']['output']
   position_count: Scalars['Int']['output']
   /** An array relationship */
   positions: Array<Positions>
@@ -8759,7 +8759,7 @@ export type Vaults = {
   /** An object relationship */
   term: Terms
   term_id: Scalars['numeric']['output']
-  total_assets?: Maybe<Scalars['numeric']['output']>
+  total_assets: Scalars['numeric']['output']
   total_shares: Scalars['numeric']['output']
 }
 
@@ -12988,6 +12988,14 @@ export type GetClaimsByUriQuery = {
       nodes: Array<{
         __typename?: 'triples'
         term_id: any
+        counter_term_id: any
+        subject: {
+          __typename?: 'atoms'
+          label?: string | null
+          image?: string | null
+          type: any
+          term_id: any
+        }
         predicate: {
           __typename?: 'atoms'
           label?: string | null
@@ -13035,64 +13043,11 @@ export type GetClaimsByUriQuery = {
       nodes: Array<{
         __typename?: 'triples'
         term_id: any
+        counter_term_id: any
         predicate: {
           __typename?: 'atoms'
           label?: string | null
           image?: string | null
-          type: any
-          term_id: any
-        }
-        subject: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        object: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        positions: Array<{ __typename?: 'positions'; shares: any }>
-        counter_positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        counter_positions: Array<{ __typename?: 'positions'; shares: any }>
-        creator?: {
-          __typename?: 'accounts'
-          label: string
-          id: string
-          type: any
-        } | null
-      }>
-    }
-    as_predicate_triples_aggregate: {
-      __typename?: 'triples_aggregate'
-      aggregate?: {
-        __typename?: 'triples_aggregate_fields'
-        count: number
-      } | null
-      nodes: Array<{
-        __typename?: 'triples'
-        term_id: any
-        predicate: {
-          __typename?: 'atoms'
-          image?: string | null
-          label?: string | null
           type: any
           term_id: any
         }
@@ -37071,6 +37026,35 @@ export const GetClaimsByUriDocument = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'counter_term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'subject' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'label' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'image' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'type' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'term_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'predicate' },
                               selectionSet: {
                                 kind: 'SelectionSet',
@@ -37336,296 +37320,7 @@ export const GetClaimsByUriDocument = {
                             },
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: {
-                    kind: 'Name',
-                    value: 'as_predicate_triples_aggregate',
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
+                              name: { kind: 'Name', value: 'counter_term_id' },
                             },
                             {
                               kind: 'Field',
@@ -37635,11 +37330,11 @@ export const GetClaimsByUriDocument = {
                                 selections: [
                                   {
                                     kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
+                                    name: { kind: 'Name', value: 'label' },
                                   },
                                   {
                                     kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
+                                    name: { kind: 'Name', value: 'image' },
                                   },
                                   {
                                     kind: 'Field',
@@ -79078,6 +78773,35 @@ export const GetClaimsByUri = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'counter_term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'subject' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'label' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'image' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'type' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'term_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'predicate' },
                               selectionSet: {
                                 kind: 'SelectionSet',
@@ -79343,296 +79067,7 @@ export const GetClaimsByUri = {
                             },
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: {
-                    kind: 'Name',
-                    value: 'as_predicate_triples_aggregate',
-                  },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
+                              name: { kind: 'Name', value: 'counter_term_id' },
                             },
                             {
                               kind: 'Field',
@@ -79642,11 +79077,11 @@ export const GetClaimsByUri = {
                                 selections: [
                                   {
                                     kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
+                                    name: { kind: 'Name', value: 'label' },
                                   },
                                   {
                                     kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
+                                    name: { kind: 'Name', value: 'image' },
                                   },
                                   {
                                     kind: 'Field',
