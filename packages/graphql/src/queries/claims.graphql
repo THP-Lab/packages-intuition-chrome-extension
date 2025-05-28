@@ -49,6 +49,20 @@ query GetClaimsByUri($address: String, $uri: String) {
       nodes {
         term_id
         counter_term_id
+        term {
+          positions_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
+        counter_term {
+          positions_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
         subject {
           label
           image
@@ -97,6 +111,20 @@ query GetClaimsByUri($address: String, $uri: String) {
       nodes {
         term_id
         counter_term_id
+        term {
+          positions_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
+        counter_term {
+          positions_aggregate {
+            aggregate {
+              count
+            }
+          }
+        }
         predicate {
           label
           image
@@ -138,7 +166,6 @@ query GetClaimsByUri($address: String, $uri: String) {
         }
       }
     }
-    
     term_id
     label
     image
