@@ -12,6 +12,11 @@ fragment EventDetails on events {
   atom {
     ...AtomMetadata
     term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       vaults(where: { curve_id: { _eq: "1" } }) {
         total_shares
         position_count
@@ -30,6 +35,11 @@ fragment EventDetails on events {
   triple {
     ...TripleMetadata
     term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       vaults(where: { curve_id: { _eq: "1" } }) {
         total_shares
         position_count
@@ -45,6 +55,11 @@ fragment EventDetails on events {
       }
     }
     counter_term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
       vaults(where: { curve_id: { _eq: "1" } }) {
         total_shares
         position_count
