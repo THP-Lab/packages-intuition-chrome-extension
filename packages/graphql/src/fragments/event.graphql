@@ -112,12 +112,26 @@ fragment EventDetailsSubscription on events {
   }
   triple {
     ...TripleMetadataSubscription
-    ...TripleVaultCouterVaultDetailsWithPositions
     term_id
     counter_term_id
-    positions_aggregate {
-      aggregate {
-        count
+    term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
+      vaults(where: { curve_id: { _eq: "1" } }) {
+        ...VaultDetailsWithFilteredPositions
+      }
+    }
+    counter_term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
+      }
+      vaults(where: { curve_id: { _eq: "1" } }) {
+        ...VaultDetailsWithFilteredPositions
       }
     }
   }
