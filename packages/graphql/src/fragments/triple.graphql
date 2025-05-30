@@ -43,6 +43,7 @@ fragment TripleMetadata on triples {
     vaults(where: { curve_id: { _eq: "1" } }) {
       total_shares
       current_share_price
+      position_count
       allPositions: positions_aggregate {
         ...PositionAggregateFields
       }
@@ -55,6 +56,7 @@ fragment TripleMetadata on triples {
     vaults(where: { curve_id: { _eq: "1" } }) {
       total_shares
       current_share_price
+      position_count
       allPositions: positions_aggregate {
         ...PositionAggregateFields
       }
