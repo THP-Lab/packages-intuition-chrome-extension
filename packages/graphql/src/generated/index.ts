@@ -10037,72 +10037,15 @@ export type EventDetailsSubscriptionFragment = {
     subject_id: any
     predicate_id: any
     object_id: any
-    positions_aggregate: {
-      __typename?: 'positions_aggregate'
-      aggregate?: {
-        __typename?: 'positions_aggregate_fields'
-        count: number
-      } | null
-    }
-    creator?: {
-      __typename?: 'accounts'
-      image?: string | null
-      label: string
-      id: string
-    } | null
-    subject: {
-      __typename?: 'atoms'
-      data?: string | null
-      term_id: any
-      image?: string | null
-      label?: string | null
-      emoji?: string | null
-      type: any
-      creator: {
-        __typename?: 'accounts'
-        label: string
-        image?: string | null
-        id: string
-        atom_id?: any | null
-        type: any
-      }
-    }
-    predicate: {
-      __typename?: 'atoms'
-      data?: string | null
-      term_id: any
-      image?: string | null
-      label?: string | null
-      emoji?: string | null
-      type: any
-      creator: {
-        __typename?: 'accounts'
-        label: string
-        image?: string | null
-        id: string
-        atom_id?: any | null
-        type: any
-      }
-    }
-    object: {
-      __typename?: 'atoms'
-      data?: string | null
-      term_id: any
-      image?: string | null
-      label?: string | null
-      emoji?: string | null
-      type: any
-      creator: {
-        __typename?: 'accounts'
-        label: string
-        image?: string | null
-        id: string
-        atom_id?: any | null
-        type: any
-      }
-    }
     term?: {
       __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
       vaults: Array<{
         __typename?: 'vaults'
         term_id: any
@@ -10155,6 +10098,13 @@ export type EventDetailsSubscriptionFragment = {
     } | null
     counter_term?: {
       __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
       vaults: Array<{
         __typename?: 'vaults'
         term_id: any
@@ -10205,6 +10155,39 @@ export type EventDetailsSubscriptionFragment = {
         }>
       }>
     } | null
+    creator?: {
+      __typename?: 'accounts'
+      image?: string | null
+      label: string
+      id: string
+    } | null
+    subject: {
+      __typename?: 'atoms'
+      data?: string | null
+      term_id: any
+      image?: string | null
+      label?: string | null
+      emoji?: string | null
+      type: any
+    }
+    predicate: {
+      __typename?: 'atoms'
+      data?: string | null
+      term_id: any
+      image?: string | null
+      label?: string | null
+      emoji?: string | null
+      type: any
+    }
+    object: {
+      __typename?: 'atoms'
+      data?: string | null
+      term_id: any
+      image?: string | null
+      label?: string | null
+      emoji?: string | null
+      type: any
+    }
   } | null
   deposit?: {
     __typename?: 'deposits'
@@ -10632,6 +10615,7 @@ export type TripleMetadataFragment = {
       __typename?: 'vaults'
       total_shares: any
       current_share_price: any
+      position_count: number
       allPositions: {
         __typename?: 'positions_aggregate'
         aggregate?: {
@@ -10662,6 +10646,7 @@ export type TripleMetadataFragment = {
       __typename?: 'vaults'
       total_shares: any
       current_share_price: any
+      position_count: number
       allPositions: {
         __typename?: 'positions_aggregate'
         aggregate?: {
@@ -11199,14 +11184,6 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
-      __typename?: 'accounts'
-      label: string
-      image?: string | null
-      id: string
-      atom_id?: any | null
-      type: any
-    }
   }
   predicate: {
     __typename?: 'atoms'
@@ -11216,14 +11193,6 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
-      __typename?: 'accounts'
-      label: string
-      image?: string | null
-      id: string
-      atom_id?: any | null
-      type: any
-    }
   }
   object: {
     __typename?: 'atoms'
@@ -11233,14 +11202,6 @@ export type TripleMetadataSubscriptionFragment = {
     label?: string | null
     emoji?: string | null
     type: any
-    creator: {
-      __typename?: 'accounts'
-      label: string
-      image?: string | null
-      id: string
-      atom_id?: any | null
-      type: any
-    }
   }
 }
 
@@ -16865,6 +16826,7 @@ export type GetTagsQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -16899,6 +16861,7 @@ export type GetTagsQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -17071,6 +17034,7 @@ export type GetTagsCustomQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -17105,6 +17069,7 @@ export type GetTagsCustomQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -17449,6 +17414,7 @@ export type GetTriplesQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -17659,6 +17625,7 @@ export type GetTriplesQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -18029,6 +17996,7 @@ export type GetTriplesWithAggregatesQuery = {
           __typename?: 'vaults'
           total_shares: any
           current_share_price: any
+          position_count: number
           allPositions: {
             __typename?: 'positions_aggregate'
             aggregate?: {
@@ -18239,6 +18207,7 @@ export type GetTriplesWithAggregatesQuery = {
           __typename?: 'vaults'
           total_shares: any
           current_share_price: any
+          position_count: number
           allPositions: {
             __typename?: 'positions_aggregate'
             aggregate?: {
@@ -18613,6 +18582,7 @@ export type GetTripleQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -18823,6 +18793,7 @@ export type GetTripleQuery = {
         __typename?: 'vaults'
         total_shares: any
         current_share_price: any
+        position_count: number
         allPositions: {
           __typename?: 'positions_aggregate'
           aggregate?: {
@@ -19376,72 +19347,15 @@ export type EventsSubscription = {
       subject_id: any
       predicate_id: any
       object_id: any
-      positions_aggregate: {
-        __typename?: 'positions_aggregate'
-        aggregate?: {
-          __typename?: 'positions_aggregate_fields'
-          count: number
-        } | null
-      }
-      creator?: {
-        __typename?: 'accounts'
-        image?: string | null
-        label: string
-        id: string
-      } | null
-      subject: {
-        __typename?: 'atoms'
-        data?: string | null
-        term_id: any
-        image?: string | null
-        label?: string | null
-        emoji?: string | null
-        type: any
-        creator: {
-          __typename?: 'accounts'
-          label: string
-          image?: string | null
-          id: string
-          atom_id?: any | null
-          type: any
-        }
-      }
-      predicate: {
-        __typename?: 'atoms'
-        data?: string | null
-        term_id: any
-        image?: string | null
-        label?: string | null
-        emoji?: string | null
-        type: any
-        creator: {
-          __typename?: 'accounts'
-          label: string
-          image?: string | null
-          id: string
-          atom_id?: any | null
-          type: any
-        }
-      }
-      object: {
-        __typename?: 'atoms'
-        data?: string | null
-        term_id: any
-        image?: string | null
-        label?: string | null
-        emoji?: string | null
-        type: any
-        creator: {
-          __typename?: 'accounts'
-          label: string
-          image?: string | null
-          id: string
-          atom_id?: any | null
-          type: any
-        }
-      }
       term?: {
         __typename?: 'terms'
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
         vaults: Array<{
           __typename?: 'vaults'
           term_id: any
@@ -19494,6 +19408,13 @@ export type EventsSubscription = {
       } | null
       counter_term?: {
         __typename?: 'terms'
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
         vaults: Array<{
           __typename?: 'vaults'
           term_id: any
@@ -19544,6 +19465,39 @@ export type EventsSubscription = {
           }>
         }>
       } | null
+      creator?: {
+        __typename?: 'accounts'
+        image?: string | null
+        label: string
+        id: string
+      } | null
+      subject: {
+        __typename?: 'atoms'
+        data?: string | null
+        term_id: any
+        image?: string | null
+        label?: string | null
+        emoji?: string | null
+        type: any
+      }
+      predicate: {
+        __typename?: 'atoms'
+        data?: string | null
+        term_id: any
+        image?: string | null
+        label?: string | null
+        emoji?: string | null
+        type: any
+      }
+      object: {
+        __typename?: 'atoms'
+        data?: string | null
+        term_id: any
+        image?: string | null
+        label?: string | null
+        emoji?: string | null
+        type: any
+      }
     } | null
     deposit?: {
       __typename?: 'deposits'
@@ -21894,6 +21848,10 @@ export const TripleMetadataFragmentDoc = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -21976,6 +21934,10 @@ export const TripleMetadataFragmentDoc = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -23058,6 +23020,10 @@ export const EventDetailsFragmentDoc = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -23143,6 +23109,10 @@ export const EventDetailsFragmentDoc = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -23224,19 +23194,6 @@ export const TripleMetadataSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -23252,19 +23209,6 @@ export const TripleMetadataSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -23280,40 +23224,9 @@ export const TripleMetadataSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
         ],
       },
     },
@@ -23763,362 +23676,6 @@ export const VaultDetailsWithFilteredPositionsFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode
-export const TripleVaultCouterVaultDetailsWithPositionsFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PositionFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'positions' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'account' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'vault' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'total_shares' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'current_share_price' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultBasicDetails' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'atom' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'triple' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'subject' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'predicate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'object' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'current_share_price' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'total_shares' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultFilteredPositions' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'positions' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'account_id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_in' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'addresses' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'PositionFields' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultDetailsWithFilteredPositions' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'VaultBasicDetails' },
-          },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'VaultFilteredPositions' },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
 export const EventDetailsSubscriptionFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -24237,13 +23794,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'TripleMetadataSubscription' },
                 },
-                {
-                  kind: 'FragmentSpread',
-                  name: {
-                    kind: 'Name',
-                    value: 'TripleVaultCouterVaultDetailsWithPositions',
-                  },
-                },
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
                 {
                   kind: 'Field',
@@ -24251,19 +23801,149 @@ export const EventDetailsSubscriptionFragmentDoc = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
                             },
                           ],
                         },
@@ -24274,24 +23954,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
         ],
       },
     },
@@ -24534,132 +24196,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'TripleMetadataSubscription' },
       typeCondition: {
         kind: 'NamedType',
@@ -24697,19 +24233,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -24725,19 +24248,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -24753,19 +24263,6 @@ export const EventDetailsSubscriptionFragmentDoc = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -26492,6 +25989,362 @@ export const TripleVaultDetailsFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
           { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode
+export const TripleVaultCouterVaultDetailsWithPositionsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {
+        kind: 'Name',
+        value: 'TripleVaultCouterVaultDetailsWithPositions',
+      },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'triples' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'vaults' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'curve_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: '1',
+                                    block: false,
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'VaultDetailsWithFilteredPositions',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'counter_term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'vaults' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'curve_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: '1',
+                                    block: false,
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'VaultDetailsWithFilteredPositions',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PositionFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'positions' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'account' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vault' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'total_shares' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'current_share_price' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultBasicDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'atom' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'triple' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'subject' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'predicate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'object' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'current_share_price' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'total_shares' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultFilteredPositions' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'positions' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'account_id' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_in' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'addresses' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PositionFields' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultDetailsWithFilteredPositions' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'VaultBasicDetails' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'VaultFilteredPositions' },
+          },
         ],
       },
     },
@@ -40325,6 +40178,10 @@ export const GetEventsWithAggregatesDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -40407,6 +40264,10 @@ export const GetEventsWithAggregatesDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -43848,7 +43709,7 @@ export const GetFollowingsFromAddressDocument = {
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'term_id' },
+                            name: { kind: 'Name', value: 'block_timestamp' },
                             value: { kind: 'EnumValue', value: 'desc' },
                           },
                         ],
@@ -54438,6 +54299,10 @@ export const GetTagsDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -54520,6 +54385,10 @@ export const GetTagsDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -55002,6 +54871,10 @@ export const GetTagsCustomDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -55084,6 +54957,10 @@ export const GetTagsCustomDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -57165,6 +57042,10 @@ export const GetTriplesDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -57247,6 +57128,10 @@ export const GetTriplesDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -58448,6 +58333,10 @@ export const GetTriplesWithAggregatesDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -58530,6 +58419,10 @@ export const GetTriplesWithAggregatesDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -59789,6 +59682,10 @@ export const GetTripleDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -59871,6 +59768,10 @@ export const GetTripleDocument = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -62048,24 +61949,6 @@ export const EventsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'AtomValue' },
       typeCondition: {
         kind: 'NamedType',
@@ -62340,13 +62223,6 @@ export const EventsDocument = {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'TripleMetadataSubscription' },
                 },
-                {
-                  kind: 'FragmentSpread',
-                  name: {
-                    kind: 'Name',
-                    value: 'TripleVaultCouterVaultDetailsWithPositions',
-                  },
-                },
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
                 {
                   kind: 'Field',
@@ -62354,19 +62230,149 @@ export const EventsDocument = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
                             },
                           ],
                         },
@@ -62458,132 +62464,6 @@ export const EventsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'TripleMetadataSubscription' },
       typeCondition: {
         kind: 'NamedType',
@@ -62621,19 +62501,6 @@ export const EventsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -62649,19 +62516,6 @@ export const EventsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -62677,19 +62531,6 @@ export const EventsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -65248,6 +65089,10 @@ export const TripleMetadata = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -65330,6 +65175,10 @@ export const TripleMetadata = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -66412,6 +66261,10 @@ export const EventDetails = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -66497,6 +66350,10 @@ export const EventDetails = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -66578,19 +66435,6 @@ export const TripleMetadataSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -66606,19 +66450,6 @@ export const TripleMetadataSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -66634,40 +66465,9 @@ export const TripleMetadataSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
         ],
       },
     },
@@ -67117,362 +66917,6 @@ export const VaultDetailsWithFilteredPositions = {
     },
   ],
 } as unknown as DocumentNode
-export const TripleVaultCouterVaultDetailsWithPositions = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PositionFields' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'positions' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'account' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'vault' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'total_shares' },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'current_share_price' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultBasicDetails' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'atom' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'triple' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'subject' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'predicate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'object' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'current_share_price' },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'total_shares' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultFilteredPositions' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'positions' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'account_id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_in' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'addresses' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'PositionFields' },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'VaultDetailsWithFilteredPositions' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'vaults' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'VaultBasicDetails' },
-          },
-          {
-            kind: 'FragmentSpread',
-            name: { kind: 'Name', value: 'VaultFilteredPositions' },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
 export const EventDetailsSubscription = {
   kind: 'Document',
   definitions: [
@@ -67591,13 +67035,6 @@ export const EventDetailsSubscription = {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'TripleMetadataSubscription' },
                 },
-                {
-                  kind: 'FragmentSpread',
-                  name: {
-                    kind: 'Name',
-                    value: 'TripleVaultCouterVaultDetailsWithPositions',
-                  },
-                },
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
                 {
                   kind: 'Field',
@@ -67605,19 +67042,149 @@ export const EventDetailsSubscription = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
                             },
                           ],
                         },
@@ -67628,24 +67195,6 @@ export const EventDetailsSubscription = {
               ],
             },
           },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
         ],
       },
     },
@@ -67888,132 +67437,6 @@ export const EventDetailsSubscription = {
     },
     {
       kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'TripleMetadataSubscription' },
       typeCondition: {
         kind: 'NamedType',
@@ -68051,19 +67474,6 @@ export const EventDetailsSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -68079,19 +67489,6 @@ export const EventDetailsSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -68107,19 +67504,6 @@ export const EventDetailsSubscription = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -69846,6 +69230,362 @@ export const TripleVaultDetails = {
           { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
           { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode
+export const TripleVaultCouterVaultDetailsWithPositions = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: {
+        kind: 'Name',
+        value: 'TripleVaultCouterVaultDetailsWithPositions',
+      },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'triples' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'vaults' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'curve_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: '1',
+                                    block: false,
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'VaultDetailsWithFilteredPositions',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'counter_term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'vaults' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'curve_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_eq' },
+                                  value: {
+                                    kind: 'StringValue',
+                                    value: '1',
+                                    block: false,
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'VaultDetailsWithFilteredPositions',
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PositionFields' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'positions' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'account' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'vault' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'total_shares' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'current_share_price' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultBasicDetails' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'curve_id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'term' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'atom' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'label' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'triple' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'subject' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'predicate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'object' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'term_id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'current_share_price' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'total_shares' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultFilteredPositions' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'positions' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'where' },
+                value: {
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'account_id' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: '_in' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'addresses' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PositionFields' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VaultDetailsWithFilteredPositions' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'vaults' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'VaultBasicDetails' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'VaultFilteredPositions' },
+          },
         ],
       },
     },
@@ -82226,6 +81966,10 @@ export const GetEventsWithAggregates = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -82308,6 +82052,10 @@ export const GetEventsWithAggregates = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -85140,7 +84888,7 @@ export const GetFollowingsFromAddress = {
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'term_id' },
+                            name: { kind: 'Name', value: 'block_timestamp' },
                             value: { kind: 'EnumValue', value: 'desc' },
                           },
                         ],
@@ -94403,6 +94151,10 @@ export const GetTags = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -94485,6 +94237,10 @@ export const GetTags = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -94904,6 +94660,10 @@ export const GetTagsCustom = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -94986,6 +94746,10 @@ export const GetTagsCustom = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -96773,6 +96537,10 @@ export const GetTriples = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -96855,6 +96623,10 @@ export const GetTriples = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -97984,6 +97756,10 @@ export const GetTriplesWithAggregates = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -98066,6 +97842,10 @@ export const GetTriplesWithAggregates = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -99180,6 +98960,10 @@ export const GetTriple = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
+                      },
+                      {
+                        kind: 'Field',
                         alias: { kind: 'Name', value: 'allPositions' },
                         name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
@@ -99262,6 +99046,10 @@ export const GetTriple = {
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'current_share_price' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'position_count' },
                       },
                       {
                         kind: 'Field',
@@ -101017,24 +100805,6 @@ export const Events = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountMetadata' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'AtomValue' },
       typeCondition: {
         kind: 'NamedType',
@@ -101309,13 +101079,6 @@ export const Events = {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'TripleMetadataSubscription' },
                 },
-                {
-                  kind: 'FragmentSpread',
-                  name: {
-                    kind: 'Name',
-                    value: 'TripleVaultCouterVaultDetailsWithPositions',
-                  },
-                },
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
                 {
                   kind: 'Field',
@@ -101323,19 +101086,149 @@ export const Events = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'positions_aggregate' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'vaults' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'where' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: 'curve_id' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: { kind: 'Name', value: '_eq' },
+                                        value: {
+                                          kind: 'StringValue',
+                                          value: '1',
+                                          block: false,
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'VaultDetailsWithFilteredPositions',
+                              },
                             },
                           ],
                         },
@@ -101427,132 +101320,6 @@ export const Events = {
     },
     {
       kind: 'FragmentDefinition',
-      name: {
-        kind: 'Name',
-        value: 'TripleVaultCouterVaultDetailsWithPositions',
-      },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'triples' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'counter_term_id' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'counter_term' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'vaults' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'where' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'curve_id' },
-                            value: {
-                              kind: 'ObjectValue',
-                              fields: [
-                                {
-                                  kind: 'ObjectField',
-                                  name: { kind: 'Name', value: '_eq' },
-                                  value: {
-                                    kind: 'StringValue',
-                                    value: '1',
-                                    block: false,
-                                  },
-                                },
-                              ],
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: {
-                          kind: 'Name',
-                          value: 'VaultDetailsWithFilteredPositions',
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'TripleMetadataSubscription' },
       typeCondition: {
         kind: 'NamedType',
@@ -101590,19 +101357,6 @@ export const Events = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -101618,19 +101372,6 @@ export const Events = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },
@@ -101646,19 +101387,6 @@ export const Events = {
                 { kind: 'Field', name: { kind: 'Name', value: 'label' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'emoji' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'creator' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountMetadata' },
-                      },
-                    ],
-                  },
-                },
               ],
             },
           },

@@ -126,9 +126,6 @@ fragment TripleMetadataSubscription on triples {
     label
     emoji
     type
-    creator {
-      ...AccountMetadata
-    }
   }
   predicate {
     data
@@ -137,9 +134,6 @@ fragment TripleMetadataSubscription on triples {
     label
     emoji
     type
-    creator {
-      ...AccountMetadata
-    }
   }
   object {
     data
@@ -148,8 +142,5 @@ fragment TripleMetadataSubscription on triples {
     label
     emoji
     type
-    creator {
-      ...AccountMetadata
-    }
   }
 }
