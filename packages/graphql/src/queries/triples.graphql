@@ -195,6 +195,7 @@ query GetTriplesByAtom($term_id: numeric, $address: String) {
     }
     nodes {
       term_id
+      counter_term_id
       subject {
         term_id
         label
