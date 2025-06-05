@@ -211,56 +211,6 @@ type accounts {
   """
   An array relationship
   """
-  claims(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
-  """
-  An aggregate relationship
-  """
-  claims_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): claims_aggregate!
-  """
-  An array relationship
-  """
   deposits_received(
     """
     distinct select on columns
@@ -742,8 +692,6 @@ input accounts_bool_exp {
   atom_id: numeric_comparison_exp
   atoms: atoms_bool_exp
   atoms_aggregate: atoms_aggregate_bool_exp
-  claims: claims_bool_exp
-  claims_aggregate: claims_aggregate_bool_exp
   deposits_received: deposits_bool_exp
   deposits_received_aggregate: deposits_aggregate_bool_exp
   deposits_sent: deposits_bool_exp
@@ -817,7 +765,6 @@ input accounts_order_by {
   atom: atoms_order_by
   atom_id: order_by
   atoms_aggregate: atoms_aggregate_order_by
-  claims_aggregate: claims_aggregate_order_by
   deposits_received_aggregate: deposits_aggregate_order_by
   deposits_sent_aggregate: deposits_aggregate_order_by
   fee_transfers_aggregate: fee_transfers_aggregate_order_by
@@ -937,12 +884,6 @@ order by sum() on columns of table "account"
 """
 input accounts_sum_order_by {
   atom_id: order_by
-}
-
-input accounts_that_claim_about_account_args {
-  address: String
-  predicate: numeric
-  subject: numeric
 }
 
 """
@@ -1655,12 +1596,12 @@ type atoms {
     where: triples_bool_exp
   ): triples_aggregate!
   block_number: numeric!
-  block_timestamp: bigint!
   cached_image: cached_images_cached_image
   """
   An object relationship
   """
   controller: accounts
+  created_at: timestamptz!
   """
   An object relationship
   """
@@ -1777,6 +1718,7 @@ type atoms {
   term_id: numeric!
   transaction_hash: String!
   type: atom_type!
+  updated_at: timestamptz!
   """
   An object relationship
   """
@@ -1843,7 +1785,6 @@ aggregate avg on columns
 """
 type atoms_avg_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -1853,7 +1794,6 @@ order by avg() on columns of table "atom"
 """
 input atoms_avg_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -1878,8 +1818,8 @@ input atoms_bool_exp {
   as_subject_triples: triples_bool_exp
   as_subject_triples_aggregate: triples_aggregate_bool_exp
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
   controller: accounts_bool_exp
+  created_at: timestamptz_comparison_exp
   creator: accounts_bool_exp
   creator_id: String_comparison_exp
   data: String_comparison_exp
@@ -1894,6 +1834,7 @@ input atoms_bool_exp {
   term_id: numeric_comparison_exp
   transaction_hash: String_comparison_exp
   type: atom_type_comparison_exp
+  updated_at: timestamptz_comparison_exp
   value: atom_values_bool_exp
   value_id: numeric_comparison_exp
   wallet_id: String_comparison_exp
@@ -1904,7 +1845,7 @@ aggregate max on columns
 """
 type atoms_max_fields {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   creator_id: String
   data: String
   emoji: String
@@ -1913,6 +1854,7 @@ type atoms_max_fields {
   term_id: numeric
   transaction_hash: String
   type: atom_type
+  updated_at: timestamptz
   value_id: numeric
   wallet_id: String
 }
@@ -1922,7 +1864,7 @@ order by max() on columns of table "atom"
 """
 input atoms_max_order_by {
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   creator_id: order_by
   data: order_by
   emoji: order_by
@@ -1931,6 +1873,7 @@ input atoms_max_order_by {
   term_id: order_by
   transaction_hash: order_by
   type: order_by
+  updated_at: order_by
   value_id: order_by
   wallet_id: order_by
 }
@@ -1940,7 +1883,7 @@ aggregate min on columns
 """
 type atoms_min_fields {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   creator_id: String
   data: String
   emoji: String
@@ -1949,6 +1892,7 @@ type atoms_min_fields {
   term_id: numeric
   transaction_hash: String
   type: atom_type
+  updated_at: timestamptz
   value_id: numeric
   wallet_id: String
 }
@@ -1958,7 +1902,7 @@ order by min() on columns of table "atom"
 """
 input atoms_min_order_by {
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   creator_id: order_by
   data: order_by
   emoji: order_by
@@ -1967,6 +1911,7 @@ input atoms_min_order_by {
   term_id: order_by
   transaction_hash: order_by
   type: order_by
+  updated_at: order_by
   value_id: order_by
   wallet_id: order_by
 }
@@ -1982,8 +1927,8 @@ input atoms_order_by {
   as_predicate_triples_aggregate: triples_aggregate_order_by
   as_subject_triples_aggregate: triples_aggregate_order_by
   block_number: order_by
-  block_timestamp: order_by
   controller: accounts_order_by
+  created_at: order_by
   creator: accounts_order_by
   creator_id: order_by
   data: order_by
@@ -1996,6 +1941,7 @@ input atoms_order_by {
   term_id: order_by
   transaction_hash: order_by
   type: order_by
+  updated_at: order_by
   value: atom_values_order_by
   value_id: order_by
   wallet_id: order_by
@@ -2012,7 +1958,7 @@ enum atoms_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -2048,6 +1994,10 @@ enum atoms_select_column {
   """
   column name
   """
+  updated_at
+  """
+  column name
+  """
   value_id
   """
   column name
@@ -2060,7 +2010,6 @@ aggregate stddev on columns
 """
 type atoms_stddev_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2070,7 +2019,6 @@ order by stddev() on columns of table "atom"
 """
 input atoms_stddev_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2080,7 +2028,6 @@ aggregate stddev_pop on columns
 """
 type atoms_stddev_pop_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2090,7 +2037,6 @@ order by stddev_pop() on columns of table "atom"
 """
 input atoms_stddev_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2100,7 +2046,6 @@ aggregate stddev_samp on columns
 """
 type atoms_stddev_samp_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2110,7 +2055,6 @@ order by stddev_samp() on columns of table "atom"
 """
 input atoms_stddev_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2134,7 +2078,7 @@ Initial value of the column from where the streaming should start
 """
 input atoms_stream_cursor_value_input {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   creator_id: String
   data: String
   emoji: String
@@ -2143,6 +2087,7 @@ input atoms_stream_cursor_value_input {
   term_id: numeric
   transaction_hash: String
   type: atom_type
+  updated_at: timestamptz
   value_id: numeric
   wallet_id: String
 }
@@ -2152,7 +2097,6 @@ aggregate sum on columns
 """
 type atoms_sum_fields {
   block_number: numeric
-  block_timestamp: bigint
   term_id: numeric
   value_id: numeric
 }
@@ -2162,7 +2106,6 @@ order by sum() on columns of table "atom"
 """
 input atoms_sum_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2172,7 +2115,6 @@ aggregate var_pop on columns
 """
 type atoms_var_pop_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2182,7 +2124,6 @@ order by var_pop() on columns of table "atom"
 """
 input atoms_var_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2192,7 +2133,6 @@ aggregate var_samp on columns
 """
 type atoms_var_samp_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2202,7 +2142,6 @@ order by var_samp() on columns of table "atom"
 """
 input atoms_var_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2212,7 +2151,6 @@ aggregate variance on columns
 """
 type atoms_variance_fields {
   block_number: Float
-  block_timestamp: Float
   term_id: Float
   value_id: Float
 }
@@ -2222,7 +2160,6 @@ order by variance() on columns of table "atom"
 """
 input atoms_variance_order_by {
   block_number: order_by
-  block_timestamp: order_by
   term_id: order_by
   value_id: order_by
 }
@@ -2979,166 +2916,6 @@ input chainlink_prices_stream_cursor_value_input {
 }
 
 """
-columns and relationships of "claim"
-"""
-type claims {
-  """
-  An object relationship
-  """
-  account: accounts
-  account_id: String!
-  id: String!
-  """
-  An object relationship
-  """
-  position: positions!
-  position_id: String!
-}
-
-"""
-aggregated selection of "claim"
-"""
-type claims_aggregate {
-  aggregate: claims_aggregate_fields
-  nodes: [claims!]!
-}
-
-input claims_aggregate_bool_exp {
-  count: claims_aggregate_bool_exp_count
-}
-
-input claims_aggregate_bool_exp_count {
-  arguments: [claims_select_column!]
-  distinct: Boolean
-  filter: claims_bool_exp
-  predicate: Int_comparison_exp!
-}
-
-"""
-aggregate fields of "claim"
-"""
-type claims_aggregate_fields {
-  count(columns: [claims_select_column!], distinct: Boolean): Int!
-  max: claims_max_fields
-  min: claims_min_fields
-}
-
-"""
-order by aggregate values of table "claim"
-"""
-input claims_aggregate_order_by {
-  count: order_by
-  max: claims_max_order_by
-  min: claims_min_order_by
-}
-
-"""
-Boolean expression to filter rows from the table "claim". All fields are combined with a logical 'AND'.
-"""
-input claims_bool_exp {
-  _and: [claims_bool_exp!]
-  _not: claims_bool_exp
-  _or: [claims_bool_exp!]
-  account: accounts_bool_exp
-  account_id: String_comparison_exp
-  id: String_comparison_exp
-  position: positions_bool_exp
-  position_id: String_comparison_exp
-}
-
-input claims_from_following_args {
-  address: String
-}
-
-"""
-aggregate max on columns
-"""
-type claims_max_fields {
-  account_id: String
-  id: String
-  position_id: String
-}
-
-"""
-order by max() on columns of table "claim"
-"""
-input claims_max_order_by {
-  account_id: order_by
-  id: order_by
-  position_id: order_by
-}
-
-"""
-aggregate min on columns
-"""
-type claims_min_fields {
-  account_id: String
-  id: String
-  position_id: String
-}
-
-"""
-order by min() on columns of table "claim"
-"""
-input claims_min_order_by {
-  account_id: order_by
-  id: order_by
-  position_id: order_by
-}
-
-"""
-Ordering options when selecting data from "claim".
-"""
-input claims_order_by {
-  account: accounts_order_by
-  account_id: order_by
-  id: order_by
-  position: positions_order_by
-  position_id: order_by
-}
-
-"""
-select columns of table "claim"
-"""
-enum claims_select_column {
-  """
-  column name
-  """
-  account_id
-  """
-  column name
-  """
-  id
-  """
-  column name
-  """
-  position_id
-}
-
-"""
-Streaming cursor of the table "claims"
-"""
-input claims_stream_cursor_input {
-  """
-  Stream column input with initial value
-  """
-  initial_value: claims_stream_cursor_value_input!
-  """
-  cursor ordering
-  """
-  ordering: cursor_ordering
-}
-
-"""
-Initial value of the column from where the streaming should start
-"""
-input claims_stream_cursor_value_input {
-  account_id: String
-  id: String
-  position_id: String
-}
-
-"""
 ordering argument of a cursor
 """
 enum cursor_ordering {
@@ -3157,7 +2934,7 @@ columns and relationships of "deposit"
 """
 type deposits {
   block_number: numeric!
-  block_timestamp: bigint!
+  created_at: timestamptz!
   curve_id: numeric!
   entry_fee: numeric!
   id: String!
@@ -3262,7 +3039,6 @@ aggregate avg on columns
 """
 type deposits_avg_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3276,7 +3052,6 @@ order by avg() on columns of table "deposit"
 """
 input deposits_avg_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3293,7 +3068,7 @@ input deposits_bool_exp {
   _not: deposits_bool_exp
   _or: [deposits_bool_exp!]
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
+  created_at: timestamptz_comparison_exp
   curve_id: numeric_comparison_exp
   entry_fee: numeric_comparison_exp
   id: String_comparison_exp
@@ -3317,7 +3092,7 @@ aggregate max on columns
 """
 type deposits_max_fields {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   entry_fee: numeric
   id: String
@@ -3335,7 +3110,7 @@ order by max() on columns of table "deposit"
 """
 input deposits_max_order_by {
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   entry_fee: order_by
   id: order_by
@@ -3353,7 +3128,7 @@ aggregate min on columns
 """
 type deposits_min_fields {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   entry_fee: numeric
   id: String
@@ -3371,7 +3146,7 @@ order by min() on columns of table "deposit"
 """
 input deposits_min_order_by {
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   entry_fee: order_by
   id: order_by
@@ -3389,7 +3164,7 @@ Ordering options when selecting data from "deposit".
 """
 input deposits_order_by {
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   entry_fee: order_by
   id: order_by
@@ -3419,7 +3194,7 @@ enum deposits_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -3503,7 +3278,6 @@ aggregate stddev on columns
 """
 type deposits_stddev_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3517,7 +3291,6 @@ order by stddev() on columns of table "deposit"
 """
 input deposits_stddev_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3531,7 +3304,6 @@ aggregate stddev_pop on columns
 """
 type deposits_stddev_pop_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3545,7 +3317,6 @@ order by stddev_pop() on columns of table "deposit"
 """
 input deposits_stddev_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3559,7 +3330,6 @@ aggregate stddev_samp on columns
 """
 type deposits_stddev_samp_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3573,7 +3343,6 @@ order by stddev_samp() on columns of table "deposit"
 """
 input deposits_stddev_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3601,7 +3370,7 @@ Initial value of the column from where the streaming should start
 """
 input deposits_stream_cursor_value_input {
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   entry_fee: numeric
   id: String
@@ -3621,7 +3390,6 @@ aggregate sum on columns
 """
 type deposits_sum_fields {
   block_number: numeric
-  block_timestamp: bigint
   curve_id: numeric
   entry_fee: numeric
   receiver_total_shares_in_vault: numeric
@@ -3635,7 +3403,6 @@ order by sum() on columns of table "deposit"
 """
 input deposits_sum_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3649,7 +3416,6 @@ aggregate var_pop on columns
 """
 type deposits_var_pop_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3663,7 +3429,6 @@ order by var_pop() on columns of table "deposit"
 """
 input deposits_var_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3677,7 +3442,6 @@ aggregate var_samp on columns
 """
 type deposits_var_samp_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3691,7 +3455,6 @@ order by var_samp() on columns of table "deposit"
 """
 input deposits_var_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3705,7 +3468,6 @@ aggregate variance on columns
 """
 type deposits_variance_fields {
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   entry_fee: Float
   receiver_total_shares_in_vault: Float
@@ -3719,7 +3481,6 @@ order by variance() on columns of table "deposit"
 """
 input deposits_variance_order_by {
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   entry_fee: order_by
   receiver_total_shares_in_vault: order_by
@@ -3755,7 +3516,7 @@ type events {
   atom: atoms
   atom_id: numeric
   block_number: numeric!
-  block_timestamp: bigint!
+  created_at: timestamptz!
   """
   An object relationship
   """
@@ -3812,7 +3573,6 @@ aggregate avg on columns
 type events_avg_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -3826,7 +3586,7 @@ input events_bool_exp {
   atom: atoms_bool_exp
   atom_id: numeric_comparison_exp
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
+  created_at: timestamptz_comparison_exp
   deposit: deposits_bool_exp
   deposit_id: String_comparison_exp
   fee_transfer: fee_transfers_bool_exp
@@ -3846,7 +3606,7 @@ aggregate max on columns
 type events_max_fields {
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   deposit_id: String
   fee_transfer_id: String
   id: String
@@ -3862,7 +3622,7 @@ aggregate min on columns
 type events_min_fields {
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   deposit_id: String
   fee_transfer_id: String
   id: String
@@ -3879,7 +3639,7 @@ input events_order_by {
   atom: atoms_order_by
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   deposit: deposits_order_by
   deposit_id: order_by
   fee_transfer: fee_transfers_order_by
@@ -3908,7 +3668,7 @@ enum events_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -3945,7 +3705,6 @@ aggregate stddev on columns
 type events_stddev_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -3955,7 +3714,6 @@ aggregate stddev_pop on columns
 type events_stddev_pop_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -3965,7 +3723,6 @@ aggregate stddev_samp on columns
 type events_stddev_samp_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -3989,7 +3746,7 @@ Initial value of the column from where the streaming should start
 input events_stream_cursor_value_input {
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   deposit_id: String
   fee_transfer_id: String
   id: String
@@ -4005,7 +3762,6 @@ aggregate sum on columns
 type events_sum_fields {
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
   triple_id: numeric
 }
 
@@ -4015,7 +3771,6 @@ aggregate var_pop on columns
 type events_var_pop_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -4025,7 +3780,6 @@ aggregate var_samp on columns
 type events_var_samp_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -4035,7 +3789,6 @@ aggregate variance on columns
 type events_variance_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   triple_id: Float
 }
 
@@ -4045,7 +3798,7 @@ columns and relationships of "fee_transfer"
 type fee_transfers {
   amount: numeric!
   block_number: numeric!
-  block_timestamp: bigint!
+  created_at: timestamptz!
   id: String!
   """
   An object relationship
@@ -4119,7 +3872,6 @@ aggregate avg on columns
 type fee_transfers_avg_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4128,7 +3880,6 @@ order by avg() on columns of table "fee_transfer"
 input fee_transfers_avg_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4140,7 +3891,7 @@ input fee_transfers_bool_exp {
   _or: [fee_transfers_bool_exp!]
   amount: numeric_comparison_exp
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
+  created_at: timestamptz_comparison_exp
   id: String_comparison_exp
   receiver: accounts_bool_exp
   receiver_id: String_comparison_exp
@@ -4155,7 +3906,7 @@ aggregate max on columns
 type fee_transfers_max_fields {
   amount: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   id: String
   receiver_id: String
   sender_id: String
@@ -4168,7 +3919,7 @@ order by max() on columns of table "fee_transfer"
 input fee_transfers_max_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   id: order_by
   receiver_id: order_by
   sender_id: order_by
@@ -4181,7 +3932,7 @@ aggregate min on columns
 type fee_transfers_min_fields {
   amount: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   id: String
   receiver_id: String
   sender_id: String
@@ -4194,7 +3945,7 @@ order by min() on columns of table "fee_transfer"
 input fee_transfers_min_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   id: order_by
   receiver_id: order_by
   sender_id: order_by
@@ -4207,7 +3958,7 @@ Ordering options when selecting data from "fee_transfer".
 input fee_transfers_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   id: order_by
   receiver: accounts_order_by
   receiver_id: order_by
@@ -4231,7 +3982,7 @@ enum fee_transfers_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -4256,7 +4007,6 @@ aggregate stddev on columns
 type fee_transfers_stddev_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4265,7 +4015,6 @@ order by stddev() on columns of table "fee_transfer"
 input fee_transfers_stddev_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4274,7 +4023,6 @@ aggregate stddev_pop on columns
 type fee_transfers_stddev_pop_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4283,7 +4031,6 @@ order by stddev_pop() on columns of table "fee_transfer"
 input fee_transfers_stddev_pop_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4292,7 +4039,6 @@ aggregate stddev_samp on columns
 type fee_transfers_stddev_samp_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4301,7 +4047,6 @@ order by stddev_samp() on columns of table "fee_transfer"
 input fee_transfers_stddev_samp_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4324,7 +4069,7 @@ Initial value of the column from where the streaming should start
 input fee_transfers_stream_cursor_value_input {
   amount: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   id: String
   receiver_id: String
   sender_id: String
@@ -4337,7 +4082,6 @@ aggregate sum on columns
 type fee_transfers_sum_fields {
   amount: numeric
   block_number: numeric
-  block_timestamp: bigint
 }
 
 """
@@ -4346,7 +4090,6 @@ order by sum() on columns of table "fee_transfer"
 input fee_transfers_sum_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4355,7 +4098,6 @@ aggregate var_pop on columns
 type fee_transfers_var_pop_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4364,7 +4106,6 @@ order by var_pop() on columns of table "fee_transfer"
 input fee_transfers_var_pop_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4373,7 +4114,6 @@ aggregate var_samp on columns
 type fee_transfers_var_samp_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4382,7 +4122,6 @@ order by var_samp() on columns of table "fee_transfer"
 input fee_transfers_var_samp_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 """
@@ -4391,7 +4130,6 @@ aggregate variance on columns
 type fee_transfers_variance_fields {
   amount: Float
   block_number: Float
-  block_timestamp: Float
 }
 
 """
@@ -4400,7 +4138,6 @@ order by variance() on columns of table "fee_transfer"
 input fee_transfers_variance_order_by {
   amount: order_by
   block_number: order_by
-  block_timestamp: order_by
 }
 
 scalar float8
@@ -5132,6 +4869,7 @@ type positions {
   """
   account: accounts
   account_id: String!
+  created_at: timestamptz!
   curve_id: numeric!
   id: String!
   shares: numeric!
@@ -5140,6 +4878,7 @@ type positions {
   """
   term: terms!
   term_id: numeric!
+  updated_at: timestamptz!
   """
   An object relationship
   """
@@ -5226,11 +4965,13 @@ input positions_bool_exp {
   _or: [positions_bool_exp!]
   account: accounts_bool_exp
   account_id: String_comparison_exp
+  created_at: timestamptz_comparison_exp
   curve_id: numeric_comparison_exp
   id: String_comparison_exp
   shares: numeric_comparison_exp
   term: terms_bool_exp
   term_id: numeric_comparison_exp
+  updated_at: timestamptz_comparison_exp
   vault: vaults_bool_exp
 }
 
@@ -5243,10 +4984,12 @@ aggregate max on columns
 """
 type positions_max_fields {
   account_id: String
+  created_at: timestamptz
   curve_id: numeric
   id: String
   shares: numeric
   term_id: numeric
+  updated_at: timestamptz
 }
 
 """
@@ -5254,10 +4997,12 @@ order by max() on columns of table "position"
 """
 input positions_max_order_by {
   account_id: order_by
+  created_at: order_by
   curve_id: order_by
   id: order_by
   shares: order_by
   term_id: order_by
+  updated_at: order_by
 }
 
 """
@@ -5265,10 +5010,12 @@ aggregate min on columns
 """
 type positions_min_fields {
   account_id: String
+  created_at: timestamptz
   curve_id: numeric
   id: String
   shares: numeric
   term_id: numeric
+  updated_at: timestamptz
 }
 
 """
@@ -5276,10 +5023,12 @@ order by min() on columns of table "position"
 """
 input positions_min_order_by {
   account_id: order_by
+  created_at: order_by
   curve_id: order_by
   id: order_by
   shares: order_by
   term_id: order_by
+  updated_at: order_by
 }
 
 """
@@ -5288,11 +5037,13 @@ Ordering options when selecting data from "position".
 input positions_order_by {
   account: accounts_order_by
   account_id: order_by
+  created_at: order_by
   curve_id: order_by
   id: order_by
   shares: order_by
   term: terms_order_by
   term_id: order_by
+  updated_at: order_by
   vault: vaults_order_by
 }
 
@@ -5304,6 +5055,10 @@ enum positions_select_column {
   column name
   """
   account_id
+  """
+  column name
+  """
+  created_at
   """
   column name
   """
@@ -5320,6 +5075,10 @@ enum positions_select_column {
   column name
   """
   term_id
+  """
+  column name
+  """
+  updated_at
 }
 
 """
@@ -5395,10 +5154,12 @@ Initial value of the column from where the streaming should start
 """
 input positions_stream_cursor_value_input {
   account_id: String
+  created_at: timestamptz
   curve_id: numeric
   id: String
   shares: numeric
   term_id: numeric
+  updated_at: timestamptz
 }
 
 """
@@ -5857,64 +5618,6 @@ type query_root {
     where: accounts_bool_exp
   ): accounts_aggregate!
   """
-  execute function "accounts_that_claim_about_account" which returns "account"
-  """
-  accounts_that_claim_about_account(
-    """
-    input parameters for function "accounts_that_claim_about_account"
-    """
-    args: accounts_that_claim_about_account_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [accounts_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [accounts_order_by!]
-    """
-    filter the rows returned
-    """
-    where: accounts_bool_exp
-  ): [accounts!]!
-  """
-  execute function "accounts_that_claim_about_account" and query aggregates on result of table type "account"
-  """
-  accounts_that_claim_about_account_aggregate(
-    """
-    input parameters for function "accounts_that_claim_about_account_aggregate"
-    """
-    args: accounts_that_claim_about_account_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [accounts_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [accounts_order_by!]
-    """
-    filter the rows returned
-    """
-    where: accounts_bool_exp
-  ): accounts_aggregate!
-  """
   fetch data from the table: "atom" using primary key columns
   """
   atom(term_id: numeric!): atoms
@@ -6242,118 +5945,6 @@ type query_root {
     """
     where: chainlink_prices_bool_exp
   ): [chainlink_prices!]!
-  """
-  fetch data from the table: "claim" using primary key columns
-  """
-  claim(id: String!): claims
-  """
-  An array relationship
-  """
-  claims(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
-  """
-  An aggregate relationship
-  """
-  claims_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): claims_aggregate!
-  """
-  execute function "claims_from_following" which returns "claim"
-  """
-  claims_from_following(
-    """
-    input parameters for function "claims_from_following"
-    """
-    args: claims_from_following_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
-  """
-  execute function "claims_from_following" and query aggregates on result of table type "claim"
-  """
-  claims_from_following_aggregate(
-    """
-    input parameters for function "claims_from_following_aggregate"
-    """
-    args: claims_from_following_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): claims_aggregate!
   """
   fetch data from the table: "deposit" using primary key columns
   """
@@ -7570,7 +7161,7 @@ columns and relationships of "redemption"
 type redemptions {
   assets_for_receiver: numeric!
   block_number: numeric!
-  block_timestamp: bigint!
+  created_at: timestamptz!
   curve_id: numeric!
   exit_fee: numeric!
   id: String!
@@ -7657,7 +7248,6 @@ aggregate avg on columns
 type redemptions_avg_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -7671,7 +7261,6 @@ order by avg() on columns of table "redemption"
 input redemptions_avg_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -7688,7 +7277,7 @@ input redemptions_bool_exp {
   _or: [redemptions_bool_exp!]
   assets_for_receiver: numeric_comparison_exp
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
+  created_at: timestamptz_comparison_exp
   curve_id: numeric_comparison_exp
   exit_fee: numeric_comparison_exp
   id: String_comparison_exp
@@ -7710,7 +7299,7 @@ aggregate max on columns
 type redemptions_max_fields {
   assets_for_receiver: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   exit_fee: numeric
   id: String
@@ -7728,7 +7317,7 @@ order by max() on columns of table "redemption"
 input redemptions_max_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   exit_fee: order_by
   id: order_by
@@ -7746,7 +7335,7 @@ aggregate min on columns
 type redemptions_min_fields {
   assets_for_receiver: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   exit_fee: numeric
   id: String
@@ -7764,7 +7353,7 @@ order by min() on columns of table "redemption"
 input redemptions_min_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   exit_fee: order_by
   id: order_by
@@ -7782,7 +7371,7 @@ Ordering options when selecting data from "redemption".
 input redemptions_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   curve_id: order_by
   exit_fee: order_by
   id: order_by
@@ -7813,7 +7402,7 @@ enum redemptions_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -7858,7 +7447,6 @@ aggregate stddev on columns
 type redemptions_stddev_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -7872,7 +7460,6 @@ order by stddev() on columns of table "redemption"
 input redemptions_stddev_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -7886,7 +7473,6 @@ aggregate stddev_pop on columns
 type redemptions_stddev_pop_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -7900,7 +7486,6 @@ order by stddev_pop() on columns of table "redemption"
 input redemptions_stddev_pop_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -7914,7 +7499,6 @@ aggregate stddev_samp on columns
 type redemptions_stddev_samp_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -7928,7 +7512,6 @@ order by stddev_samp() on columns of table "redemption"
 input redemptions_stddev_samp_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -7956,7 +7539,7 @@ Initial value of the column from where the streaming should start
 input redemptions_stream_cursor_value_input {
   assets_for_receiver: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   curve_id: numeric
   exit_fee: numeric
   id: String
@@ -7974,7 +7557,6 @@ aggregate sum on columns
 type redemptions_sum_fields {
   assets_for_receiver: numeric
   block_number: numeric
-  block_timestamp: bigint
   curve_id: numeric
   exit_fee: numeric
   sender_total_shares_in_vault: numeric
@@ -7988,7 +7570,6 @@ order by sum() on columns of table "redemption"
 input redemptions_sum_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -8002,7 +7583,6 @@ aggregate var_pop on columns
 type redemptions_var_pop_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -8016,7 +7596,6 @@ order by var_pop() on columns of table "redemption"
 input redemptions_var_pop_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -8030,7 +7609,6 @@ aggregate var_samp on columns
 type redemptions_var_samp_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -8044,7 +7622,6 @@ order by var_samp() on columns of table "redemption"
 input redemptions_var_samp_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -8058,7 +7635,6 @@ aggregate variance on columns
 type redemptions_variance_fields {
   assets_for_receiver: Float
   block_number: Float
-  block_timestamp: Float
   curve_id: Float
   exit_fee: Float
   sender_total_shares_in_vault: Float
@@ -8072,7 +7648,6 @@ order by variance() on columns of table "redemption"
 input redemptions_variance_order_by {
   assets_for_receiver: order_by
   block_number: order_by
-  block_timestamp: order_by
   curve_id: order_by
   exit_fee: order_by
   sender_total_shares_in_vault: order_by
@@ -8408,7 +7983,7 @@ type signals {
   account_id: String!
   atom_id: numeric
   block_number: numeric!
-  block_timestamp: bigint!
+  created_at: timestamptz!
   delta: numeric!
   """
   An object relationship
@@ -8492,7 +8067,6 @@ aggregate avg on columns
 type signals_avg_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8503,7 +8077,6 @@ order by avg() on columns of table "signal"
 input signals_avg_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8519,7 +8092,7 @@ input signals_bool_exp {
   account_id: String_comparison_exp
   atom_id: numeric_comparison_exp
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
+  created_at: timestamptz_comparison_exp
   delta: numeric_comparison_exp
   deposit: deposits_bool_exp
   deposit_id: String_comparison_exp
@@ -8543,7 +8116,7 @@ type signals_max_fields {
   account_id: String
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   delta: numeric
   deposit_id: String
   id: String
@@ -8559,7 +8132,7 @@ input signals_max_order_by {
   account_id: order_by
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   delta: order_by
   deposit_id: order_by
   id: order_by
@@ -8575,7 +8148,7 @@ type signals_min_fields {
   account_id: String
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   delta: numeric
   deposit_id: String
   id: String
@@ -8591,7 +8164,7 @@ input signals_min_order_by {
   account_id: order_by
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   delta: order_by
   deposit_id: order_by
   id: order_by
@@ -8608,7 +8181,7 @@ input signals_order_by {
   account_id: order_by
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
+  created_at: order_by
   delta: order_by
   deposit: deposits_order_by
   deposit_id: order_by
@@ -8640,7 +8213,7 @@ enum signals_select_column {
   """
   column name
   """
-  block_timestamp
+  created_at
   """
   column name
   """
@@ -8673,7 +8246,6 @@ aggregate stddev on columns
 type signals_stddev_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8684,7 +8256,6 @@ order by stddev() on columns of table "signal"
 input signals_stddev_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8695,7 +8266,6 @@ aggregate stddev_pop on columns
 type signals_stddev_pop_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8706,7 +8276,6 @@ order by stddev_pop() on columns of table "signal"
 input signals_stddev_pop_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8717,7 +8286,6 @@ aggregate stddev_samp on columns
 type signals_stddev_samp_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8728,7 +8296,6 @@ order by stddev_samp() on columns of table "signal"
 input signals_stddev_samp_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8754,7 +8321,7 @@ input signals_stream_cursor_value_input {
   account_id: String
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
+  created_at: timestamptz
   delta: numeric
   deposit_id: String
   id: String
@@ -8769,7 +8336,6 @@ aggregate sum on columns
 type signals_sum_fields {
   atom_id: numeric
   block_number: numeric
-  block_timestamp: bigint
   delta: numeric
   triple_id: numeric
 }
@@ -8780,7 +8346,6 @@ order by sum() on columns of table "signal"
 input signals_sum_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8791,7 +8356,6 @@ aggregate var_pop on columns
 type signals_var_pop_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8802,7 +8366,6 @@ order by var_pop() on columns of table "signal"
 input signals_var_pop_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8813,7 +8376,6 @@ aggregate var_samp on columns
 type signals_var_samp_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8824,7 +8386,6 @@ order by var_samp() on columns of table "signal"
 input signals_var_samp_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -8835,7 +8396,6 @@ aggregate variance on columns
 type signals_variance_fields {
   atom_id: Float
   block_number: Float
-  block_timestamp: Float
   delta: Float
   triple_id: Float
 }
@@ -8846,7 +8406,6 @@ order by variance() on columns of table "signal"
 input signals_variance_order_by {
   atom_id: order_by
   block_number: order_by
-  block_timestamp: order_by
   delta: order_by
   triple_id: order_by
 }
@@ -9199,64 +8758,6 @@ type subscription_root {
     """
     where: accounts_bool_exp
   ): [accounts!]!
-  """
-  execute function "accounts_that_claim_about_account" which returns "account"
-  """
-  accounts_that_claim_about_account(
-    """
-    input parameters for function "accounts_that_claim_about_account"
-    """
-    args: accounts_that_claim_about_account_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [accounts_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [accounts_order_by!]
-    """
-    filter the rows returned
-    """
-    where: accounts_bool_exp
-  ): [accounts!]!
-  """
-  execute function "accounts_that_claim_about_account" and query aggregates on result of table type "account"
-  """
-  accounts_that_claim_about_account_aggregate(
-    """
-    input parameters for function "accounts_that_claim_about_account_aggregate"
-    """
-    args: accounts_that_claim_about_account_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [accounts_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [accounts_order_by!]
-    """
-    filter the rows returned
-    """
-    where: accounts_bool_exp
-  ): accounts_aggregate!
   """
   fetch data from the table: "atom" using primary key columns
   """
@@ -9704,135 +9205,6 @@ type subscription_root {
     """
     where: chainlink_prices_bool_exp
   ): [chainlink_prices!]!
-  """
-  fetch data from the table: "claim" using primary key columns
-  """
-  claim(id: String!): claims
-  """
-  An array relationship
-  """
-  claims(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
-  """
-  An aggregate relationship
-  """
-  claims_aggregate(
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): claims_aggregate!
-  """
-  execute function "claims_from_following" which returns "claim"
-  """
-  claims_from_following(
-    """
-    input parameters for function "claims_from_following"
-    """
-    args: claims_from_following_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
-  """
-  execute function "claims_from_following" and query aggregates on result of table type "claim"
-  """
-  claims_from_following_aggregate(
-    """
-    input parameters for function "claims_from_following_aggregate"
-    """
-    args: claims_from_following_args!
-    """
-    distinct select on columns
-    """
-    distinct_on: [claims_select_column!]
-    """
-    limit the number of rows returned
-    """
-    limit: Int
-    """
-    skip the first n rows. Use only with order_by
-    """
-    offset: Int
-    """
-    sort the rows by one or more columns
-    """
-    order_by: [claims_order_by!]
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): claims_aggregate!
-  """
-  fetch data from the table in a streaming manner: "claim"
-  """
-  claims_stream(
-    """
-    maximum number of rows returned in a single batch
-    """
-    batch_size: Int!
-    """
-    cursor to stream the results returned by the query
-    """
-    cursor: [claims_stream_cursor_input]!
-    """
-    filter the rows returned
-    """
-    where: claims_bool_exp
-  ): [claims!]!
   """
   fetch data from the table: "deposit" using primary key columns
   """
@@ -12252,7 +11624,6 @@ columns and relationships of "triple"
 """
 type triples {
   block_number: numeric!
-  block_timestamp: bigint!
   """
   An array relationship
   """
@@ -12308,6 +11679,7 @@ type triples {
   """
   counter_term: terms
   counter_term_id: numeric!
+  created_at: timestamptz!
   """
   An object relationship
   """
@@ -12444,7 +11816,6 @@ aggregate avg on columns
 """
 type triples_avg_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12457,7 +11828,6 @@ order by avg() on columns of table "triple"
 """
 input triples_avg_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12473,11 +11843,11 @@ input triples_bool_exp {
   _not: triples_bool_exp
   _or: [triples_bool_exp!]
   block_number: numeric_comparison_exp
-  block_timestamp: bigint_comparison_exp
   counter_positions: positions_bool_exp
   counter_positions_aggregate: positions_aggregate_bool_exp
   counter_term: terms_bool_exp
   counter_term_id: numeric_comparison_exp
+  created_at: timestamptz_comparison_exp
   creator: accounts_bool_exp
   creator_id: String_comparison_exp
   object: atoms_bool_exp
@@ -12498,8 +11868,8 @@ aggregate max on columns
 """
 type triples_max_fields {
   block_number: numeric
-  block_timestamp: bigint
   counter_term_id: numeric
+  created_at: timestamptz
   creator_id: String
   object_id: numeric
   predicate_id: numeric
@@ -12513,8 +11883,8 @@ order by max() on columns of table "triple"
 """
 input triples_max_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
+  created_at: order_by
   creator_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12528,8 +11898,8 @@ aggregate min on columns
 """
 type triples_min_fields {
   block_number: numeric
-  block_timestamp: bigint
   counter_term_id: numeric
+  created_at: timestamptz
   creator_id: String
   object_id: numeric
   predicate_id: numeric
@@ -12543,8 +11913,8 @@ order by min() on columns of table "triple"
 """
 input triples_min_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
+  created_at: order_by
   creator_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12558,10 +11928,10 @@ Ordering options when selecting data from "triple".
 """
 input triples_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_positions_aggregate: positions_aggregate_order_by
   counter_term: terms_order_by
   counter_term_id: order_by
+  created_at: order_by
   creator: accounts_order_by
   creator_id: order_by
   object: atoms_order_by
@@ -12587,11 +11957,11 @@ enum triples_select_column {
   """
   column name
   """
-  block_timestamp
+  counter_term_id
   """
   column name
   """
-  counter_term_id
+  created_at
   """
   column name
   """
@@ -12623,7 +11993,6 @@ aggregate stddev on columns
 """
 type triples_stddev_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12636,7 +12005,6 @@ order by stddev() on columns of table "triple"
 """
 input triples_stddev_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12649,7 +12017,6 @@ aggregate stddev_pop on columns
 """
 type triples_stddev_pop_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12662,7 +12029,6 @@ order by stddev_pop() on columns of table "triple"
 """
 input triples_stddev_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12675,7 +12041,6 @@ aggregate stddev_samp on columns
 """
 type triples_stddev_samp_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12688,7 +12053,6 @@ order by stddev_samp() on columns of table "triple"
 """
 input triples_stddev_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12715,8 +12079,8 @@ Initial value of the column from where the streaming should start
 """
 input triples_stream_cursor_value_input {
   block_number: numeric
-  block_timestamp: bigint
   counter_term_id: numeric
+  created_at: timestamptz
   creator_id: String
   object_id: numeric
   predicate_id: numeric
@@ -12730,7 +12094,6 @@ aggregate sum on columns
 """
 type triples_sum_fields {
   block_number: numeric
-  block_timestamp: bigint
   counter_term_id: numeric
   object_id: numeric
   predicate_id: numeric
@@ -12743,7 +12106,6 @@ order by sum() on columns of table "triple"
 """
 input triples_sum_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12756,7 +12118,6 @@ aggregate var_pop on columns
 """
 type triples_var_pop_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12769,7 +12130,6 @@ order by var_pop() on columns of table "triple"
 """
 input triples_var_pop_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12782,7 +12142,6 @@ aggregate var_samp on columns
 """
 type triples_var_samp_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12795,7 +12154,6 @@ order by var_samp() on columns of table "triple"
 """
 input triples_var_samp_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12808,7 +12166,6 @@ aggregate variance on columns
 """
 type triples_variance_fields {
   block_number: Float
-  block_timestamp: Float
   counter_term_id: Float
   object_id: Float
   predicate_id: Float
@@ -12821,7 +12178,6 @@ order by variance() on columns of table "triple"
 """
 input triples_variance_order_by {
   block_number: order_by
-  block_timestamp: order_by
   counter_term_id: order_by
   object_id: order_by
   predicate_id: order_by
@@ -12833,6 +12189,7 @@ input triples_variance_order_by {
 columns and relationships of "vault"
 """
 type vaults {
+  created_at: timestamptz!
   current_share_price: numeric!
   curve_id: numeric!
   """
@@ -13044,6 +12401,7 @@ type vaults {
   term_id: numeric!
   total_assets: numeric!
   total_shares: numeric!
+  updated_at: timestamptz!
 }
 
 """
@@ -13132,6 +12490,7 @@ input vaults_bool_exp {
   _and: [vaults_bool_exp!]
   _not: vaults_bool_exp
   _or: [vaults_bool_exp!]
+  created_at: timestamptz_comparison_exp
   current_share_price: numeric_comparison_exp
   curve_id: numeric_comparison_exp
   deposits: deposits_bool_exp
@@ -13148,12 +12507,14 @@ input vaults_bool_exp {
   term_id: numeric_comparison_exp
   total_assets: numeric_comparison_exp
   total_shares: numeric_comparison_exp
+  updated_at: timestamptz_comparison_exp
 }
 
 """
 aggregate max on columns
 """
 type vaults_max_fields {
+  created_at: timestamptz
   current_share_price: numeric
   curve_id: numeric
   market_cap: numeric
@@ -13161,12 +12522,14 @@ type vaults_max_fields {
   term_id: numeric
   total_assets: numeric
   total_shares: numeric
+  updated_at: timestamptz
 }
 
 """
 order by max() on columns of table "vault"
 """
 input vaults_max_order_by {
+  created_at: order_by
   current_share_price: order_by
   curve_id: order_by
   market_cap: order_by
@@ -13174,12 +12537,14 @@ input vaults_max_order_by {
   term_id: order_by
   total_assets: order_by
   total_shares: order_by
+  updated_at: order_by
 }
 
 """
 aggregate min on columns
 """
 type vaults_min_fields {
+  created_at: timestamptz
   current_share_price: numeric
   curve_id: numeric
   market_cap: numeric
@@ -13187,12 +12552,14 @@ type vaults_min_fields {
   term_id: numeric
   total_assets: numeric
   total_shares: numeric
+  updated_at: timestamptz
 }
 
 """
 order by min() on columns of table "vault"
 """
 input vaults_min_order_by {
+  created_at: order_by
   current_share_price: order_by
   curve_id: order_by
   market_cap: order_by
@@ -13200,12 +12567,14 @@ input vaults_min_order_by {
   term_id: order_by
   total_assets: order_by
   total_shares: order_by
+  updated_at: order_by
 }
 
 """
 Ordering options when selecting data from "vault".
 """
 input vaults_order_by {
+  created_at: order_by
   current_share_price: order_by
   curve_id: order_by
   deposits_aggregate: deposits_aggregate_order_by
@@ -13218,12 +12587,17 @@ input vaults_order_by {
   term_id: order_by
   total_assets: order_by
   total_shares: order_by
+  updated_at: order_by
 }
 
 """
 select columns of table "vault"
 """
 enum vaults_select_column {
+  """
+  column name
+  """
+  created_at
   """
   column name
   """
@@ -13252,6 +12626,10 @@ enum vaults_select_column {
   column name
   """
   total_shares
+  """
+  column name
+  """
+  updated_at
 }
 
 """
@@ -13350,6 +12728,7 @@ input vaults_stream_cursor_input {
 Initial value of the column from where the streaming should start
 """
 input vaults_stream_cursor_value_input {
+  created_at: timestamptz
   current_share_price: numeric
   curve_id: numeric
   market_cap: numeric
@@ -13357,6 +12736,7 @@ input vaults_stream_cursor_value_input {
   term_id: numeric
   total_assets: numeric
   total_shares: numeric
+  updated_at: timestamptz
 }
 
 """

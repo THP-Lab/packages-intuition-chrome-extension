@@ -144,7 +144,7 @@ query GetVerifiedAtomDetails($id: numeric!, $userPositionAddress: String!) {
     wallet_id
     image
     type
-    block_timestamp
+    created_at
     data
     creator {
       id
@@ -230,7 +230,7 @@ query GetAtomDetails($id: numeric!, $userPositionAddress: String!) {
     wallet_id
     image
     type
-    block_timestamp
+    created_at
     data
     creator {
       id
@@ -283,7 +283,7 @@ query GetAtomsByCreator($address: String!) {
     label
     type
     block_number
-    block_timestamp
+    created_at
     transaction_hash
     creator_id
     value {

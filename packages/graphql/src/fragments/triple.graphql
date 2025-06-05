@@ -69,7 +69,7 @@ fragment TripleMetadata on triples {
 
 fragment TripleTxn on triples {
   block_number
-  block_timestamp
+  created_at
   transaction_hash
   creator_id
 }
