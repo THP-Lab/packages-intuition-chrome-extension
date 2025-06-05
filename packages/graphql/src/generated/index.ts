@@ -154,10 +154,6 @@ export type Accounts = {
   atoms_aggregate: Atoms_Aggregate
   cached_image?: Maybe<Cached_Images_Cached_Image>
   /** An array relationship */
-  claims: Array<Claims>
-  /** An aggregate relationship */
-  claims_aggregate: Claims_Aggregate
-  /** An array relationship */
   deposits_received: Array<Deposits>
   /** An aggregate relationship */
   deposits_received_aggregate: Deposits_Aggregate
@@ -211,24 +207,6 @@ export type AccountsAtoms_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Atoms_Order_By>>
   where?: InputMaybe<Atoms_Bool_Exp>
-}
-
-/** columns and relationships of "account" */
-export type AccountsClaimsArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-/** columns and relationships of "account" */
-export type AccountsClaims_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
 }
 
 /** columns and relationships of "account" */
@@ -450,8 +428,6 @@ export type Accounts_Bool_Exp = {
   atom_id?: InputMaybe<Numeric_Comparison_Exp>
   atoms?: InputMaybe<Atoms_Bool_Exp>
   atoms_aggregate?: InputMaybe<Atoms_Aggregate_Bool_Exp>
-  claims?: InputMaybe<Claims_Bool_Exp>
-  claims_aggregate?: InputMaybe<Claims_Aggregate_Bool_Exp>
   deposits_received?: InputMaybe<Deposits_Bool_Exp>
   deposits_received_aggregate?: InputMaybe<Deposits_Aggregate_Bool_Exp>
   deposits_sent?: InputMaybe<Deposits_Bool_Exp>
@@ -517,7 +493,6 @@ export type Accounts_Order_By = {
   atom?: InputMaybe<Atoms_Order_By>
   atom_id?: InputMaybe<Order_By>
   atoms_aggregate?: InputMaybe<Atoms_Aggregate_Order_By>
-  claims_aggregate?: InputMaybe<Claims_Aggregate_Order_By>
   deposits_received_aggregate?: InputMaybe<Deposits_Aggregate_Order_By>
   deposits_sent_aggregate?: InputMaybe<Deposits_Aggregate_Order_By>
   fee_transfers_aggregate?: InputMaybe<Fee_Transfers_Aggregate_Order_By>
@@ -604,12 +579,6 @@ export type Accounts_Sum_Fields = {
 /** order by sum() on columns of table "account" */
 export type Accounts_Sum_Order_By = {
   atom_id?: InputMaybe<Order_By>
-}
-
-export type Accounts_That_Claim_About_Account_Args = {
-  address?: InputMaybe<Scalars['String']['input']>
-  predicate?: InputMaybe<Scalars['numeric']['input']>
-  subject?: InputMaybe<Scalars['numeric']['input']>
 }
 
 /** aggregate var_pop on columns */
@@ -972,10 +941,10 @@ export type Atoms = {
   /** An aggregate relationship */
   as_subject_triples_aggregate: Triples_Aggregate
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
   cached_image?: Maybe<Cached_Images_Cached_Image>
   /** An object relationship */
   controller?: Maybe<Accounts>
+  created_at: Scalars['timestamptz']['output']
   /** An object relationship */
   creator: Accounts
   creator_id: Scalars['String']['output']
@@ -996,6 +965,7 @@ export type Atoms = {
   term_id: Scalars['numeric']['output']
   transaction_hash: Scalars['String']['output']
   type: Scalars['atom_type']['output']
+  updated_at: Scalars['timestamptz']['output']
   /** An object relationship */
   value?: Maybe<Atom_Values>
   value_id?: Maybe<Scalars['numeric']['output']>
@@ -1205,7 +1175,6 @@ export type Atoms_Aggregate_Order_By = {
 export type Atoms_Avg_Fields = {
   __typename?: 'atoms_avg_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1213,7 +1182,6 @@ export type Atoms_Avg_Fields = {
 /** order by avg() on columns of table "atom" */
 export type Atoms_Avg_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1236,8 +1204,8 @@ export type Atoms_Bool_Exp = {
   as_subject_triples?: InputMaybe<Triples_Bool_Exp>
   as_subject_triples_aggregate?: InputMaybe<Triples_Aggregate_Bool_Exp>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
   controller?: InputMaybe<Accounts_Bool_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   creator?: InputMaybe<Accounts_Bool_Exp>
   creator_id?: InputMaybe<String_Comparison_Exp>
   data?: InputMaybe<String_Comparison_Exp>
@@ -1252,6 +1220,7 @@ export type Atoms_Bool_Exp = {
   term_id?: InputMaybe<Numeric_Comparison_Exp>
   transaction_hash?: InputMaybe<String_Comparison_Exp>
   type?: InputMaybe<Atom_Type_Comparison_Exp>
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>
   value?: InputMaybe<Atom_Values_Bool_Exp>
   value_id?: InputMaybe<Numeric_Comparison_Exp>
   wallet_id?: InputMaybe<String_Comparison_Exp>
@@ -1261,7 +1230,7 @@ export type Atoms_Bool_Exp = {
 export type Atoms_Max_Fields = {
   __typename?: 'atoms_max_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   creator_id?: Maybe<Scalars['String']['output']>
   data?: Maybe<Scalars['String']['output']>
   emoji?: Maybe<Scalars['String']['output']>
@@ -1270,6 +1239,7 @@ export type Atoms_Max_Fields = {
   term_id?: Maybe<Scalars['numeric']['output']>
   transaction_hash?: Maybe<Scalars['String']['output']>
   type?: Maybe<Scalars['atom_type']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
   value_id?: Maybe<Scalars['numeric']['output']>
   wallet_id?: Maybe<Scalars['String']['output']>
 }
@@ -1277,7 +1247,7 @@ export type Atoms_Max_Fields = {
 /** order by max() on columns of table "atom" */
 export type Atoms_Max_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   creator_id?: InputMaybe<Order_By>
   data?: InputMaybe<Order_By>
   emoji?: InputMaybe<Order_By>
@@ -1286,6 +1256,7 @@ export type Atoms_Max_Order_By = {
   term_id?: InputMaybe<Order_By>
   transaction_hash?: InputMaybe<Order_By>
   type?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
   wallet_id?: InputMaybe<Order_By>
 }
@@ -1294,7 +1265,7 @@ export type Atoms_Max_Order_By = {
 export type Atoms_Min_Fields = {
   __typename?: 'atoms_min_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   creator_id?: Maybe<Scalars['String']['output']>
   data?: Maybe<Scalars['String']['output']>
   emoji?: Maybe<Scalars['String']['output']>
@@ -1303,6 +1274,7 @@ export type Atoms_Min_Fields = {
   term_id?: Maybe<Scalars['numeric']['output']>
   transaction_hash?: Maybe<Scalars['String']['output']>
   type?: Maybe<Scalars['atom_type']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
   value_id?: Maybe<Scalars['numeric']['output']>
   wallet_id?: Maybe<Scalars['String']['output']>
 }
@@ -1310,7 +1282,7 @@ export type Atoms_Min_Fields = {
 /** order by min() on columns of table "atom" */
 export type Atoms_Min_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   creator_id?: InputMaybe<Order_By>
   data?: InputMaybe<Order_By>
   emoji?: InputMaybe<Order_By>
@@ -1319,6 +1291,7 @@ export type Atoms_Min_Order_By = {
   term_id?: InputMaybe<Order_By>
   transaction_hash?: InputMaybe<Order_By>
   type?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
   wallet_id?: InputMaybe<Order_By>
 }
@@ -1332,8 +1305,8 @@ export type Atoms_Order_By = {
   as_predicate_triples_aggregate?: InputMaybe<Triples_Aggregate_Order_By>
   as_subject_triples_aggregate?: InputMaybe<Triples_Aggregate_Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   controller?: InputMaybe<Accounts_Order_By>
+  created_at?: InputMaybe<Order_By>
   creator?: InputMaybe<Accounts_Order_By>
   creator_id?: InputMaybe<Order_By>
   data?: InputMaybe<Order_By>
@@ -1346,6 +1319,7 @@ export type Atoms_Order_By = {
   term_id?: InputMaybe<Order_By>
   transaction_hash?: InputMaybe<Order_By>
   type?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
   value?: InputMaybe<Atom_Values_Order_By>
   value_id?: InputMaybe<Order_By>
   wallet_id?: InputMaybe<Order_By>
@@ -1356,7 +1330,7 @@ export type Atoms_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'creator_id'
   /** column name */
@@ -1374,6 +1348,8 @@ export type Atoms_Select_Column =
   /** column name */
   | 'type'
   /** column name */
+  | 'updated_at'
+  /** column name */
   | 'value_id'
   /** column name */
   | 'wallet_id'
@@ -1382,7 +1358,6 @@ export type Atoms_Select_Column =
 export type Atoms_Stddev_Fields = {
   __typename?: 'atoms_stddev_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1390,7 +1365,6 @@ export type Atoms_Stddev_Fields = {
 /** order by stddev() on columns of table "atom" */
 export type Atoms_Stddev_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1399,7 +1373,6 @@ export type Atoms_Stddev_Order_By = {
 export type Atoms_Stddev_Pop_Fields = {
   __typename?: 'atoms_stddev_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1407,7 +1380,6 @@ export type Atoms_Stddev_Pop_Fields = {
 /** order by stddev_pop() on columns of table "atom" */
 export type Atoms_Stddev_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1416,7 +1388,6 @@ export type Atoms_Stddev_Pop_Order_By = {
 export type Atoms_Stddev_Samp_Fields = {
   __typename?: 'atoms_stddev_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1424,7 +1395,6 @@ export type Atoms_Stddev_Samp_Fields = {
 /** order by stddev_samp() on columns of table "atom" */
 export type Atoms_Stddev_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1440,7 +1410,7 @@ export type Atoms_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Atoms_Stream_Cursor_Value_Input = {
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   creator_id?: InputMaybe<Scalars['String']['input']>
   data?: InputMaybe<Scalars['String']['input']>
   emoji?: InputMaybe<Scalars['String']['input']>
@@ -1449,6 +1419,7 @@ export type Atoms_Stream_Cursor_Value_Input = {
   term_id?: InputMaybe<Scalars['numeric']['input']>
   transaction_hash?: InputMaybe<Scalars['String']['input']>
   type?: InputMaybe<Scalars['atom_type']['input']>
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>
   value_id?: InputMaybe<Scalars['numeric']['input']>
   wallet_id?: InputMaybe<Scalars['String']['input']>
 }
@@ -1457,7 +1428,6 @@ export type Atoms_Stream_Cursor_Value_Input = {
 export type Atoms_Sum_Fields = {
   __typename?: 'atoms_sum_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   term_id?: Maybe<Scalars['numeric']['output']>
   value_id?: Maybe<Scalars['numeric']['output']>
 }
@@ -1465,7 +1435,6 @@ export type Atoms_Sum_Fields = {
 /** order by sum() on columns of table "atom" */
 export type Atoms_Sum_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1474,7 +1443,6 @@ export type Atoms_Sum_Order_By = {
 export type Atoms_Var_Pop_Fields = {
   __typename?: 'atoms_var_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1482,7 +1450,6 @@ export type Atoms_Var_Pop_Fields = {
 /** order by var_pop() on columns of table "atom" */
 export type Atoms_Var_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1491,7 +1458,6 @@ export type Atoms_Var_Pop_Order_By = {
 export type Atoms_Var_Samp_Fields = {
   __typename?: 'atoms_var_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1499,7 +1465,6 @@ export type Atoms_Var_Samp_Fields = {
 /** order by var_samp() on columns of table "atom" */
 export type Atoms_Var_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -1508,7 +1473,6 @@ export type Atoms_Var_Samp_Order_By = {
 export type Atoms_Variance_Fields = {
   __typename?: 'atoms_variance_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   term_id?: Maybe<Scalars['Float']['output']>
   value_id?: Maybe<Scalars['Float']['output']>
 }
@@ -1516,7 +1480,6 @@ export type Atoms_Variance_Fields = {
 /** order by variance() on columns of table "atom" */
 export type Atoms_Variance_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
   value_id?: InputMaybe<Order_By>
 }
@@ -2122,136 +2085,6 @@ export type Chainlink_Prices_Stream_Cursor_Value_Input = {
   usd?: InputMaybe<Scalars['float8']['input']>
 }
 
-/** columns and relationships of "claim" */
-export type Claims = {
-  __typename?: 'claims'
-  /** An object relationship */
-  account?: Maybe<Accounts>
-  account_id: Scalars['String']['output']
-  id: Scalars['String']['output']
-  /** An object relationship */
-  position: Positions
-  position_id: Scalars['String']['output']
-}
-
-/** aggregated selection of "claim" */
-export type Claims_Aggregate = {
-  __typename?: 'claims_aggregate'
-  aggregate?: Maybe<Claims_Aggregate_Fields>
-  nodes: Array<Claims>
-}
-
-export type Claims_Aggregate_Bool_Exp = {
-  count?: InputMaybe<Claims_Aggregate_Bool_Exp_Count>
-}
-
-export type Claims_Aggregate_Bool_Exp_Count = {
-  arguments?: InputMaybe<Array<Claims_Select_Column>>
-  distinct?: InputMaybe<Scalars['Boolean']['input']>
-  filter?: InputMaybe<Claims_Bool_Exp>
-  predicate: Int_Comparison_Exp
-}
-
-/** aggregate fields of "claim" */
-export type Claims_Aggregate_Fields = {
-  __typename?: 'claims_aggregate_fields'
-  count: Scalars['Int']['output']
-  max?: Maybe<Claims_Max_Fields>
-  min?: Maybe<Claims_Min_Fields>
-}
-
-/** aggregate fields of "claim" */
-export type Claims_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Claims_Select_Column>>
-  distinct?: InputMaybe<Scalars['Boolean']['input']>
-}
-
-/** order by aggregate values of table "claim" */
-export type Claims_Aggregate_Order_By = {
-  count?: InputMaybe<Order_By>
-  max?: InputMaybe<Claims_Max_Order_By>
-  min?: InputMaybe<Claims_Min_Order_By>
-}
-
-/** Boolean expression to filter rows from the table "claim". All fields are combined with a logical 'AND'. */
-export type Claims_Bool_Exp = {
-  _and?: InputMaybe<Array<Claims_Bool_Exp>>
-  _not?: InputMaybe<Claims_Bool_Exp>
-  _or?: InputMaybe<Array<Claims_Bool_Exp>>
-  account?: InputMaybe<Accounts_Bool_Exp>
-  account_id?: InputMaybe<String_Comparison_Exp>
-  id?: InputMaybe<String_Comparison_Exp>
-  position?: InputMaybe<Positions_Bool_Exp>
-  position_id?: InputMaybe<String_Comparison_Exp>
-}
-
-export type Claims_From_Following_Args = {
-  address?: InputMaybe<Scalars['String']['input']>
-}
-
-/** aggregate max on columns */
-export type Claims_Max_Fields = {
-  __typename?: 'claims_max_fields'
-  account_id?: Maybe<Scalars['String']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  position_id?: Maybe<Scalars['String']['output']>
-}
-
-/** order by max() on columns of table "claim" */
-export type Claims_Max_Order_By = {
-  account_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  position_id?: InputMaybe<Order_By>
-}
-
-/** aggregate min on columns */
-export type Claims_Min_Fields = {
-  __typename?: 'claims_min_fields'
-  account_id?: Maybe<Scalars['String']['output']>
-  id?: Maybe<Scalars['String']['output']>
-  position_id?: Maybe<Scalars['String']['output']>
-}
-
-/** order by min() on columns of table "claim" */
-export type Claims_Min_Order_By = {
-  account_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  position_id?: InputMaybe<Order_By>
-}
-
-/** Ordering options when selecting data from "claim". */
-export type Claims_Order_By = {
-  account?: InputMaybe<Accounts_Order_By>
-  account_id?: InputMaybe<Order_By>
-  id?: InputMaybe<Order_By>
-  position?: InputMaybe<Positions_Order_By>
-  position_id?: InputMaybe<Order_By>
-}
-
-/** select columns of table "claim" */
-export type Claims_Select_Column =
-  /** column name */
-  | 'account_id'
-  /** column name */
-  | 'id'
-  /** column name */
-  | 'position_id'
-
-/** Streaming cursor of the table "claims" */
-export type Claims_Stream_Cursor_Input = {
-  /** Stream column input with initial value */
-  initial_value: Claims_Stream_Cursor_Value_Input
-  /** cursor ordering */
-  ordering?: InputMaybe<Cursor_Ordering>
-}
-
-/** Initial value of the column from where the streaming should start */
-export type Claims_Stream_Cursor_Value_Input = {
-  account_id?: InputMaybe<Scalars['String']['input']>
-  id?: InputMaybe<Scalars['String']['input']>
-  position_id?: InputMaybe<Scalars['String']['input']>
-}
-
 /** ordering argument of a cursor */
 export type Cursor_Ordering =
   /** ascending ordering of the cursor */
@@ -2263,7 +2096,7 @@ export type Cursor_Ordering =
 export type Deposits = {
   __typename?: 'deposits'
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
+  created_at: Scalars['timestamptz']['output']
   curve_id: Scalars['numeric']['output']
   entry_fee: Scalars['numeric']['output']
   id: Scalars['String']['output']
@@ -2361,7 +2194,6 @@ export type Deposits_Aggregate_Order_By = {
 export type Deposits_Avg_Fields = {
   __typename?: 'deposits_avg_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2373,7 +2205,6 @@ export type Deposits_Avg_Fields = {
 /** order by avg() on columns of table "deposit" */
 export type Deposits_Avg_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2388,7 +2219,7 @@ export type Deposits_Bool_Exp = {
   _not?: InputMaybe<Deposits_Bool_Exp>
   _or?: InputMaybe<Array<Deposits_Bool_Exp>>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   curve_id?: InputMaybe<Numeric_Comparison_Exp>
   entry_fee?: InputMaybe<Numeric_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
@@ -2411,7 +2242,7 @@ export type Deposits_Bool_Exp = {
 export type Deposits_Max_Fields = {
   __typename?: 'deposits_max_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   entry_fee?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -2427,7 +2258,7 @@ export type Deposits_Max_Fields = {
 /** order by max() on columns of table "deposit" */
 export type Deposits_Max_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -2444,7 +2275,7 @@ export type Deposits_Max_Order_By = {
 export type Deposits_Min_Fields = {
   __typename?: 'deposits_min_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   entry_fee?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -2460,7 +2291,7 @@ export type Deposits_Min_Fields = {
 /** order by min() on columns of table "deposit" */
 export type Deposits_Min_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -2476,7 +2307,7 @@ export type Deposits_Min_Order_By = {
 /** Ordering options when selecting data from "deposit". */
 export type Deposits_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -2500,7 +2331,7 @@ export type Deposits_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'curve_id'
   /** column name */
@@ -2544,7 +2375,6 @@ export type Deposits_Select_Column_Deposits_Aggregate_Bool_Exp_Bool_Or_Arguments
 export type Deposits_Stddev_Fields = {
   __typename?: 'deposits_stddev_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2556,7 +2386,6 @@ export type Deposits_Stddev_Fields = {
 /** order by stddev() on columns of table "deposit" */
 export type Deposits_Stddev_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2569,7 +2398,6 @@ export type Deposits_Stddev_Order_By = {
 export type Deposits_Stddev_Pop_Fields = {
   __typename?: 'deposits_stddev_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2581,7 +2409,6 @@ export type Deposits_Stddev_Pop_Fields = {
 /** order by stddev_pop() on columns of table "deposit" */
 export type Deposits_Stddev_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2594,7 +2421,6 @@ export type Deposits_Stddev_Pop_Order_By = {
 export type Deposits_Stddev_Samp_Fields = {
   __typename?: 'deposits_stddev_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2606,7 +2432,6 @@ export type Deposits_Stddev_Samp_Fields = {
 /** order by stddev_samp() on columns of table "deposit" */
 export type Deposits_Stddev_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2626,7 +2451,7 @@ export type Deposits_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Deposits_Stream_Cursor_Value_Input = {
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   curve_id?: InputMaybe<Scalars['numeric']['input']>
   entry_fee?: InputMaybe<Scalars['numeric']['input']>
   id?: InputMaybe<Scalars['String']['input']>
@@ -2645,7 +2470,6 @@ export type Deposits_Stream_Cursor_Value_Input = {
 export type Deposits_Sum_Fields = {
   __typename?: 'deposits_sum_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   entry_fee?: Maybe<Scalars['numeric']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['numeric']['output']>
@@ -2657,7 +2481,6 @@ export type Deposits_Sum_Fields = {
 /** order by sum() on columns of table "deposit" */
 export type Deposits_Sum_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2670,7 +2493,6 @@ export type Deposits_Sum_Order_By = {
 export type Deposits_Var_Pop_Fields = {
   __typename?: 'deposits_var_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2682,7 +2504,6 @@ export type Deposits_Var_Pop_Fields = {
 /** order by var_pop() on columns of table "deposit" */
 export type Deposits_Var_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2695,7 +2516,6 @@ export type Deposits_Var_Pop_Order_By = {
 export type Deposits_Var_Samp_Fields = {
   __typename?: 'deposits_var_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2707,7 +2527,6 @@ export type Deposits_Var_Samp_Fields = {
 /** order by var_samp() on columns of table "deposit" */
 export type Deposits_Var_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2720,7 +2539,6 @@ export type Deposits_Var_Samp_Order_By = {
 export type Deposits_Variance_Fields = {
   __typename?: 'deposits_variance_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   entry_fee?: Maybe<Scalars['Float']['output']>
   receiver_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -2732,7 +2550,6 @@ export type Deposits_Variance_Fields = {
 /** order by variance() on columns of table "deposit" */
 export type Deposits_Variance_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   entry_fee?: InputMaybe<Order_By>
   receiver_total_shares_in_vault?: InputMaybe<Order_By>
@@ -2761,7 +2578,7 @@ export type Events = {
   atom?: Maybe<Atoms>
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
+  created_at: Scalars['timestamptz']['output']
   /** An object relationship */
   deposit?: Maybe<Deposits>
   deposit_id?: Maybe<Scalars['String']['output']>
@@ -2813,7 +2630,6 @@ export type Events_Avg_Fields = {
   __typename?: 'events_avg_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2825,7 +2641,7 @@ export type Events_Bool_Exp = {
   atom?: InputMaybe<Atoms_Bool_Exp>
   atom_id?: InputMaybe<Numeric_Comparison_Exp>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   deposit?: InputMaybe<Deposits_Bool_Exp>
   deposit_id?: InputMaybe<String_Comparison_Exp>
   fee_transfer?: InputMaybe<Fee_Transfers_Bool_Exp>
@@ -2844,7 +2660,7 @@ export type Events_Max_Fields = {
   __typename?: 'events_max_fields'
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   deposit_id?: Maybe<Scalars['String']['output']>
   fee_transfer_id?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -2859,7 +2675,7 @@ export type Events_Min_Fields = {
   __typename?: 'events_min_fields'
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   deposit_id?: Maybe<Scalars['String']['output']>
   fee_transfer_id?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -2874,7 +2690,7 @@ export type Events_Order_By = {
   atom?: InputMaybe<Atoms_Order_By>
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   deposit?: InputMaybe<Deposits_Order_By>
   deposit_id?: InputMaybe<Order_By>
   fee_transfer?: InputMaybe<Fee_Transfers_Order_By>
@@ -2895,7 +2711,7 @@ export type Events_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'deposit_id'
   /** column name */
@@ -2916,7 +2732,6 @@ export type Events_Stddev_Fields = {
   __typename?: 'events_stddev_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2925,7 +2740,6 @@ export type Events_Stddev_Pop_Fields = {
   __typename?: 'events_stddev_pop_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2934,7 +2748,6 @@ export type Events_Stddev_Samp_Fields = {
   __typename?: 'events_stddev_samp_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2950,7 +2763,7 @@ export type Events_Stream_Cursor_Input = {
 export type Events_Stream_Cursor_Value_Input = {
   atom_id?: InputMaybe<Scalars['numeric']['input']>
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   deposit_id?: InputMaybe<Scalars['String']['input']>
   fee_transfer_id?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['String']['input']>
@@ -2965,7 +2778,6 @@ export type Events_Sum_Fields = {
   __typename?: 'events_sum_fields'
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   triple_id?: Maybe<Scalars['numeric']['output']>
 }
 
@@ -2974,7 +2786,6 @@ export type Events_Var_Pop_Fields = {
   __typename?: 'events_var_pop_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2983,7 +2794,6 @@ export type Events_Var_Samp_Fields = {
   __typename?: 'events_var_samp_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -2992,7 +2802,6 @@ export type Events_Variance_Fields = {
   __typename?: 'events_variance_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
 
@@ -3001,7 +2810,7 @@ export type Fee_Transfers = {
   __typename?: 'fee_transfers'
   amount: Scalars['numeric']['output']
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
+  created_at: Scalars['timestamptz']['output']
   id: Scalars['String']['output']
   /** An object relationship */
   receiver: Accounts
@@ -3072,14 +2881,12 @@ export type Fee_Transfers_Avg_Fields = {
   __typename?: 'fee_transfers_avg_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by avg() on columns of table "fee_transfer" */
 export type Fee_Transfers_Avg_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "fee_transfer". All fields are combined with a logical 'AND'. */
@@ -3089,7 +2896,7 @@ export type Fee_Transfers_Bool_Exp = {
   _or?: InputMaybe<Array<Fee_Transfers_Bool_Exp>>
   amount?: InputMaybe<Numeric_Comparison_Exp>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
   receiver?: InputMaybe<Accounts_Bool_Exp>
   receiver_id?: InputMaybe<String_Comparison_Exp>
@@ -3103,7 +2910,7 @@ export type Fee_Transfers_Max_Fields = {
   __typename?: 'fee_transfers_max_fields'
   amount?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   id?: Maybe<Scalars['String']['output']>
   receiver_id?: Maybe<Scalars['String']['output']>
   sender_id?: Maybe<Scalars['String']['output']>
@@ -3114,7 +2921,7 @@ export type Fee_Transfers_Max_Fields = {
 export type Fee_Transfers_Max_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   receiver_id?: InputMaybe<Order_By>
   sender_id?: InputMaybe<Order_By>
@@ -3126,7 +2933,7 @@ export type Fee_Transfers_Min_Fields = {
   __typename?: 'fee_transfers_min_fields'
   amount?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   id?: Maybe<Scalars['String']['output']>
   receiver_id?: Maybe<Scalars['String']['output']>
   sender_id?: Maybe<Scalars['String']['output']>
@@ -3137,7 +2944,7 @@ export type Fee_Transfers_Min_Fields = {
 export type Fee_Transfers_Min_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   receiver_id?: InputMaybe<Order_By>
   sender_id?: InputMaybe<Order_By>
@@ -3148,7 +2955,7 @@ export type Fee_Transfers_Min_Order_By = {
 export type Fee_Transfers_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   receiver?: InputMaybe<Accounts_Order_By>
   receiver_id?: InputMaybe<Order_By>
@@ -3164,7 +2971,7 @@ export type Fee_Transfers_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'id'
   /** column name */
@@ -3179,14 +2986,12 @@ export type Fee_Transfers_Stddev_Fields = {
   __typename?: 'fee_transfers_stddev_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev() on columns of table "fee_transfer" */
 export type Fee_Transfers_Stddev_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** aggregate stddev_pop on columns */
@@ -3194,14 +2999,12 @@ export type Fee_Transfers_Stddev_Pop_Fields = {
   __typename?: 'fee_transfers_stddev_pop_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev_pop() on columns of table "fee_transfer" */
 export type Fee_Transfers_Stddev_Pop_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** aggregate stddev_samp on columns */
@@ -3209,14 +3012,12 @@ export type Fee_Transfers_Stddev_Samp_Fields = {
   __typename?: 'fee_transfers_stddev_samp_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by stddev_samp() on columns of table "fee_transfer" */
 export type Fee_Transfers_Stddev_Samp_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** Streaming cursor of the table "fee_transfers" */
@@ -3231,7 +3032,7 @@ export type Fee_Transfers_Stream_Cursor_Input = {
 export type Fee_Transfers_Stream_Cursor_Value_Input = {
   amount?: InputMaybe<Scalars['numeric']['input']>
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   receiver_id?: InputMaybe<Scalars['String']['input']>
   sender_id?: InputMaybe<Scalars['String']['input']>
@@ -3243,14 +3044,12 @@ export type Fee_Transfers_Sum_Fields = {
   __typename?: 'fee_transfers_sum_fields'
   amount?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
 }
 
 /** order by sum() on columns of table "fee_transfer" */
 export type Fee_Transfers_Sum_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** aggregate var_pop on columns */
@@ -3258,14 +3057,12 @@ export type Fee_Transfers_Var_Pop_Fields = {
   __typename?: 'fee_transfers_var_pop_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by var_pop() on columns of table "fee_transfer" */
 export type Fee_Transfers_Var_Pop_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** aggregate var_samp on columns */
@@ -3273,14 +3070,12 @@ export type Fee_Transfers_Var_Samp_Fields = {
   __typename?: 'fee_transfers_var_samp_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by var_samp() on columns of table "fee_transfer" */
 export type Fee_Transfers_Var_Samp_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** aggregate variance on columns */
@@ -3288,14 +3083,12 @@ export type Fee_Transfers_Variance_Fields = {
   __typename?: 'fee_transfers_variance_fields'
   amount?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
 }
 
 /** order by variance() on columns of table "fee_transfer" */
 export type Fee_Transfers_Variance_Order_By = {
   amount?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to compare columns of type "float8". All fields are combined with logical 'AND'. */
@@ -3893,12 +3686,14 @@ export type Positions = {
   /** An object relationship */
   account?: Maybe<Accounts>
   account_id: Scalars['String']['output']
+  created_at: Scalars['timestamptz']['output']
   curve_id: Scalars['numeric']['output']
   id: Scalars['String']['output']
   shares: Scalars['numeric']['output']
   /** An object relationship */
   term: Terms
   term_id: Scalars['numeric']['output']
+  updated_at: Scalars['timestamptz']['output']
   /** An object relationship */
   vault?: Maybe<Vaults>
 }
@@ -3980,11 +3775,13 @@ export type Positions_Bool_Exp = {
   _or?: InputMaybe<Array<Positions_Bool_Exp>>
   account?: InputMaybe<Accounts_Bool_Exp>
   account_id?: InputMaybe<String_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   curve_id?: InputMaybe<Numeric_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
   shares?: InputMaybe<Numeric_Comparison_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
   term_id?: InputMaybe<Numeric_Comparison_Exp>
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>
   vault?: InputMaybe<Vaults_Bool_Exp>
 }
 
@@ -3996,49 +3793,59 @@ export type Positions_From_Following_Args = {
 export type Positions_Max_Fields = {
   __typename?: 'positions_max_fields'
   account_id?: Maybe<Scalars['String']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
   shares?: Maybe<Scalars['numeric']['output']>
   term_id?: Maybe<Scalars['numeric']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
 }
 
 /** order by max() on columns of table "position" */
 export type Positions_Max_Order_By = {
   account_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   shares?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Positions_Min_Fields = {
   __typename?: 'positions_min_fields'
   account_id?: Maybe<Scalars['String']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
   shares?: Maybe<Scalars['numeric']['output']>
   term_id?: Maybe<Scalars['numeric']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
 }
 
 /** order by min() on columns of table "position" */
 export type Positions_Min_Order_By = {
   account_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   shares?: InputMaybe<Order_By>
   term_id?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "position". */
 export type Positions_Order_By = {
   account?: InputMaybe<Accounts_Order_By>
   account_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
   shares?: InputMaybe<Order_By>
   term?: InputMaybe<Terms_Order_By>
   term_id?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
   vault?: InputMaybe<Vaults_Order_By>
 }
 
@@ -4047,6 +3854,8 @@ export type Positions_Select_Column =
   /** column name */
   | 'account_id'
   /** column name */
+  | 'created_at'
+  /** column name */
   | 'curve_id'
   /** column name */
   | 'id'
@@ -4054,6 +3863,8 @@ export type Positions_Select_Column =
   | 'shares'
   /** column name */
   | 'term_id'
+  /** column name */
+  | 'updated_at'
 
 /** aggregate stddev on columns */
 export type Positions_Stddev_Fields = {
@@ -4111,10 +3922,12 @@ export type Positions_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Positions_Stream_Cursor_Value_Input = {
   account_id?: InputMaybe<Scalars['String']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   curve_id?: InputMaybe<Scalars['numeric']['input']>
   id?: InputMaybe<Scalars['String']['input']>
   shares?: InputMaybe<Scalars['numeric']['input']>
   term_id?: InputMaybe<Scalars['numeric']['input']>
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>
 }
 
 /** aggregate sum on columns */
@@ -4457,10 +4270,6 @@ export type Query_Root = {
   accounts: Array<Accounts>
   /** An aggregate relationship */
   accounts_aggregate: Accounts_Aggregate
-  /** execute function "accounts_that_claim_about_account" which returns "account" */
-  accounts_that_claim_about_account: Array<Accounts>
-  /** execute function "accounts_that_claim_about_account" and query aggregates on result of table type "account" */
-  accounts_that_claim_about_account_aggregate: Accounts_Aggregate
   /** fetch data from the table: "atom" using primary key columns */
   atom?: Maybe<Atoms>
   /** fetch data from the table: "atom_value" using primary key columns */
@@ -4499,16 +4308,6 @@ export type Query_Root = {
   chainlink_price?: Maybe<Chainlink_Prices>
   /** fetch data from the table: "chainlink_price" */
   chainlink_prices: Array<Chainlink_Prices>
-  /** fetch data from the table: "claim" using primary key columns */
-  claim?: Maybe<Claims>
-  /** An array relationship */
-  claims: Array<Claims>
-  /** An aggregate relationship */
-  claims_aggregate: Claims_Aggregate
-  /** execute function "claims_from_following" which returns "claim" */
-  claims_from_following: Array<Claims>
-  /** execute function "claims_from_following" and query aggregates on result of table type "claim" */
-  claims_from_following_aggregate: Claims_Aggregate
   /** fetch data from the table: "deposit" using primary key columns */
   deposit?: Maybe<Deposits>
   /** An array relationship */
@@ -4653,24 +4452,6 @@ export type Query_RootAccounts_AggregateArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>
 }
 
-export type Query_RootAccounts_That_Claim_About_AccountArgs = {
-  args: Accounts_That_Claim_About_Account_Args
-  distinct_on?: InputMaybe<Array<Accounts_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Accounts_Order_By>>
-  where?: InputMaybe<Accounts_Bool_Exp>
-}
-
-export type Query_RootAccounts_That_Claim_About_Account_AggregateArgs = {
-  args: Accounts_That_Claim_About_Account_Args
-  distinct_on?: InputMaybe<Array<Accounts_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Accounts_Order_By>>
-  where?: InputMaybe<Accounts_Bool_Exp>
-}
-
 export type Query_RootAtomArgs = {
   term_id: Scalars['numeric']['input']
 }
@@ -4793,44 +4574,6 @@ export type Query_RootChainlink_PricesArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Chainlink_Prices_Order_By>>
   where?: InputMaybe<Chainlink_Prices_Bool_Exp>
-}
-
-export type Query_RootClaimArgs = {
-  id: Scalars['String']['input']
-}
-
-export type Query_RootClaimsArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Query_RootClaims_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Query_RootClaims_From_FollowingArgs = {
-  args: Claims_From_Following_Args
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Query_RootClaims_From_Following_AggregateArgs = {
-  args: Claims_From_Following_Args
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
 }
 
 export type Query_RootDepositArgs = {
@@ -5269,7 +5012,7 @@ export type Redemptions = {
   __typename?: 'redemptions'
   assets_for_receiver: Scalars['numeric']['output']
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
+  created_at: Scalars['timestamptz']['output']
   curve_id: Scalars['numeric']['output']
   exit_fee: Scalars['numeric']['output']
   id: Scalars['String']['output']
@@ -5349,7 +5092,6 @@ export type Redemptions_Avg_Fields = {
   __typename?: 'redemptions_avg_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5361,7 +5103,6 @@ export type Redemptions_Avg_Fields = {
 export type Redemptions_Avg_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5376,7 +5117,7 @@ export type Redemptions_Bool_Exp = {
   _or?: InputMaybe<Array<Redemptions_Bool_Exp>>
   assets_for_receiver?: InputMaybe<Numeric_Comparison_Exp>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   curve_id?: InputMaybe<Numeric_Comparison_Exp>
   exit_fee?: InputMaybe<Numeric_Comparison_Exp>
   id?: InputMaybe<String_Comparison_Exp>
@@ -5397,7 +5138,7 @@ export type Redemptions_Max_Fields = {
   __typename?: 'redemptions_max_fields'
   assets_for_receiver?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   exit_fee?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -5413,7 +5154,7 @@ export type Redemptions_Max_Fields = {
 export type Redemptions_Max_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -5430,7 +5171,7 @@ export type Redemptions_Min_Fields = {
   __typename?: 'redemptions_min_fields'
   assets_for_receiver?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   exit_fee?: Maybe<Scalars['numeric']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -5446,7 +5187,7 @@ export type Redemptions_Min_Fields = {
 export type Redemptions_Min_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -5462,7 +5203,7 @@ export type Redemptions_Min_Order_By = {
 export type Redemptions_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -5485,7 +5226,7 @@ export type Redemptions_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'curve_id'
   /** column name */
@@ -5510,7 +5251,6 @@ export type Redemptions_Stddev_Fields = {
   __typename?: 'redemptions_stddev_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5522,7 +5262,6 @@ export type Redemptions_Stddev_Fields = {
 export type Redemptions_Stddev_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5535,7 +5274,6 @@ export type Redemptions_Stddev_Pop_Fields = {
   __typename?: 'redemptions_stddev_pop_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5547,7 +5285,6 @@ export type Redemptions_Stddev_Pop_Fields = {
 export type Redemptions_Stddev_Pop_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5560,7 +5297,6 @@ export type Redemptions_Stddev_Samp_Fields = {
   __typename?: 'redemptions_stddev_samp_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5572,7 +5308,6 @@ export type Redemptions_Stddev_Samp_Fields = {
 export type Redemptions_Stddev_Samp_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5592,7 +5327,7 @@ export type Redemptions_Stream_Cursor_Input = {
 export type Redemptions_Stream_Cursor_Value_Input = {
   assets_for_receiver?: InputMaybe<Scalars['numeric']['input']>
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   curve_id?: InputMaybe<Scalars['numeric']['input']>
   exit_fee?: InputMaybe<Scalars['numeric']['input']>
   id?: InputMaybe<Scalars['String']['input']>
@@ -5609,7 +5344,6 @@ export type Redemptions_Sum_Fields = {
   __typename?: 'redemptions_sum_fields'
   assets_for_receiver?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   exit_fee?: Maybe<Scalars['numeric']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['numeric']['output']>
@@ -5621,7 +5355,6 @@ export type Redemptions_Sum_Fields = {
 export type Redemptions_Sum_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5634,7 +5367,6 @@ export type Redemptions_Var_Pop_Fields = {
   __typename?: 'redemptions_var_pop_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5646,7 +5378,6 @@ export type Redemptions_Var_Pop_Fields = {
 export type Redemptions_Var_Pop_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5659,7 +5390,6 @@ export type Redemptions_Var_Samp_Fields = {
   __typename?: 'redemptions_var_samp_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5671,7 +5401,6 @@ export type Redemptions_Var_Samp_Fields = {
 export type Redemptions_Var_Samp_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5684,7 +5413,6 @@ export type Redemptions_Variance_Fields = {
   __typename?: 'redemptions_variance_fields'
   assets_for_receiver?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   curve_id?: Maybe<Scalars['Float']['output']>
   exit_fee?: Maybe<Scalars['Float']['output']>
   sender_total_shares_in_vault?: Maybe<Scalars['Float']['output']>
@@ -5696,7 +5424,6 @@ export type Redemptions_Variance_Fields = {
 export type Redemptions_Variance_Order_By = {
   assets_for_receiver?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   exit_fee?: InputMaybe<Order_By>
   sender_total_shares_in_vault?: InputMaybe<Order_By>
@@ -5983,7 +5710,7 @@ export type Signals = {
   account_id: Scalars['String']['output']
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
+  created_at: Scalars['timestamptz']['output']
   delta: Scalars['numeric']['output']
   /** An object relationship */
   deposit?: Maybe<Deposits>
@@ -6060,7 +5787,6 @@ export type Signals_Avg_Fields = {
   __typename?: 'signals_avg_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6069,7 +5795,6 @@ export type Signals_Avg_Fields = {
 export type Signals_Avg_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6083,7 +5808,7 @@ export type Signals_Bool_Exp = {
   account_id?: InputMaybe<String_Comparison_Exp>
   atom_id?: InputMaybe<Numeric_Comparison_Exp>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   delta?: InputMaybe<Numeric_Comparison_Exp>
   deposit?: InputMaybe<Deposits_Bool_Exp>
   deposit_id?: InputMaybe<String_Comparison_Exp>
@@ -6106,7 +5831,7 @@ export type Signals_Max_Fields = {
   account_id?: Maybe<Scalars['String']['output']>
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   delta?: Maybe<Scalars['numeric']['output']>
   deposit_id?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -6120,7 +5845,7 @@ export type Signals_Max_Order_By = {
   account_id?: InputMaybe<Order_By>
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   deposit_id?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -6135,7 +5860,7 @@ export type Signals_Min_Fields = {
   account_id?: Maybe<Scalars['String']['output']>
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   delta?: Maybe<Scalars['numeric']['output']>
   deposit_id?: Maybe<Scalars['String']['output']>
   id?: Maybe<Scalars['String']['output']>
@@ -6149,7 +5874,7 @@ export type Signals_Min_Order_By = {
   account_id?: InputMaybe<Order_By>
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   deposit_id?: InputMaybe<Order_By>
   id?: InputMaybe<Order_By>
@@ -6164,7 +5889,7 @@ export type Signals_Order_By = {
   account_id?: InputMaybe<Order_By>
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   deposit?: InputMaybe<Deposits_Order_By>
   deposit_id?: InputMaybe<Order_By>
@@ -6186,7 +5911,7 @@ export type Signals_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
+  | 'created_at'
   /** column name */
   | 'delta'
   /** column name */
@@ -6205,7 +5930,6 @@ export type Signals_Stddev_Fields = {
   __typename?: 'signals_stddev_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6214,7 +5938,6 @@ export type Signals_Stddev_Fields = {
 export type Signals_Stddev_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6224,7 +5947,6 @@ export type Signals_Stddev_Pop_Fields = {
   __typename?: 'signals_stddev_pop_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6233,7 +5955,6 @@ export type Signals_Stddev_Pop_Fields = {
 export type Signals_Stddev_Pop_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6243,7 +5964,6 @@ export type Signals_Stddev_Samp_Fields = {
   __typename?: 'signals_stddev_samp_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6252,7 +5972,6 @@ export type Signals_Stddev_Samp_Fields = {
 export type Signals_Stddev_Samp_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6270,7 +5989,7 @@ export type Signals_Stream_Cursor_Value_Input = {
   account_id?: InputMaybe<Scalars['String']['input']>
   atom_id?: InputMaybe<Scalars['numeric']['input']>
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   delta?: InputMaybe<Scalars['numeric']['input']>
   deposit_id?: InputMaybe<Scalars['String']['input']>
   id?: InputMaybe<Scalars['String']['input']>
@@ -6284,7 +6003,6 @@ export type Signals_Sum_Fields = {
   __typename?: 'signals_sum_fields'
   atom_id?: Maybe<Scalars['numeric']['output']>
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   delta?: Maybe<Scalars['numeric']['output']>
   triple_id?: Maybe<Scalars['numeric']['output']>
 }
@@ -6293,7 +6011,6 @@ export type Signals_Sum_Fields = {
 export type Signals_Sum_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6303,7 +6020,6 @@ export type Signals_Var_Pop_Fields = {
   __typename?: 'signals_var_pop_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6312,7 +6028,6 @@ export type Signals_Var_Pop_Fields = {
 export type Signals_Var_Pop_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6322,7 +6037,6 @@ export type Signals_Var_Samp_Fields = {
   __typename?: 'signals_var_samp_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6331,7 +6045,6 @@ export type Signals_Var_Samp_Fields = {
 export type Signals_Var_Samp_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6341,7 +6054,6 @@ export type Signals_Variance_Fields = {
   __typename?: 'signals_variance_fields'
   atom_id?: Maybe<Scalars['Float']['output']>
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   delta?: Maybe<Scalars['Float']['output']>
   triple_id?: Maybe<Scalars['Float']['output']>
 }
@@ -6350,7 +6062,6 @@ export type Signals_Variance_Fields = {
 export type Signals_Variance_Order_By = {
   atom_id?: InputMaybe<Order_By>
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   delta?: InputMaybe<Order_By>
   triple_id?: InputMaybe<Order_By>
 }
@@ -6603,10 +6314,6 @@ export type Subscription_Root = {
   accounts_aggregate: Accounts_Aggregate
   /** fetch data from the table in a streaming manner: "account" */
   accounts_stream: Array<Accounts>
-  /** execute function "accounts_that_claim_about_account" which returns "account" */
-  accounts_that_claim_about_account: Array<Accounts>
-  /** execute function "accounts_that_claim_about_account" and query aggregates on result of table type "account" */
-  accounts_that_claim_about_account_aggregate: Accounts_Aggregate
   /** fetch data from the table: "atom" using primary key columns */
   atom?: Maybe<Atoms>
   /** fetch data from the table: "atom_value" using primary key columns */
@@ -6659,18 +6366,6 @@ export type Subscription_Root = {
   chainlink_prices: Array<Chainlink_Prices>
   /** fetch data from the table in a streaming manner: "chainlink_price" */
   chainlink_prices_stream: Array<Chainlink_Prices>
-  /** fetch data from the table: "claim" using primary key columns */
-  claim?: Maybe<Claims>
-  /** An array relationship */
-  claims: Array<Claims>
-  /** An aggregate relationship */
-  claims_aggregate: Claims_Aggregate
-  /** execute function "claims_from_following" which returns "claim" */
-  claims_from_following: Array<Claims>
-  /** execute function "claims_from_following" and query aggregates on result of table type "claim" */
-  claims_from_following_aggregate: Claims_Aggregate
-  /** fetch data from the table in a streaming manner: "claim" */
-  claims_stream: Array<Claims>
   /** fetch data from the table: "deposit" using primary key columns */
   deposit?: Maybe<Deposits>
   /** An array relationship */
@@ -6855,24 +6550,6 @@ export type Subscription_RootAccounts_StreamArgs = {
   where?: InputMaybe<Accounts_Bool_Exp>
 }
 
-export type Subscription_RootAccounts_That_Claim_About_AccountArgs = {
-  args: Accounts_That_Claim_About_Account_Args
-  distinct_on?: InputMaybe<Array<Accounts_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Accounts_Order_By>>
-  where?: InputMaybe<Accounts_Bool_Exp>
-}
-
-export type Subscription_RootAccounts_That_Claim_About_Account_AggregateArgs = {
-  args: Accounts_That_Claim_About_Account_Args
-  distinct_on?: InputMaybe<Array<Accounts_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Accounts_Order_By>>
-  where?: InputMaybe<Accounts_Bool_Exp>
-}
-
 export type Subscription_RootAtomArgs = {
   term_id: Scalars['numeric']['input']
 }
@@ -7037,50 +6714,6 @@ export type Subscription_RootChainlink_Prices_StreamArgs = {
   batch_size: Scalars['Int']['input']
   cursor: Array<InputMaybe<Chainlink_Prices_Stream_Cursor_Input>>
   where?: InputMaybe<Chainlink_Prices_Bool_Exp>
-}
-
-export type Subscription_RootClaimArgs = {
-  id: Scalars['String']['input']
-}
-
-export type Subscription_RootClaimsArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Subscription_RootClaims_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Subscription_RootClaims_From_FollowingArgs = {
-  args: Claims_From_Following_Args
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Subscription_RootClaims_From_Following_AggregateArgs = {
-  args: Claims_From_Following_Args
-  distinct_on?: InputMaybe<Array<Claims_Select_Column>>
-  limit?: InputMaybe<Scalars['Int']['input']>
-  offset?: InputMaybe<Scalars['Int']['input']>
-  order_by?: InputMaybe<Array<Claims_Order_By>>
-  where?: InputMaybe<Claims_Bool_Exp>
-}
-
-export type Subscription_RootClaims_StreamArgs = {
-  batch_size: Scalars['Int']['input']
-  cursor: Array<InputMaybe<Claims_Stream_Cursor_Input>>
-  where?: InputMaybe<Claims_Bool_Exp>
 }
 
 export type Subscription_RootDepositArgs = {
@@ -8285,7 +7918,6 @@ export type Timestamptz_Comparison_Exp = {
 export type Triples = {
   __typename?: 'triples'
   block_number: Scalars['numeric']['output']
-  block_timestamp: Scalars['bigint']['output']
   /** An array relationship */
   counter_positions: Array<Positions>
   /** An aggregate relationship */
@@ -8293,6 +7925,7 @@ export type Triples = {
   /** An object relationship */
   counter_term?: Maybe<Terms>
   counter_term_id: Scalars['numeric']['output']
+  created_at: Scalars['timestamptz']['output']
   /** An object relationship */
   creator?: Maybe<Accounts>
   creator_id: Scalars['String']['output']
@@ -8410,7 +8043,6 @@ export type Triples_Aggregate_Order_By = {
 export type Triples_Avg_Fields = {
   __typename?: 'triples_avg_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8421,7 +8053,6 @@ export type Triples_Avg_Fields = {
 /** order by avg() on columns of table "triple" */
 export type Triples_Avg_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8435,11 +8066,11 @@ export type Triples_Bool_Exp = {
   _not?: InputMaybe<Triples_Bool_Exp>
   _or?: InputMaybe<Array<Triples_Bool_Exp>>
   block_number?: InputMaybe<Numeric_Comparison_Exp>
-  block_timestamp?: InputMaybe<Bigint_Comparison_Exp>
   counter_positions?: InputMaybe<Positions_Bool_Exp>
   counter_positions_aggregate?: InputMaybe<Positions_Aggregate_Bool_Exp>
   counter_term?: InputMaybe<Terms_Bool_Exp>
   counter_term_id?: InputMaybe<Numeric_Comparison_Exp>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   creator?: InputMaybe<Accounts_Bool_Exp>
   creator_id?: InputMaybe<String_Comparison_Exp>
   object?: InputMaybe<Atoms_Bool_Exp>
@@ -8459,8 +8090,8 @@ export type Triples_Bool_Exp = {
 export type Triples_Max_Fields = {
   __typename?: 'triples_max_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   counter_term_id?: Maybe<Scalars['numeric']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   creator_id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
@@ -8472,8 +8103,8 @@ export type Triples_Max_Fields = {
 /** order by max() on columns of table "triple" */
 export type Triples_Max_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   creator_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8486,8 +8117,8 @@ export type Triples_Max_Order_By = {
 export type Triples_Min_Fields = {
   __typename?: 'triples_min_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   counter_term_id?: Maybe<Scalars['numeric']['output']>
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   creator_id?: Maybe<Scalars['String']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
@@ -8499,8 +8130,8 @@ export type Triples_Min_Fields = {
 /** order by min() on columns of table "triple" */
 export type Triples_Min_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   creator_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8512,10 +8143,10 @@ export type Triples_Min_Order_By = {
 /** Ordering options when selecting data from "triple". */
 export type Triples_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
   counter_term?: InputMaybe<Terms_Order_By>
   counter_term_id?: InputMaybe<Order_By>
+  created_at?: InputMaybe<Order_By>
   creator?: InputMaybe<Accounts_Order_By>
   creator_id?: InputMaybe<Order_By>
   object?: InputMaybe<Atoms_Order_By>
@@ -8535,9 +8166,9 @@ export type Triples_Select_Column =
   /** column name */
   | 'block_number'
   /** column name */
-  | 'block_timestamp'
-  /** column name */
   | 'counter_term_id'
+  /** column name */
+  | 'created_at'
   /** column name */
   | 'creator_id'
   /** column name */
@@ -8555,7 +8186,6 @@ export type Triples_Select_Column =
 export type Triples_Stddev_Fields = {
   __typename?: 'triples_stddev_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8566,7 +8196,6 @@ export type Triples_Stddev_Fields = {
 /** order by stddev() on columns of table "triple" */
 export type Triples_Stddev_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8578,7 +8207,6 @@ export type Triples_Stddev_Order_By = {
 export type Triples_Stddev_Pop_Fields = {
   __typename?: 'triples_stddev_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8589,7 +8217,6 @@ export type Triples_Stddev_Pop_Fields = {
 /** order by stddev_pop() on columns of table "triple" */
 export type Triples_Stddev_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8601,7 +8228,6 @@ export type Triples_Stddev_Pop_Order_By = {
 export type Triples_Stddev_Samp_Fields = {
   __typename?: 'triples_stddev_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8612,7 +8238,6 @@ export type Triples_Stddev_Samp_Fields = {
 /** order by stddev_samp() on columns of table "triple" */
 export type Triples_Stddev_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8631,8 +8256,8 @@ export type Triples_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Triples_Stream_Cursor_Value_Input = {
   block_number?: InputMaybe<Scalars['numeric']['input']>
-  block_timestamp?: InputMaybe<Scalars['bigint']['input']>
   counter_term_id?: InputMaybe<Scalars['numeric']['input']>
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   creator_id?: InputMaybe<Scalars['String']['input']>
   object_id?: InputMaybe<Scalars['numeric']['input']>
   predicate_id?: InputMaybe<Scalars['numeric']['input']>
@@ -8645,7 +8270,6 @@ export type Triples_Stream_Cursor_Value_Input = {
 export type Triples_Sum_Fields = {
   __typename?: 'triples_sum_fields'
   block_number?: Maybe<Scalars['numeric']['output']>
-  block_timestamp?: Maybe<Scalars['bigint']['output']>
   counter_term_id?: Maybe<Scalars['numeric']['output']>
   object_id?: Maybe<Scalars['numeric']['output']>
   predicate_id?: Maybe<Scalars['numeric']['output']>
@@ -8656,7 +8280,6 @@ export type Triples_Sum_Fields = {
 /** order by sum() on columns of table "triple" */
 export type Triples_Sum_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8668,7 +8291,6 @@ export type Triples_Sum_Order_By = {
 export type Triples_Var_Pop_Fields = {
   __typename?: 'triples_var_pop_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8679,7 +8301,6 @@ export type Triples_Var_Pop_Fields = {
 /** order by var_pop() on columns of table "triple" */
 export type Triples_Var_Pop_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8691,7 +8312,6 @@ export type Triples_Var_Pop_Order_By = {
 export type Triples_Var_Samp_Fields = {
   __typename?: 'triples_var_samp_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8702,7 +8322,6 @@ export type Triples_Var_Samp_Fields = {
 /** order by var_samp() on columns of table "triple" */
 export type Triples_Var_Samp_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8714,7 +8333,6 @@ export type Triples_Var_Samp_Order_By = {
 export type Triples_Variance_Fields = {
   __typename?: 'triples_variance_fields'
   block_number?: Maybe<Scalars['Float']['output']>
-  block_timestamp?: Maybe<Scalars['Float']['output']>
   counter_term_id?: Maybe<Scalars['Float']['output']>
   object_id?: Maybe<Scalars['Float']['output']>
   predicate_id?: Maybe<Scalars['Float']['output']>
@@ -8725,7 +8343,6 @@ export type Triples_Variance_Fields = {
 /** order by variance() on columns of table "triple" */
 export type Triples_Variance_Order_By = {
   block_number?: InputMaybe<Order_By>
-  block_timestamp?: InputMaybe<Order_By>
   counter_term_id?: InputMaybe<Order_By>
   object_id?: InputMaybe<Order_By>
   predicate_id?: InputMaybe<Order_By>
@@ -8736,6 +8353,7 @@ export type Triples_Variance_Order_By = {
 /** columns and relationships of "vault" */
 export type Vaults = {
   __typename?: 'vaults'
+  created_at: Scalars['timestamptz']['output']
   current_share_price: Scalars['numeric']['output']
   curve_id: Scalars['numeric']['output']
   /** An array relationship */
@@ -8761,6 +8379,7 @@ export type Vaults = {
   term_id: Scalars['numeric']['output']
   total_assets: Scalars['numeric']['output']
   total_shares: Scalars['numeric']['output']
+  updated_at: Scalars['timestamptz']['output']
 }
 
 /** columns and relationships of "vault" */
@@ -8918,6 +8537,7 @@ export type Vaults_Bool_Exp = {
   _and?: InputMaybe<Array<Vaults_Bool_Exp>>
   _not?: InputMaybe<Vaults_Bool_Exp>
   _or?: InputMaybe<Array<Vaults_Bool_Exp>>
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>
   current_share_price?: InputMaybe<Numeric_Comparison_Exp>
   curve_id?: InputMaybe<Numeric_Comparison_Exp>
   deposits?: InputMaybe<Deposits_Bool_Exp>
@@ -8934,11 +8554,13 @@ export type Vaults_Bool_Exp = {
   term_id?: InputMaybe<Numeric_Comparison_Exp>
   total_assets?: InputMaybe<Numeric_Comparison_Exp>
   total_shares?: InputMaybe<Numeric_Comparison_Exp>
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>
 }
 
 /** aggregate max on columns */
 export type Vaults_Max_Fields = {
   __typename?: 'vaults_max_fields'
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   current_share_price?: Maybe<Scalars['numeric']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   market_cap?: Maybe<Scalars['numeric']['output']>
@@ -8946,10 +8568,12 @@ export type Vaults_Max_Fields = {
   term_id?: Maybe<Scalars['numeric']['output']>
   total_assets?: Maybe<Scalars['numeric']['output']>
   total_shares?: Maybe<Scalars['numeric']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
 }
 
 /** order by max() on columns of table "vault" */
 export type Vaults_Max_Order_By = {
+  created_at?: InputMaybe<Order_By>
   current_share_price?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   market_cap?: InputMaybe<Order_By>
@@ -8957,11 +8581,13 @@ export type Vaults_Max_Order_By = {
   term_id?: InputMaybe<Order_By>
   total_assets?: InputMaybe<Order_By>
   total_shares?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
 }
 
 /** aggregate min on columns */
 export type Vaults_Min_Fields = {
   __typename?: 'vaults_min_fields'
+  created_at?: Maybe<Scalars['timestamptz']['output']>
   current_share_price?: Maybe<Scalars['numeric']['output']>
   curve_id?: Maybe<Scalars['numeric']['output']>
   market_cap?: Maybe<Scalars['numeric']['output']>
@@ -8969,10 +8595,12 @@ export type Vaults_Min_Fields = {
   term_id?: Maybe<Scalars['numeric']['output']>
   total_assets?: Maybe<Scalars['numeric']['output']>
   total_shares?: Maybe<Scalars['numeric']['output']>
+  updated_at?: Maybe<Scalars['timestamptz']['output']>
 }
 
 /** order by min() on columns of table "vault" */
 export type Vaults_Min_Order_By = {
+  created_at?: InputMaybe<Order_By>
   current_share_price?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   market_cap?: InputMaybe<Order_By>
@@ -8980,10 +8608,12 @@ export type Vaults_Min_Order_By = {
   term_id?: InputMaybe<Order_By>
   total_assets?: InputMaybe<Order_By>
   total_shares?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "vault". */
 export type Vaults_Order_By = {
+  created_at?: InputMaybe<Order_By>
   current_share_price?: InputMaybe<Order_By>
   curve_id?: InputMaybe<Order_By>
   deposits_aggregate?: InputMaybe<Deposits_Aggregate_Order_By>
@@ -8996,10 +8626,13 @@ export type Vaults_Order_By = {
   term_id?: InputMaybe<Order_By>
   total_assets?: InputMaybe<Order_By>
   total_shares?: InputMaybe<Order_By>
+  updated_at?: InputMaybe<Order_By>
 }
 
 /** select columns of table "vault" */
 export type Vaults_Select_Column =
+  /** column name */
+  | 'created_at'
   /** column name */
   | 'current_share_price'
   /** column name */
@@ -9014,6 +8647,8 @@ export type Vaults_Select_Column =
   | 'total_assets'
   /** column name */
   | 'total_shares'
+  /** column name */
+  | 'updated_at'
 
 /** aggregate stddev on columns */
 export type Vaults_Stddev_Fields = {
@@ -9094,6 +8729,7 @@ export type Vaults_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Vaults_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>
   current_share_price?: InputMaybe<Scalars['numeric']['input']>
   curve_id?: InputMaybe<Scalars['numeric']['input']>
   market_cap?: InputMaybe<Scalars['numeric']['input']>
@@ -9101,6 +8737,7 @@ export type Vaults_Stream_Cursor_Value_Input = {
   term_id?: InputMaybe<Scalars['numeric']['input']>
   total_assets?: InputMaybe<Scalars['numeric']['input']>
   total_shares?: InputMaybe<Scalars['numeric']['input']>
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>
 }
 
 /** aggregate sum on columns */
@@ -9206,24 +8843,19 @@ export type AccountMetadataFragment = {
 
 export type AccountClaimsAggregateFragment = {
   __typename?: 'accounts'
-  claims_aggregate: {
-    __typename?: 'claims_aggregate'
-    aggregate?: { __typename?: 'claims_aggregate_fields'; count: number } | null
-    nodes: Array<{
-      __typename?: 'claims'
-      id: string
-      position: { __typename?: 'positions'; shares: any }
-    }>
+  positions_aggregate: {
+    __typename?: 'positions_aggregate'
+    aggregate?: {
+      __typename?: 'positions_aggregate_fields'
+      count: number
+    } | null
+    nodes: Array<{ __typename?: 'positions'; id: string; shares: any }>
   }
 }
 
 export type AccountClaimsFragment = {
   __typename?: 'accounts'
-  claims: Array<{
-    __typename?: 'claims'
-    id: string
-    position: { __typename?: 'positions'; shares: any }
-  }>
+  positions: Array<{ __typename?: 'positions'; id: string; shares: any }>
 }
 
 export type AccountPositionsAggregateFragment = {
@@ -9447,7 +9079,7 @@ export type AtomMetadataFragment = {
 export type AtomTxnFragment = {
   __typename?: 'atoms'
   block_number: any
-  block_timestamp: any
+  created_at: any
   transaction_hash: string
   creator_id: string
 }
@@ -9652,7 +9284,7 @@ export type DepositEventFragmentFragment = {
 export type EventDetailsFragment = {
   __typename?: 'events'
   block_number: any
-  block_timestamp: any
+  created_at: any
   type: any
   transaction_hash: string
   atom_id?: any | null
@@ -9965,7 +9597,7 @@ export type EventDetailsFragment = {
 export type EventDetailsSubscriptionFragment = {
   __typename?: 'events'
   block_number: any
-  block_timestamp: any
+  created_at: any
   type: any
   transaction_hash: string
   atom_id?: any | null
@@ -10676,7 +10308,7 @@ export type TripleMetadataFragment = {
 export type TripleTxnFragment = {
   __typename?: 'triples'
   block_number: any
-  block_timestamp: any
+  created_at: any
   transaction_hash: string
   creator_id: string
 }
@@ -11373,7 +11005,6 @@ export type GetAccountsQueryVariables = Exact<{
   where?: InputMaybe<Accounts_Bool_Exp>
   claimsLimit?: InputMaybe<Scalars['Int']['input']>
   claimsOffset?: InputMaybe<Scalars['Int']['input']>
-  claimsWhere?: InputMaybe<Claims_Bool_Exp>
   positionsLimit?: InputMaybe<Scalars['Int']['input']>
   positionsOffset?: InputMaybe<Scalars['Int']['input']>
   positionsWhere?: InputMaybe<Positions_Bool_Exp>
@@ -11422,11 +11053,6 @@ export type GetAccountsQuery = {
         }>
       }
     } | null
-    claims: Array<{
-      __typename?: 'claims'
-      id: string
-      position: { __typename?: 'positions'; shares: any }
-    }>
     positions: Array<{
       __typename?: 'positions'
       id: string
@@ -11457,7 +11083,6 @@ export type GetAccountsWithAggregatesQueryVariables = Exact<{
   where?: InputMaybe<Accounts_Bool_Exp>
   claimsLimit?: InputMaybe<Scalars['Int']['input']>
   claimsOffset?: InputMaybe<Scalars['Int']['input']>
-  claimsWhere?: InputMaybe<Claims_Bool_Exp>
   positionsLimit?: InputMaybe<Scalars['Int']['input']>
   positionsOffset?: InputMaybe<Scalars['Int']['input']>
   positionsWhere?: InputMaybe<Positions_Bool_Exp>
@@ -11482,11 +11107,6 @@ export type GetAccountsWithAggregatesQuery = {
       id: string
       atom_id?: any | null
       type: any
-      claims: Array<{
-        __typename?: 'claims'
-        id: string
-        position: { __typename?: 'positions'; shares: any }
-      }>
       positions: Array<{
         __typename?: 'positions'
         id: string
@@ -11530,7 +11150,6 @@ export type GetAccountQueryVariables = Exact<{
   address: Scalars['String']['input']
   claimsLimit?: InputMaybe<Scalars['Int']['input']>
   claimsOffset?: InputMaybe<Scalars['Int']['input']>
-  claimsWhere?: InputMaybe<Claims_Bool_Exp>
   positionsLimit?: InputMaybe<Scalars['Int']['input']>
   positionsOffset?: InputMaybe<Scalars['Int']['input']>
   positionsWhere?: InputMaybe<Positions_Bool_Exp>
@@ -11630,11 +11249,6 @@ export type GetAccountQuery = {
         } | null
       } | null
     } | null
-    claims: Array<{
-      __typename?: 'claims'
-      id: string
-      position: { __typename?: 'positions'; shares: any }
-    }>
     positions: Array<{
       __typename?: 'positions'
       id: string
@@ -11698,7 +11312,6 @@ export type GetAccountWithPaginatedRelationsQueryVariables = Exact<{
   address: Scalars['String']['input']
   claimsLimit?: InputMaybe<Scalars['Int']['input']>
   claimsOffset?: InputMaybe<Scalars['Int']['input']>
-  claimsWhere?: InputMaybe<Claims_Bool_Exp>
   positionsLimit?: InputMaybe<Scalars['Int']['input']>
   positionsOffset?: InputMaybe<Scalars['Int']['input']>
   positionsWhere?: InputMaybe<Positions_Bool_Exp>
@@ -11721,11 +11334,6 @@ export type GetAccountWithPaginatedRelationsQuery = {
     id: string
     atom_id?: any | null
     type: any
-    claims: Array<{
-      __typename?: 'claims'
-      id: string
-      position: { __typename?: 'positions'; shares: any }
-    }>
     positions: Array<{
       __typename?: 'positions'
       id: string
@@ -11788,7 +11396,6 @@ export type GetAccountWithAggregatesQueryVariables = Exact<{
   address: Scalars['String']['input']
   claimsLimit?: InputMaybe<Scalars['Int']['input']>
   claimsOffset?: InputMaybe<Scalars['Int']['input']>
-  claimsWhere?: InputMaybe<Claims_Bool_Exp>
   positionsLimit?: InputMaybe<Scalars['Int']['input']>
   positionsOffset?: InputMaybe<Scalars['Int']['input']>
   positionsWhere?: InputMaybe<Positions_Bool_Exp>
@@ -11811,18 +11418,6 @@ export type GetAccountWithAggregatesQuery = {
     id: string
     atom_id?: any | null
     type: any
-    claims_aggregate: {
-      __typename?: 'claims_aggregate'
-      aggregate?: {
-        __typename?: 'claims_aggregate_fields'
-        count: number
-      } | null
-      nodes: Array<{
-        __typename?: 'claims'
-        id: string
-        position: { __typename?: 'positions'; shares: any }
-      }>
-    }
     positions_aggregate: {
       __typename?: 'positions_aggregate'
       aggregate?: {
@@ -11919,7 +11514,7 @@ export type GetAtomsQuery = {
     type: any
     wallet_id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     creator: {
@@ -12132,7 +11727,7 @@ export type GetAtomsWithPositionsQuery = {
     type: any
     wallet_id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     term: {
@@ -12230,7 +11825,7 @@ export type GetAtomsWithAggregatesQuery = {
       type: any
       wallet_id: string
       block_number: any
-      block_timestamp: any
+      created_at: any
       transaction_hash: string
       creator_id: string
       creator: {
@@ -12334,7 +11929,7 @@ export type GetAtomQuery = {
     type: any
     wallet_id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     creator: {
@@ -12539,7 +12134,7 @@ export type GetAtomByDataQuery = {
     type: any
     wallet_id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     creator: {
@@ -12742,7 +12337,7 @@ export type GetVerifiedAtomDetailsQuery = {
     wallet_id: string
     image?: string | null
     type: any
-    block_timestamp: any
+    created_at: any
     data?: string | null
     creator: { __typename?: 'accounts'; id: string }
     value?: {
@@ -12827,7 +12422,7 @@ export type GetAtomDetailsQuery = {
     wallet_id: string
     image?: string | null
     type: any
-    block_timestamp: any
+    created_at: any
     data?: string | null
     creator: { __typename?: 'accounts'; id: string }
     value?: {
@@ -12889,7 +12484,7 @@ export type GetAtomsByCreatorQuery = {
     label?: string | null
     type: any
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     value?: {
@@ -12918,217 +12513,6 @@ export type GetAtomsByCreatorQuery = {
   }>
 }
 
-export type GetClaimsByAddressQueryVariables = Exact<{
-  address?: InputMaybe<Scalars['String']['input']>
-}>
-
-export type GetClaimsByAddressQuery = {
-  __typename?: 'query_root'
-  claims_aggregate: {
-    __typename?: 'claims_aggregate'
-    aggregate?: { __typename?: 'claims_aggregate_fields'; count: number } | null
-    nodes: Array<{
-      __typename?: 'claims'
-      account?: { __typename?: 'accounts'; label: string } | null
-      position: {
-        __typename?: 'positions'
-        shares: any
-        term: {
-          __typename?: 'terms'
-          triple?: {
-            __typename?: 'triples'
-            term_id: any
-            counter_term_id: any
-            subject: { __typename?: 'atoms'; label?: string | null }
-            predicate: { __typename?: 'atoms'; label?: string | null }
-            object: { __typename?: 'atoms'; label?: string | null }
-          } | null
-        }
-      }
-    }>
-  }
-}
-
-export type GetClaimsByUriQueryVariables = Exact<{
-  address?: InputMaybe<Scalars['String']['input']>
-  uri?: InputMaybe<Scalars['String']['input']>
-}>
-
-export type GetClaimsByUriQuery = {
-  __typename?: 'query_root'
-  atoms: Array<{
-    __typename?: 'atoms'
-    term_id: any
-    label?: string | null
-    image?: string | null
-    as_subject_triples_aggregate: {
-      __typename?: 'triples_aggregate'
-      aggregate?: {
-        __typename?: 'triples_aggregate_fields'
-        count: number
-      } | null
-      nodes: Array<{
-        __typename?: 'triples'
-        term_id: any
-        counter_term_id: any
-        term?: {
-          __typename?: 'terms'
-          positions_aggregate: {
-            __typename?: 'positions_aggregate'
-            aggregate?: {
-              __typename?: 'positions_aggregate_fields'
-              count: number
-            } | null
-          }
-        } | null
-        counter_term?: {
-          __typename?: 'terms'
-          positions_aggregate: {
-            __typename?: 'positions_aggregate'
-            aggregate?: {
-              __typename?: 'positions_aggregate_fields'
-              count: number
-            } | null
-          }
-        } | null
-        subject: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        predicate: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        object: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        positions: Array<{ __typename?: 'positions'; shares: any }>
-        positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        counter_positions: Array<{ __typename?: 'positions'; shares: any }>
-        counter_positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        creator?: {
-          __typename?: 'accounts'
-          label: string
-          id: string
-          type: any
-        } | null
-      }>
-    }
-    as_object_triples_aggregate: {
-      __typename?: 'triples_aggregate'
-      aggregate?: {
-        __typename?: 'triples_aggregate_fields'
-        count: number
-      } | null
-      nodes: Array<{
-        __typename?: 'triples'
-        term_id: any
-        counter_term_id: any
-        term?: {
-          __typename?: 'terms'
-          positions_aggregate: {
-            __typename?: 'positions_aggregate'
-            aggregate?: {
-              __typename?: 'positions_aggregate_fields'
-              count: number
-            } | null
-          }
-        } | null
-        counter_term?: {
-          __typename?: 'terms'
-          positions_aggregate: {
-            __typename?: 'positions_aggregate'
-            aggregate?: {
-              __typename?: 'positions_aggregate_fields'
-              count: number
-            } | null
-          }
-        } | null
-        predicate: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        subject: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        object: {
-          __typename?: 'atoms'
-          label?: string | null
-          image?: string | null
-          type: any
-          term_id: any
-        }
-        positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        positions: Array<{ __typename?: 'positions'; shares: any }>
-        counter_positions_aggregate: {
-          __typename?: 'positions_aggregate'
-          aggregate?: {
-            __typename?: 'positions_aggregate_fields'
-            count: number
-          } | null
-        }
-        counter_positions: Array<{ __typename?: 'positions'; shares: any }>
-        creator?: {
-          __typename?: 'accounts'
-          label: string
-          id: string
-          type: any
-        } | null
-      }>
-    }
-    positions_aggregate: {
-      __typename?: 'positions_aggregate'
-      aggregate?: {
-        __typename?: 'positions_aggregate_fields'
-        count: number
-      } | null
-    }
-    value?: {
-      __typename?: 'atom_values'
-      thing?: {
-        __typename?: 'things'
-        description?: string | null
-        url?: string | null
-      } | null
-    } | null
-  }>
-}
-
 export type GetEventsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
@@ -13149,7 +12533,7 @@ export type GetEventsQuery = {
     __typename?: 'events'
     id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     type: any
     transaction_hash: string
     atom_id?: any | null
@@ -13438,19 +12822,19 @@ export type GetEventsWithAggregatesQuery = {
       count: number
       max?: {
         __typename?: 'events_max_fields'
-        block_timestamp?: any | null
+        created_at?: any | null
         block_number?: any | null
       } | null
       min?: {
         __typename?: 'events_min_fields'
-        block_timestamp?: any | null
+        created_at?: any | null
         block_number?: any | null
       } | null
     } | null
     nodes: Array<{
       __typename?: 'events'
       block_number: any
-      block_timestamp: any
+      created_at: any
       type: any
       transaction_hash: string
       atom_id?: any | null
@@ -13787,12 +13171,12 @@ export type GetEventsDataQuery = {
       count: number
       max?: {
         __typename?: 'events_max_fields'
-        block_timestamp?: any | null
+        created_at?: any | null
         block_number?: any | null
       } | null
       min?: {
         __typename?: 'events_min_fields'
-        block_timestamp?: any | null
+        created_at?: any | null
         block_number?: any | null
       } | null
       avg?: {
@@ -15406,7 +14790,7 @@ export type GetListDetailsWithUserQuery = {
 
 export type GetFeeTransfersQueryVariables = Exact<{
   address: Scalars['String']['input']
-  cutoff_timestamp?: InputMaybe<Scalars['bigint']['input']>
+  cutoff_timestamp?: InputMaybe<Scalars['timestamptz']['input']>
 }>
 
 export type GetFeeTransfersQuery = {
@@ -16329,7 +15713,7 @@ export type GetSignalsQuery = {
     __typename?: 'signals'
     id: string
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     atom_id?: any | null
     triple_id?: any | null
@@ -17273,7 +16657,7 @@ export type GetTriplesQuery = {
     predicate_id: any
     object_id: any
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     counter_term_id: any
@@ -17855,7 +17239,7 @@ export type GetTriplesWithAggregatesQuery = {
       predicate_id: any
       object_id: any
       block_number: any
-      block_timestamp: any
+      created_at: any
       transaction_hash: string
       creator_id: string
       counter_term_id: any
@@ -18441,7 +17825,7 @@ export type GetTripleQuery = {
     predicate_id: any
     object_id: any
     block_number: any
-    block_timestamp: any
+    created_at: any
     transaction_hash: string
     creator_id: string
     counter_term_id: any
@@ -19275,7 +18659,7 @@ export type EventsSubscription = {
   events: Array<{
     __typename?: 'events'
     block_number: any
-    block_timestamp: any
+    created_at: any
     type: any
     transaction_hash: string
     atom_id?: any | null
@@ -19534,7 +18918,7 @@ export const AccountClaimsAggregateFragmentDoc = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
+            name: { kind: 'Name', value: 'positions_aggregate' },
             arguments: [
               {
                 kind: 'Argument',
@@ -19544,17 +18928,8 @@ export const AccountClaimsAggregateFragmentDoc = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -19582,16 +18957,7 @@ export const AccountClaimsAggregateFragmentDoc = {
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -19619,7 +18985,7 @@ export const AccountClaimsFragmentDoc = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
+            name: { kind: 'Name', value: 'positions' },
             arguments: [
               {
                 kind: 'Argument',
@@ -19629,17 +18995,8 @@ export const AccountClaimsFragmentDoc = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -19665,7 +19022,7 @@ export const AccountClaimsFragmentDoc = {
                 name: { kind: 'Name', value: 'where' },
                 value: {
                   kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
+                  name: { kind: 'Name', value: 'positionsWhere' },
                 },
               },
             ],
@@ -19673,19 +19030,7 @@ export const AccountClaimsFragmentDoc = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
               ],
             },
           },
@@ -20691,7 +20036,7 @@ export const AtomTxnFragmentDoc = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -22161,7 +21506,7 @@ export const EventDetailsFragmentDoc = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -23690,7 +23035,7 @@ export const EventDetailsSubscriptionFragmentDoc = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -24743,7 +24088,7 @@ export const TripleTxnFragmentDoc = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -27319,17 +26664,6 @@ export const GetAccountsDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -27400,10 +26734,6 @@ export const GetAccountsDocument = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountMetadata' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
                 },
                 {
                   kind: 'FragmentSpread',
@@ -27615,91 +26945,6 @@ export const GetAccountsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'AccountPositions' },
       typeCondition: {
         kind: 'NamedType',
@@ -27843,7 +27088,6 @@ export const GetAccountsDocument = {
  *      where: // value for 'where'
  *      claimsLimit: // value for 'claimsLimit'
  *      claimsOffset: // value for 'claimsOffset'
- *      claimsWhere: // value for 'claimsWhere'
  *      positionsLimit: // value for 'positionsLimit'
  *      positionsOffset: // value for 'positionsOffset'
  *      positionsWhere: // value for 'positionsWhere'
@@ -27969,17 +27213,6 @@ export const GetAccountsWithAggregatesDocument = {
             name: { kind: 'Name', value: 'claimsOffset' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
         },
         {
           kind: 'VariableDefinition',
@@ -28118,10 +27351,6 @@ export const GetAccountsWithAggregatesDocument = {
                       },
                       {
                         kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountClaims' },
-                      },
-                      {
-                        kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'AccountPositions' },
                       },
                     ],
@@ -28148,91 +27377,6 @@ export const GetAccountsWithAggregatesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -28381,7 +27525,6 @@ export const GetAccountsWithAggregatesDocument = {
  *      where: // value for 'where'
  *      claimsLimit: // value for 'claimsLimit'
  *      claimsOffset: // value for 'claimsOffset'
- *      claimsWhere: // value for 'claimsWhere'
  *      positionsLimit: // value for 'positionsLimit'
  *      positionsOffset: // value for 'positionsOffset'
  *      positionsWhere: // value for 'positionsWhere'
@@ -28616,17 +27759,6 @@ export const GetAccountDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -28781,10 +27913,6 @@ export const GetAccountDocument = {
                 },
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
-                },
-                {
-                  kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountPositions' },
                 },
                 {
@@ -28847,91 +27975,6 @@ export const GetAccountDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -29675,7 +28718,6 @@ export const GetAccountDocument = {
  *      address: // value for 'address'
  *      claimsLimit: // value for 'claimsLimit'
  *      claimsOffset: // value for 'claimsOffset'
- *      claimsWhere: // value for 'claimsWhere'
  *      positionsLimit: // value for 'positionsLimit'
  *      positionsOffset: // value for 'positionsOffset'
  *      positionsWhere: // value for 'positionsWhere'
@@ -29783,17 +28825,6 @@ export const GetAccountWithPaginatedRelationsDocument = {
             name: { kind: 'Name', value: 'claimsOffset' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
         },
         {
           kind: 'VariableDefinition',
@@ -29936,10 +28967,6 @@ export const GetAccountWithPaginatedRelationsDocument = {
                 },
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
-                },
-                {
-                  kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountPositions' },
                 },
                 {
@@ -29971,91 +28998,6 @@ export const GetAccountWithPaginatedRelationsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -30525,7 +29467,6 @@ export const GetAccountWithPaginatedRelationsDocument = {
  *      address: // value for 'address'
  *      claimsLimit: // value for 'claimsLimit'
  *      claimsOffset: // value for 'claimsOffset'
- *      claimsWhere: // value for 'claimsWhere'
  *      positionsLimit: // value for 'positionsLimit'
  *      positionsOffset: // value for 'positionsOffset'
  *      positionsWhere: // value for 'positionsWhere'
@@ -30637,17 +29578,6 @@ export const GetAccountWithAggregatesDocument = {
             name: { kind: 'Name', value: 'claimsOffset' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
         },
         {
           kind: 'VariableDefinition',
@@ -30840,7 +29770,7 @@ export const GetAccountWithAggregatesDocument = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
+            name: { kind: 'Name', value: 'positions_aggregate' },
             arguments: [
               {
                 kind: 'Argument',
@@ -30850,17 +29780,8 @@ export const GetAccountWithAggregatesDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -30888,16 +29809,7 @@ export const GetAccountWithAggregatesDocument = {
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -31431,7 +30343,6 @@ export const GetAccountWithAggregatesDocument = {
  *      address: // value for 'address'
  *      claimsLimit: // value for 'claimsLimit'
  *      claimsOffset: // value for 'claimsOffset'
- *      claimsWhere: // value for 'claimsWhere'
  *      positionsLimit: // value for 'positionsLimit'
  *      positionsOffset: // value for 'positionsOffset'
  *      positionsWhere: // value for 'positionsWhere'
@@ -31800,7 +30711,7 @@ export const GetAtomsDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -32800,7 +31711,7 @@ export const GetAtomsWithPositionsDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -33164,7 +32075,7 @@ export const GetAtomsWithAggregatesDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -33754,7 +32665,7 @@ export const GetAtomDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -34448,7 +33359,7 @@ export const GetAtomByDataDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -34986,10 +33897,7 @@ export const GetVerifiedAtomDetailsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'wallet_id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'data' } },
                 {
                   kind: 'Field',
@@ -35739,10 +34647,7 @@ export const GetAtomDetailsDocument = {
                 { kind: 'Field', name: { kind: 'Name', value: 'wallet_id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'data' } },
                 {
                   kind: 'Field',
@@ -36254,10 +35159,7 @@ export const GetAtomsByCreatorDocument = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'transaction_hash' },
@@ -36458,1424 +35360,6 @@ export type GetAtomsByCreatorQueryResult = Apollo.QueryResult<
   GetAtomsByCreatorQuery,
   GetAtomsByCreatorQueryVariables
 >
-export const GetClaimsByAddressDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetClaimsByAddress' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'address' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'account_id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'address' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'nodes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'account' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'triple' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'subject',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'predicate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'object',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'term_id',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'counter_term_id',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetClaimsByAddressQuery__
- *
- * To run a query within a React component, call `useGetClaimsByAddressQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetClaimsByAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetClaimsByAddressQuery({
- *   variables: {
- *      address: // value for 'address'
- *   },
- * });
- */
-export function useGetClaimsByAddressQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetClaimsByAddressQuery,
-    GetClaimsByAddressQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<
-    GetClaimsByAddressQuery,
-    GetClaimsByAddressQueryVariables
-  >(GetClaimsByAddressDocument, options)
-}
-export function useGetClaimsByAddressLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetClaimsByAddressQuery,
-    GetClaimsByAddressQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<
-    GetClaimsByAddressQuery,
-    GetClaimsByAddressQueryVariables
-  >(GetClaimsByAddressDocument, options)
-}
-export function useGetClaimsByAddressSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetClaimsByAddressQuery,
-        GetClaimsByAddressQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetClaimsByAddressQuery,
-    GetClaimsByAddressQueryVariables
-  >(GetClaimsByAddressDocument, options)
-}
-export type GetClaimsByAddressQueryHookResult = ReturnType<
-  typeof useGetClaimsByAddressQuery
->
-export type GetClaimsByAddressLazyQueryHookResult = ReturnType<
-  typeof useGetClaimsByAddressLazyQuery
->
-export type GetClaimsByAddressSuspenseQueryHookResult = ReturnType<
-  typeof useGetClaimsByAddressSuspenseQuery
->
-export type GetClaimsByAddressQueryResult = Apollo.QueryResult<
-  GetClaimsByAddressQuery,
-  GetClaimsByAddressQueryVariables
->
-export const GetClaimsByUriDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetClaimsByUri' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'address' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'uri' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'atoms' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: '_or' },
-                      value: {
-                        kind: 'ListValue',
-                        values: [
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'data' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: '_eq' },
-                                      value: {
-                                        kind: 'Variable',
-                                        name: { kind: 'Name', value: 'uri' },
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'thing' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'person' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: {
-                                        kind: 'Name',
-                                        value: 'organization',
-                                      },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'book' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'as_subject_triples_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'as_object_triples_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'value' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'thing' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'description' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetClaimsByUriQuery__
- *
- * To run a query within a React component, call `useGetClaimsByUriQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetClaimsByUriQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetClaimsByUriQuery({
- *   variables: {
- *      address: // value for 'address'
- *      uri: // value for 'uri'
- *   },
- * });
- */
-export function useGetClaimsByUriQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetClaimsByUriQuery,
-    GetClaimsByUriQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetClaimsByUriQuery, GetClaimsByUriQueryVariables>(
-    GetClaimsByUriDocument,
-    options,
-  )
-}
-export function useGetClaimsByUriLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetClaimsByUriQuery,
-    GetClaimsByUriQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetClaimsByUriQuery, GetClaimsByUriQueryVariables>(
-    GetClaimsByUriDocument,
-    options,
-  )
-}
-export function useGetClaimsByUriSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetClaimsByUriQuery,
-        GetClaimsByUriQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetClaimsByUriQuery,
-    GetClaimsByUriQueryVariables
-  >(GetClaimsByUriDocument, options)
-}
-export type GetClaimsByUriQueryHookResult = ReturnType<
-  typeof useGetClaimsByUriQuery
->
-export type GetClaimsByUriLazyQueryHookResult = ReturnType<
-  typeof useGetClaimsByUriLazyQuery
->
-export type GetClaimsByUriSuspenseQueryHookResult = ReturnType<
-  typeof useGetClaimsByUriSuspenseQuery
->
-export type GetClaimsByUriQueryResult = Apollo.QueryResult<
-  GetClaimsByUriQuery,
-  GetClaimsByUriQueryVariables
->
 export const GetEventsDocument = {
   kind: 'Document',
   definitions: [
@@ -38024,10 +35508,7 @@ export const GetEventsDocument = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                 {
                   kind: 'Field',
@@ -39260,7 +36741,7 @@ export const GetEventsWithAggregatesDocument = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -39277,7 +36758,7 @@ export const GetEventsWithAggregatesDocument = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -39498,7 +36979,7 @@ export const GetEventsWithAggregatesDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -40567,7 +38048,7 @@ export const GetEventsDataDocument = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -40584,7 +38065,7 @@ export const GetEventsDataDocument = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -43709,7 +41190,7 @@ export const GetFollowingsFromAddressDocument = {
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'block_timestamp' },
+                            name: { kind: 'Name', value: 'block_number' },
                             value: { kind: 'EnumValue', value: 'desc' },
                           },
                         ],
@@ -48729,7 +46210,10 @@ export const GetFeeTransfersDocument = {
             kind: 'Variable',
             name: { kind: 'Name', value: 'cutoff_timestamp' },
           },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'bigint' } },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'timestamptz' },
+          },
         },
       ],
       selectionSet: {
@@ -48748,7 +46232,7 @@ export const GetFeeTransfersDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_timestamp' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -48825,7 +46309,7 @@ export const GetFeeTransfersDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_timestamp' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -52624,10 +50108,7 @@ export const GetSignalsDocument = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'transaction_hash' },
@@ -57183,7 +54664,7 @@ export const GetTriplesDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -58474,7 +55955,7 @@ export const GetTriplesWithAggregatesDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -59823,7 +57304,7 @@ export const GetTripleDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -62119,7 +59600,7 @@ export const EventsDocument = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -62775,7 +60256,7 @@ export const AccountClaimsAggregate = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
+            name: { kind: 'Name', value: 'positions_aggregate' },
             arguments: [
               {
                 kind: 'Argument',
@@ -62785,17 +60266,8 @@ export const AccountClaimsAggregate = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -62823,16 +60295,7 @@ export const AccountClaimsAggregate = {
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -62860,7 +60323,7 @@ export const AccountClaims = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
+            name: { kind: 'Name', value: 'positions' },
             arguments: [
               {
                 kind: 'Argument',
@@ -62870,17 +60333,8 @@ export const AccountClaims = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -62906,7 +60360,7 @@ export const AccountClaims = {
                 name: { kind: 'Name', value: 'where' },
                 value: {
                   kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
+                  name: { kind: 'Name', value: 'positionsWhere' },
                 },
               },
             ],
@@ -62914,19 +60368,7 @@ export const AccountClaims = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'shares' } },
               ],
             },
           },
@@ -63932,7 +61374,7 @@ export const AtomTxn = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -65402,7 +62844,7 @@ export const EventDetails = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -66931,7 +64373,7 @@ export const EventDetailsSubscription = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -67984,7 +65426,7 @@ export const TripleTxn = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -70470,17 +67912,6 @@ export const GetAccounts = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -70551,10 +67982,6 @@ export const GetAccounts = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountMetadata' },
-                },
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
                 },
                 {
                   kind: 'FragmentSpread',
@@ -70766,91 +68193,6 @@ export const GetAccounts = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'AccountPositions' },
       typeCondition: {
         kind: 'NamedType',
@@ -71047,17 +68389,6 @@ export const GetAccountsWithAggregates = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -71191,10 +68522,6 @@ export const GetAccountsWithAggregates = {
                       },
                       {
                         kind: 'FragmentSpread',
-                        name: { kind: 'Name', value: 'AccountClaims' },
-                      },
-                      {
-                        kind: 'FragmentSpread',
                         name: { kind: 'Name', value: 'AccountPositions' },
                       },
                     ],
@@ -71221,91 +68548,6 @@ export const GetAccountsWithAggregates = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -71534,17 +68776,6 @@ export const GetAccount = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -71699,10 +68930,6 @@ export const GetAccount = {
                 },
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
-                },
-                {
-                  kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountPositions' },
                 },
                 {
@@ -71765,91 +68992,6 @@ export const GetAccount = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -72619,17 +69761,6 @@ export const GetAccountWithPaginatedRelations = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -72767,10 +69898,6 @@ export const GetAccountWithPaginatedRelations = {
                 },
                 {
                   kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'AccountClaims' },
-                },
-                {
-                  kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'AccountPositions' },
                 },
                 {
@@ -72802,91 +69929,6 @@ export const GetAccountWithPaginatedRelations = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'AccountClaims' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'accounts' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'order_by' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'limit' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsLimit' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'offset' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsOffset' },
-                },
-              },
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'claimsWhere' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'position' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'shares' },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
         ],
       },
     },
@@ -73382,17 +70424,6 @@ export const GetAccountWithAggregates = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'claimsWhere' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'claims_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
             name: { kind: 'Name', value: 'positionsLimit' },
           },
           type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
@@ -73580,7 +70611,7 @@ export const GetAccountWithAggregates = {
         selections: [
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
+            name: { kind: 'Name', value: 'positions_aggregate' },
             arguments: [
               {
                 kind: 'Argument',
@@ -73590,17 +70621,8 @@ export const GetAccountWithAggregates = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'position' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'shares' },
-                            value: { kind: 'EnumValue', value: 'desc' },
-                          },
-                        ],
-                      },
+                      name: { kind: 'Name', value: 'shares' },
+                      value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
                 },
@@ -73628,16 +70650,7 @@ export const GetAccountWithAggregates = {
                       { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -74451,7 +71464,7 @@ export const GetAtoms = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -75385,7 +72398,7 @@ export const GetAtomsWithPositions = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -75674,7 +72687,7 @@ export const GetAtomsWithAggregates = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -76119,7 +73132,7 @@ export const GetAtom = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -76751,7 +73764,7 @@ export const GetAtomByData = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -77214,10 +74227,7 @@ export const GetVerifiedAtomDetails = {
                 { kind: 'Field', name: { kind: 'Name', value: 'wallet_id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'data' } },
                 {
                   kind: 'Field',
@@ -77891,10 +74901,7 @@ export const GetAtomDetails = {
                 { kind: 'Field', name: { kind: 'Name', value: 'wallet_id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'image' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'data' } },
                 {
                   kind: 'Field',
@@ -78330,10 +75337,7 @@ export const GetAtomsByCreator = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'transaction_hash' },
@@ -78444,1281 +75448,6 @@ export const GetAtomsByCreator = {
                                   },
                                 ],
                               },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetClaimsByAddress = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetClaimsByAddress' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'address' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'claims_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'account_id' },
-                      value: {
-                        kind: 'ObjectValue',
-                        fields: [
-                          {
-                            kind: 'ObjectField',
-                            name: { kind: 'Name', value: '_eq' },
-                            value: {
-                              kind: 'Variable',
-                              name: { kind: 'Name', value: 'address' },
-                            },
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'nodes' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'account' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'label' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'position' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'triple' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'subject',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'predicate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'object',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'label',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'term_id',
-                                          },
-                                        },
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'counter_term_id',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'shares' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetClaimsByUri = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetClaimsByUri' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'address' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'uri' } },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'atoms' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'ObjectValue',
-                  fields: [
-                    {
-                      kind: 'ObjectField',
-                      name: { kind: 'Name', value: '_or' },
-                      value: {
-                        kind: 'ListValue',
-                        values: [
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'data' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: '_eq' },
-                                      value: {
-                                        kind: 'Variable',
-                                        name: { kind: 'Name', value: 'uri' },
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'thing' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'person' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: {
-                                        kind: 'Name',
-                                        value: 'organization',
-                                      },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                          {
-                            kind: 'ObjectValue',
-                            fields: [
-                              {
-                                kind: 'ObjectField',
-                                name: { kind: 'Name', value: 'value' },
-                                value: {
-                                  kind: 'ObjectValue',
-                                  fields: [
-                                    {
-                                      kind: 'ObjectField',
-                                      name: { kind: 'Name', value: 'book' },
-                                      value: {
-                                        kind: 'ObjectValue',
-                                        fields: [
-                                          {
-                                            kind: 'ObjectField',
-                                            name: {
-                                              kind: 'Name',
-                                              value: 'url',
-                                            },
-                                            value: {
-                                              kind: 'ObjectValue',
-                                              fields: [
-                                                {
-                                                  kind: 'ObjectField',
-                                                  name: {
-                                                    kind: 'Name',
-                                                    value: '_eq',
-                                                  },
-                                                  value: {
-                                                    kind: 'Variable',
-                                                    name: {
-                                                      kind: 'Name',
-                                                      value: 'uri',
-                                                    },
-                                                  },
-                                                },
-                                              ],
-                                            },
-                                          },
-                                        ],
-                                      },
-                                    },
-                                  ],
-                                },
-                              },
-                            ],
-                          },
-                        ],
-                      },
-                    },
-                  ],
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'as_subject_triples_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'as_object_triples_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'nodes' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term_id' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'counter_term' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: {
-                                      kind: 'Name',
-                                      value: 'positions_aggregate',
-                                    },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'aggregate',
-                                          },
-                                          selectionSet: {
-                                            kind: 'SelectionSet',
-                                            selections: [
-                                              {
-                                                kind: 'Field',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'count',
-                                                },
-                                              },
-                                            ],
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'predicate' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'subject' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'object' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'image' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'term_id' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions_aggregate',
-                              },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'aggregate' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: {
-                                            kind: 'Name',
-                                            value: 'count',
-                                          },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: {
-                                kind: 'Name',
-                                value: 'counter_positions',
-                              },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_eq',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'address',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'creator' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'label' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'type' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'label' } },
-                { kind: 'Field', name: { kind: 'Name', value: 'image' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'value' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'thing' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'description' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'url' },
                             },
                           ],
                         },
@@ -79882,10 +75611,7 @@ export const GetEvents = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'type' } },
                 {
                   kind: 'Field',
@@ -81048,7 +76774,7 @@ export const GetEventsWithAggregates = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -81065,7 +76791,7 @@ export const GetEventsWithAggregates = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -81286,7 +77012,7 @@ export const GetEventsWithAggregates = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
@@ -82209,7 +77935,7 @@ export const GetEventsData = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -82226,7 +77952,7 @@ export const GetEventsData = {
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'block_timestamp' },
+                              name: { kind: 'Name', value: 'created_at' },
                             },
                             {
                               kind: 'Field',
@@ -84888,7 +80614,7 @@ export const GetFollowingsFromAddress = {
                         fields: [
                           {
                             kind: 'ObjectField',
-                            name: { kind: 'Name', value: 'block_timestamp' },
+                            name: { kind: 'Name', value: 'block_number' },
                             value: { kind: 'EnumValue', value: 'desc' },
                           },
                         ],
@@ -89233,7 +84959,10 @@ export const GetFeeTransfers = {
             kind: 'Variable',
             name: { kind: 'Name', value: 'cutoff_timestamp' },
           },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'bigint' } },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'timestamptz' },
+          },
         },
       ],
       selectionSet: {
@@ -89252,7 +84981,7 @@ export const GetFeeTransfers = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_timestamp' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -89329,7 +85058,7 @@ export const GetFeeTransfers = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_timestamp' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: {
                         kind: 'ObjectValue',
                         fields: [
@@ -92610,10 +88339,7 @@ export const GetSignals = {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'block_number' },
                 },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'block_timestamp' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'transaction_hash' },
@@ -96678,7 +92404,7 @@ export const GetTriples = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -97897,7 +93623,7 @@ export const GetTriplesWithAggregates = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -99101,7 +94827,7 @@ export const GetTriple = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
         ],
@@ -100975,7 +96701,7 @@ export const Events = {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'block_number' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'block_timestamp' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'created_at' } },
           { kind: 'Field', name: { kind: 'Name', value: 'type' } },
           { kind: 'Field', name: { kind: 'Name', value: 'transaction_hash' } },
           { kind: 'Field', name: { kind: 'Name', value: 'atom_id' } },
