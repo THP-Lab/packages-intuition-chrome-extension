@@ -180,7 +180,7 @@ query GetListDetailsWithPosition(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label
@@ -195,7 +195,7 @@ query GetListDetailsWithPosition(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label
@@ -281,7 +281,7 @@ query GetListDetailsWithUser(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label
@@ -296,7 +296,7 @@ query GetListDetailsWithUser(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label
@@ -366,7 +366,7 @@ query GetListDetailsWithUser(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label
@@ -381,7 +381,7 @@ query GetListDetailsWithUser(
         position_count
         total_shares
       }
-      positions(where: { account_id: { _eq: $address } }) {
+      positions(where: { account_id: { _ilike: $address } }) {
         account {
           id
           label

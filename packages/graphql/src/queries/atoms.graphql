@@ -49,7 +49,7 @@ query GetAtomsWithPositions(
             }
           }
         }
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           id
           account {
             label
@@ -276,7 +276,7 @@ query GetAtomDetails($id: numeric!, $userPositionAddress: String!) {
 }
 
 query GetAtomsByCreator($address: String!) {
-  atoms(where: { creator: { id: { _eq: $address } } }) {
+  atoms(where: { creator: { id: { _ilike: $address } } }) {
     term_id
     data
     image
