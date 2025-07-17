@@ -1,6 +1,6 @@
 # Main pagination query
 query GetTriplesByCreator($address: String) {
-  triples(where: { creator_id: { _eq: $address } }) {
+  triples(where: { creator_id: { _ilike: $address } }) {
     term_id
     creator_id
     subject {
@@ -147,7 +147,7 @@ query GetTriplesWithPositions(
       vaults {
         total_shares
         position_count
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           account {
             id
             label
@@ -166,7 +166,7 @@ query GetTriplesWithPositions(
       vaults {
         total_shares
         position_count
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           account {
             id
             label
@@ -216,7 +216,7 @@ query GetTriplesByAtom($term_id: numeric, $address: String) {
       }
       term {
         id
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           shares
           account_id 
         }
@@ -228,7 +228,7 @@ query GetTriplesByAtom($term_id: numeric, $address: String) {
       }
       counter_term {
         id
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           shares
           account_id
         }
@@ -293,7 +293,7 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
           type
           term_id
         }
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           shares
         }
         positions_aggregate {
@@ -301,7 +301,7 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
             count
           }
         }
-        counter_positions(where: { account_id: { _eq: $address } }) {
+        counter_positions(where: { account_id: { _ilike: $address } }) {
           shares
         }
         counter_positions_aggregate {
@@ -360,7 +360,7 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
             count
           }
         }
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           shares
         }
         counter_positions_aggregate {
@@ -368,7 +368,7 @@ query GetTriplesByUri($address: String, $uriRegex: String) {
             count
           }
         }
-        counter_positions(where: { account_id: { _eq: $address } }) {
+        counter_positions(where: { account_id: { _ilike: $address } }) {
           shares
         }
         creator {

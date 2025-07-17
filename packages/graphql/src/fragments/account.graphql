@@ -99,7 +99,7 @@ fragment AccountAtoms on accounts {
     term {
       vaults(where: { curve_id: { _eq: "1" } }) {
         total_shares
-        positions_aggregate(where: { account_id: { _eq: $address } }) {
+        positions_aggregate(where: { account_id: { _ilike: $address } }) {
           nodes {
             account {
               id
@@ -132,7 +132,7 @@ fragment AccountAtomsAggregate on accounts {
       term {
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
-          positions_aggregate(where: { account_id: { _eq: $address } }) {
+          positions_aggregate(where: { account_id: { _ilike: $address } }) {
             nodes {
               account {
                 id

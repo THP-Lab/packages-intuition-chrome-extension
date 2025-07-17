@@ -11,7 +11,7 @@ query GetFollowingPositions(
       _and: [
         { subject_id: { _eq: $subjectId } }
         { predicate_id: { _eq: $predicateId } }
-        { positions: { account_id: { _eq: $address } } }
+        { positions: { account_id: { _ilike: $address } } }
       ]
     }
   ) {
@@ -26,7 +26,7 @@ query GetFollowingPositions(
       _and: [
         { subject_id: { _eq: $subjectId } }
         { predicate_id: { _eq: $predicateId } }
-        { positions: { account_id: { _eq: $address } } }
+        { positions: { account_id: { _ilike: $address } } }
       ]
     }
   ) {
@@ -53,7 +53,7 @@ query GetFollowingPositions(
           }
         }
         positions(
-          where: { account_id: { _eq: $address } }
+          where: { account_id: { _ilike: $address } }
           order_by: $positionsOrderBy
         ) {
           account_id
@@ -202,7 +202,7 @@ query GetConnectionsCount(
       _and: [
         { subject_id: { _eq: $subjectId } }
         { predicate_id: { _eq: $predicateId } }
-        { positions: { account_id: { _eq: $address } } }
+        { positions: { account_id: { _ilike: $address } } }
       ]
     }
   ) {
@@ -278,7 +278,7 @@ query getFollowingsFromAddress($address: String!) {
             count
           }
         }
-        positions(where: { account_id: { _eq: $address } }) { 
+        positions(where: { account_id: { _ilike: $address } }) { 
           shares
           account {
             id
@@ -293,7 +293,7 @@ query getFollowingsFromAddress($address: String!) {
             count
           }
         }
-        positions(where: { account_id: { _eq: $address } }) {
+        positions(where: { account_id: { _ilike: $address } }) {
           shares
           account {
             id
@@ -337,7 +337,7 @@ query getFollowingsFromAddress($address: String!) {
                   count
                 }
               }
-              positions(where: { account_id: { _eq: $address } }) {
+              positions(where: { account_id: { _ilike: $address } }) {
                 shares
                 account {
                   id
@@ -351,7 +351,7 @@ query getFollowingsFromAddress($address: String!) {
                   count
                 }
               }
-              positions(where: { account_id: { _eq: $address } }) {
+              positions(where: { account_id: { _ilike: $address } }) {
                 shares
                 account {
                   id
@@ -370,7 +370,7 @@ query getFollowersFromAddress($address: String!) {
   triples(
     where: {
       predicate: { label: { _eq: "follow" } }
-      object: { accounts: { id: { _eq: $address } } }
+      object: { accounts: { id: { _ilike: $address } } }
     }
   ) {
     term_id
