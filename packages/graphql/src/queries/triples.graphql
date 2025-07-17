@@ -2,6 +2,7 @@
 query GetTriplesByCreator($address: String) {
   triples(where: { creator_id: { _ilike: $address } }) {
     term_id
+    counter_term_id
     creator_id
     subject {
       term_id
@@ -21,15 +22,25 @@ query GetTriplesByCreator($address: String) {
       image
       type
     }
-    positions_aggregate {
-      aggregate {
-        count
+    term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
       }
     }
-    counter_positions_aggregate {
-      aggregate {
-        count
+    counter_term {
+      positions_aggregate {
+        aggregate {
+          count
+        }
       }
+    }
+    positions(where: { account_id: { _ilike: $address } }) {
+      shares
+    }
+    counter_positions(where: { account_id: { _ilike: $address } }) {
+      shares
     }
   }
 }
