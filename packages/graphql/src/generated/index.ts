@@ -17808,6 +17808,7 @@ export type GetTriplesByCreatorQuery = {
   triples: Array<{
     __typename?: 'triples'
     term_id: any
+    counter_term_id: any
     creator_id: string
     subject: {
       __typename?: 'atoms'
@@ -17830,20 +17831,28 @@ export type GetTriplesByCreatorQuery = {
       image?: string | null
       type: any
     }
-    positions_aggregate: {
-      __typename?: 'positions_aggregate'
-      aggregate?: {
-        __typename?: 'positions_aggregate_fields'
-        count: number
-      } | null
-    }
-    counter_positions_aggregate: {
-      __typename?: 'positions_aggregate'
-      aggregate?: {
-        __typename?: 'positions_aggregate_fields'
-        count: number
-      } | null
-    }
+    term?: {
+      __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
+    } | null
+    counter_term?: {
+      __typename?: 'terms'
+      positions_aggregate: {
+        __typename?: 'positions_aggregate'
+        aggregate?: {
+          __typename?: 'positions_aggregate_fields'
+          count: number
+        } | null
+      }
+    } | null
+    positions: Array<{ __typename?: 'positions'; shares: any }>
+    counter_positions: Array<{ __typename?: 'positions'; shares: any }>
   }>
 }
 
@@ -19617,8 +19626,8 @@ export type GetTriplesWithPositionsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
   orderBy?: InputMaybe<Array<Triples_Order_By> | Triples_Order_By>
-  where?: InputMaybe<Triples_Bool_Exp>
-  address?: InputMaybe<Scalars['String']['input']>
+  where: Triples_Bool_Exp
+  address: Scalars['String']['input']
 }>
 
 export type GetTriplesWithPositionsQuery = {
@@ -54800,6 +54809,10 @@ export const GetTriplesByCreatorDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term_id' },
+                },
                 { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
                 {
                   kind: 'Field',
@@ -54851,19 +54864,28 @@ export const GetTriplesByCreatorDocument = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
                             },
                           ],
                         },
@@ -54873,22 +54895,113 @@ export const GetTriplesByCreatorDocument = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'counter_positions_aggregate' },
+                  name: { kind: 'Name', value: 'counter_term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
                             },
                           ],
                         },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'account_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_ilike' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'address' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'shares' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_positions' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'account_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_ilike' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'address' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -59088,8 +59201,11 @@ export const GetTriplesWithPositionsDocument = {
             name: { kind: 'Name', value: 'where' },
           },
           type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'triples_bool_exp' },
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'triples_bool_exp' },
+            },
           },
         },
         {
@@ -59098,7 +59214,13 @@ export const GetTriplesWithPositionsDocument = {
             kind: 'Variable',
             name: { kind: 'Name', value: 'address' },
           },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
         },
       ],
       selectionSet: {
@@ -59166,8 +59288,173 @@ export const GetTriplesWithPositionsDocument = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'Variable',
+                            name: { kind: 'Name', value: 'where' },
+                          },
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: { kind: 'Name', value: 'term' },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'vaults',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: 'positions',
+                                                      },
+                                                      value: {
+                                                        kind: 'ObjectValue',
+                                                        fields: [
+                                                          {
+                                                            kind: 'ObjectField',
+                                                            name: {
+                                                              kind: 'Name',
+                                                              value:
+                                                                'account_id',
+                                                            },
+                                                            value: {
+                                                              kind: 'ObjectValue',
+                                                              fields: [
+                                                                {
+                                                                  kind: 'ObjectField',
+                                                                  name: {
+                                                                    kind: 'Name',
+                                                                    value:
+                                                                      '_ilike',
+                                                                  },
+                                                                  value: {
+                                                                    kind: 'Variable',
+                                                                    name: {
+                                                                      kind: 'Name',
+                                                                      value:
+                                                                        'address',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                            },
+                                                          },
+                                                        ],
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'counter_term',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'vaults',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: 'positions',
+                                                      },
+                                                      value: {
+                                                        kind: 'ObjectValue',
+                                                        fields: [
+                                                          {
+                                                            kind: 'ObjectField',
+                                                            name: {
+                                                              kind: 'Name',
+                                                              value:
+                                                                'account_id',
+                                                            },
+                                                            value: {
+                                                              kind: 'ObjectValue',
+                                                              fields: [
+                                                                {
+                                                                  kind: 'ObjectField',
+                                                                  name: {
+                                                                    kind: 'Name',
+                                                                    value:
+                                                                      '_ilike',
+                                                                  },
+                                                                  value: {
+                                                                    kind: 'Variable',
+                                                                    name: {
+                                                                      kind: 'Name',
+                                                                      value:
+                                                                        'address',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                            },
+                                                          },
+                                                        ],
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -59504,10 +59791,14 @@ export const GetTriplesWithPositionsDocument = {
  * });
  */
 export function useGetTriplesWithPositionsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetTriplesWithPositionsQuery,
     GetTriplesWithPositionsQueryVariables
-  >,
+  > &
+    (
+      | { variables: GetTriplesWithPositionsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<
@@ -93770,6 +94061,10 @@ export const GetTriplesByCreator = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'term_id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_term_id' },
+                },
                 { kind: 'Field', name: { kind: 'Name', value: 'creator_id' } },
                 {
                   kind: 'Field',
@@ -93821,19 +94116,28 @@ export const GetTriplesByCreator = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'positions_aggregate' },
+                  name: { kind: 'Name', value: 'term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
                             },
                           ],
                         },
@@ -93843,22 +94147,113 @@ export const GetTriplesByCreator = {
                 },
                 {
                   kind: 'Field',
-                  name: { kind: 'Name', value: 'counter_positions_aggregate' },
+                  name: { kind: 'Name', value: 'counter_term' },
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'aggregate' },
+                        name: { kind: 'Name', value: 'positions_aggregate' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
                             {
                               kind: 'Field',
-                              name: { kind: 'Name', value: 'count' },
+                              name: { kind: 'Name', value: 'aggregate' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'count' },
+                                  },
+                                ],
+                              },
                             },
                           ],
                         },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'positions' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'account_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_ilike' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'address' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'shares' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'counter_positions' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'where' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'account_id' },
+                            value: {
+                              kind: 'ObjectValue',
+                              fields: [
+                                {
+                                  kind: 'ObjectField',
+                                  name: { kind: 'Name', value: '_ilike' },
+                                  value: {
+                                    kind: 'Variable',
+                                    name: { kind: 'Name', value: 'address' },
+                                  },
+                                },
+                              ],
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'shares' },
                       },
                     ],
                   },
@@ -97629,8 +98024,11 @@ export const GetTriplesWithPositions = {
             name: { kind: 'Name', value: 'where' },
           },
           type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'triples_bool_exp' },
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'triples_bool_exp' },
+            },
           },
         },
         {
@@ -97639,7 +98037,13 @@ export const GetTriplesWithPositions = {
             kind: 'Variable',
             name: { kind: 'Name', value: 'address' },
           },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
         },
       ],
       selectionSet: {
@@ -97707,8 +98111,173 @@ export const GetTriplesWithPositions = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'Variable',
+                            name: { kind: 'Name', value: 'where' },
+                          },
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: { kind: 'Name', value: 'term' },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'vaults',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: 'positions',
+                                                      },
+                                                      value: {
+                                                        kind: 'ObjectValue',
+                                                        fields: [
+                                                          {
+                                                            kind: 'ObjectField',
+                                                            name: {
+                                                              kind: 'Name',
+                                                              value:
+                                                                'account_id',
+                                                            },
+                                                            value: {
+                                                              kind: 'ObjectValue',
+                                                              fields: [
+                                                                {
+                                                                  kind: 'ObjectField',
+                                                                  name: {
+                                                                    kind: 'Name',
+                                                                    value:
+                                                                      '_ilike',
+                                                                  },
+                                                                  value: {
+                                                                    kind: 'Variable',
+                                                                    name: {
+                                                                      kind: 'Name',
+                                                                      value:
+                                                                        'address',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                            },
+                                                          },
+                                                        ],
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'counter_term',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'vaults',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: 'positions',
+                                                      },
+                                                      value: {
+                                                        kind: 'ObjectValue',
+                                                        fields: [
+                                                          {
+                                                            kind: 'ObjectField',
+                                                            name: {
+                                                              kind: 'Name',
+                                                              value:
+                                                                'account_id',
+                                                            },
+                                                            value: {
+                                                              kind: 'ObjectValue',
+                                                              fields: [
+                                                                {
+                                                                  kind: 'ObjectField',
+                                                                  name: {
+                                                                    kind: 'Name',
+                                                                    value:
+                                                                      '_ilike',
+                                                                  },
+                                                                  value: {
+                                                                    kind: 'Variable',
+                                                                    name: {
+                                                                      kind: 'Name',
+                                                                      value:
+                                                                        'address',
+                                                                    },
+                                                                  },
+                                                                },
+                                                              ],
+                                                            },
+                                                          },
+                                                        ],
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],

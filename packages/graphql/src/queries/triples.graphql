@@ -123,15 +123,29 @@ query GetTriplesWithPositions(
   $limit: Int
   $offset: Int
   $orderBy: [triples_order_by!]
-  $where: triples_bool_exp
-  $address: String
+  $where: triples_bool_exp!
+  $address: String!
 ) {
   total: triples_aggregate(where: $where) {
-    aggregate {
-      count
-    }
+    aggregate { count }
   }
-  triples(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
+
+  triples(
+    limit: $limit
+    offset: $offset
+    order_by: $orderBy
+    where: {
+      _and: [
+        $where,
+        {
+          _or: [
+            { term:         { vaults: { positions: { account_id: { _ilike: $address } } } } },
+            { counter_term: { vaults: { positions: { account_id: { _ilike: $address } } } } }
+          ]
+        }
+      ]
+    }
+  ) {
     term_id
     counter_term_id
     subject {
@@ -151,9 +165,7 @@ query GetTriplesWithPositions(
     }
     term {
       positions_aggregate {
-        aggregate {
-          count
-        }
+        aggregate { count }
       }
       vaults {
         total_shares
@@ -170,9 +182,7 @@ query GetTriplesWithPositions(
     }
     counter_term {
       positions_aggregate {
-        aggregate {
-          count
-        }
+        aggregate { count }
       }
       vaults {
         total_shares
@@ -189,6 +199,7 @@ query GetTriplesWithPositions(
     }
   }
 }
+
 
 
 query GetTriplesByAtom($term_id: numeric, $address: String) {
