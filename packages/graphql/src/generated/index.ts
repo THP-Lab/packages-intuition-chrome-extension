@@ -14380,11 +14380,9 @@ export type GetAtomsByCreatorQuery = {
 export type GetEventsFeedQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
-  orderBy?: InputMaybe<Array<Events_Order_By> | Events_Order_By>
-  where?: InputMaybe<Events_Bool_Exp>
-  addresses?: InputMaybe<
-    Array<Scalars['String']['input']> | Scalars['String']['input']
-  >
+  addresses: Array<Scalars['String']['input']> | Scalars['String']['input']
+  address: Array<Scalars['String']['input']> | Scalars['String']['input']
+  Where?: InputMaybe<Events_Bool_Exp>
 }>
 
 export type GetEventsFeedQuery = {
@@ -37400,15 +37398,18 @@ export const GetEventsFeedDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'orderBy' },
+            name: { kind: 'Name', value: 'addresses' },
           },
           type: {
-            kind: 'ListType',
+            kind: 'NonNullType',
             type: {
-              kind: 'NonNullType',
+              kind: 'ListType',
               type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'events_order_by' },
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'String' },
+                },
               },
             },
           },
@@ -37417,28 +37418,31 @@ export const GetEventsFeedDocument = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
+            name: { kind: 'Name', value: 'address' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'String' },
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'Where' },
           },
           type: {
             kind: 'NamedType',
             name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'addresses' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'String' },
-              },
-            },
           },
         },
       ],
@@ -37454,8 +37458,118 @@ export const GetEventsFeedDocument = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'deposit',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'redemption',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -37503,7 +37617,7 @@ export const GetEventsFeedDocument = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_number' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
@@ -37513,8 +37627,118 @@ export const GetEventsFeedDocument = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'deposit',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'redemption',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -37648,8 +37872,7 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -38034,8 +38257,7 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -38239,8 +38461,7 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -38410,7 +38631,7 @@ export const GetEventsFeedDocument = {
                                                       kind: 'Variable',
                                                       name: {
                                                         kind: 'Name',
-                                                        value: 'addresses',
+                                                        value: 'address',
                                                       },
                                                     },
                                                   },
@@ -38652,17 +38873,21 @@ export const GetEventsFeedDocument = {
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
- *      orderBy: // value for 'orderBy'
- *      where: // value for 'where'
  *      addresses: // value for 'addresses'
+ *      address: // value for 'address'
+ *      Where: // value for 'Where'
  *   },
  * });
  */
 export function useGetEventsFeedQuery(
-  baseOptions?: Apollo.QueryHookOptions<
+  baseOptions: Apollo.QueryHookOptions<
     GetEventsFeedQuery,
     GetEventsFeedQueryVariables
-  >,
+  > &
+    (
+      | { variables: GetEventsFeedQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
 ) {
   const options = { ...defaultOptions, ...baseOptions }
   return Apollo.useQuery<GetEventsFeedQuery, GetEventsFeedQueryVariables>(
@@ -78540,15 +78765,18 @@ export const GetEventsFeed = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'orderBy' },
+            name: { kind: 'Name', value: 'addresses' },
           },
           type: {
-            kind: 'ListType',
+            kind: 'NonNullType',
             type: {
-              kind: 'NonNullType',
+              kind: 'ListType',
               type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'events_order_by' },
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'String' },
+                },
               },
             },
           },
@@ -78557,28 +78785,31 @@ export const GetEventsFeed = {
           kind: 'VariableDefinition',
           variable: {
             kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
+            name: { kind: 'Name', value: 'address' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NonNullType',
+                type: {
+                  kind: 'NamedType',
+                  name: { kind: 'Name', value: 'String' },
+                },
+              },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'Where' },
           },
           type: {
             kind: 'NamedType',
             name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'addresses' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'String' },
-              },
-            },
           },
         },
       ],
@@ -78594,8 +78825,118 @@ export const GetEventsFeed = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'deposit',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'redemption',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -78643,7 +78984,7 @@ export const GetEventsFeed = {
                   fields: [
                     {
                       kind: 'ObjectField',
-                      name: { kind: 'Name', value: 'block_number' },
+                      name: { kind: 'Name', value: 'created_at' },
                       value: { kind: 'EnumValue', value: 'desc' },
                     },
                   ],
@@ -78653,8 +78994,118 @@ export const GetEventsFeed = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'where' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: '_and' },
+                      value: {
+                        kind: 'ListValue',
+                        values: [
+                          {
+                            kind: 'ObjectValue',
+                            fields: [
+                              {
+                                kind: 'ObjectField',
+                                name: { kind: 'Name', value: '_or' },
+                                value: {
+                                  kind: 'ListValue',
+                                  values: [
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'deposit',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                    {
+                                      kind: 'ObjectValue',
+                                      fields: [
+                                        {
+                                          kind: 'ObjectField',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'redemption',
+                                          },
+                                          value: {
+                                            kind: 'ObjectValue',
+                                            fields: [
+                                              {
+                                                kind: 'ObjectField',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'sender_id',
+                                                },
+                                                value: {
+                                                  kind: 'ObjectValue',
+                                                  fields: [
+                                                    {
+                                                      kind: 'ObjectField',
+                                                      name: {
+                                                        kind: 'Name',
+                                                        value: '_in',
+                                                      },
+                                                      value: {
+                                                        kind: 'Variable',
+                                                        name: {
+                                                          kind: 'Name',
+                                                          value: 'addresses',
+                                                        },
+                                                      },
+                                                    },
+                                                  ],
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  ],
+                                },
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    },
+                  ],
                 },
               },
             ],
@@ -78788,8 +79239,7 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -79174,8 +79624,7 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -79379,8 +79828,7 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value:
-                                                                'addresses',
+                                                              value: 'address',
                                                             },
                                                           },
                                                         },
@@ -79550,7 +79998,7 @@ export const GetEventsFeed = {
                                                       kind: 'Variable',
                                                       name: {
                                                         kind: 'Name',
-                                                        value: 'addresses',
+                                                        value: 'address',
                                                       },
                                                     },
                                                   },
