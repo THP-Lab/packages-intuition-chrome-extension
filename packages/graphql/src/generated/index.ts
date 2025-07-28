@@ -14381,7 +14381,7 @@ export type GetEventsFeedQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
   addresses: Array<Scalars['String']['input']> | Scalars['String']['input']
-  address: Array<Scalars['String']['input']> | Scalars['String']['input']
+  address: Scalars['String']['input']
   Where?: InputMaybe<Events_Bool_Exp>
 }>
 
@@ -14605,6 +14605,11 @@ export type GetEventsFeedQuery = {
             count: number
           } | null
         }
+        positions: Array<{
+          __typename?: 'positions'
+          shares: any
+          account_id: string
+        }>
         vaults: Array<{
           __typename?: 'vaults'
           total_shares: any
@@ -14631,6 +14636,11 @@ export type GetEventsFeedQuery = {
             count: number
           } | null
         }
+        positions: Array<{
+          __typename?: 'positions'
+          shares: any
+          account_id: string
+        }>
         vaults: Array<{
           __typename?: 'vaults'
           total_shares: any
@@ -37423,14 +37433,8 @@ export const GetEventsFeedDocument = {
           type: {
             kind: 'NonNullType',
             type: {
-              kind: 'ListType',
-              type: {
-                kind: 'NonNullType',
-                type: {
-                  kind: 'NamedType',
-                  name: { kind: 'Name', value: 'String' },
-                },
-              },
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
             },
           },
         },
@@ -37872,7 +37876,8 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -38166,6 +38171,60 @@ export const GetEventsFeedDocument = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'positions' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'where' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: {
+                                          kind: 'Name',
+                                          value: 'account_id',
+                                        },
+                                        value: {
+                                          kind: 'ObjectValue',
+                                          fields: [
+                                            {
+                                              kind: 'ObjectField',
+                                              name: {
+                                                kind: 'Name',
+                                                value: '_ilike',
+                                              },
+                                              value: {
+                                                kind: 'Variable',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'address',
+                                                },
+                                              },
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'shares' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'account_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
                               arguments: [
                                 {
@@ -38257,7 +38316,8 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -38370,6 +38430,60 @@ export const GetEventsFeedDocument = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'positions' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'where' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: {
+                                          kind: 'Name',
+                                          value: 'account_id',
+                                        },
+                                        value: {
+                                          kind: 'ObjectValue',
+                                          fields: [
+                                            {
+                                              kind: 'ObjectField',
+                                              name: {
+                                                kind: 'Name',
+                                                value: '_ilike',
+                                              },
+                                              value: {
+                                                kind: 'Variable',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'address',
+                                                },
+                                              },
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'shares' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'account_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
                               arguments: [
                                 {
@@ -38461,7 +38575,8 @@ export const GetEventsFeedDocument = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -38631,7 +38746,7 @@ export const GetEventsFeedDocument = {
                                                       kind: 'Variable',
                                                       name: {
                                                         kind: 'Name',
-                                                        value: 'address',
+                                                        value: 'addresses',
                                                       },
                                                     },
                                                   },
@@ -78790,14 +78905,8 @@ export const GetEventsFeed = {
           type: {
             kind: 'NonNullType',
             type: {
-              kind: 'ListType',
-              type: {
-                kind: 'NonNullType',
-                type: {
-                  kind: 'NamedType',
-                  name: { kind: 'Name', value: 'String' },
-                },
-              },
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
             },
           },
         },
@@ -79239,7 +79348,8 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -79533,6 +79643,60 @@ export const GetEventsFeed = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'positions' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'where' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: {
+                                          kind: 'Name',
+                                          value: 'account_id',
+                                        },
+                                        value: {
+                                          kind: 'ObjectValue',
+                                          fields: [
+                                            {
+                                              kind: 'ObjectField',
+                                              name: {
+                                                kind: 'Name',
+                                                value: '_ilike',
+                                              },
+                                              value: {
+                                                kind: 'Variable',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'address',
+                                                },
+                                              },
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'shares' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'account_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
                               arguments: [
                                 {
@@ -79624,7 +79788,8 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -79737,6 +79902,60 @@ export const GetEventsFeed = {
                             },
                             {
                               kind: 'Field',
+                              name: { kind: 'Name', value: 'positions' },
+                              arguments: [
+                                {
+                                  kind: 'Argument',
+                                  name: { kind: 'Name', value: 'where' },
+                                  value: {
+                                    kind: 'ObjectValue',
+                                    fields: [
+                                      {
+                                        kind: 'ObjectField',
+                                        name: {
+                                          kind: 'Name',
+                                          value: 'account_id',
+                                        },
+                                        value: {
+                                          kind: 'ObjectValue',
+                                          fields: [
+                                            {
+                                              kind: 'ObjectField',
+                                              name: {
+                                                kind: 'Name',
+                                                value: '_ilike',
+                                              },
+                                              value: {
+                                                kind: 'Variable',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'address',
+                                                },
+                                              },
+                                            },
+                                          ],
+                                        },
+                                      },
+                                    ],
+                                  },
+                                },
+                              ],
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'shares' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'account_id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
                               arguments: [
                                 {
@@ -79828,7 +80047,8 @@ export const GetEventsFeed = {
                                                             kind: 'Variable',
                                                             name: {
                                                               kind: 'Name',
-                                                              value: 'address',
+                                                              value:
+                                                                'addresses',
                                                             },
                                                           },
                                                         },
@@ -79998,7 +80218,7 @@ export const GetEventsFeed = {
                                                       kind: 'Variable',
                                                       name: {
                                                         kind: 'Name',
-                                                        value: 'address',
+                                                        value: 'addresses',
                                                       },
                                                     },
                                                   },
