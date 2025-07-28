@@ -109,6 +109,10 @@ query GetEventsFeed(
         positions_aggregate {
           aggregate { count }
         }
+        positions(where: { account_id: { _ilike: $address } }) {
+          shares
+          account_id 
+        }
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
@@ -127,6 +131,10 @@ query GetEventsFeed(
       counter_term {
         positions_aggregate {
           aggregate { count }
+        }
+        positions(where: { account_id: { _ilike: $address } }) {
+          shares
+          account_id 
         }
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
