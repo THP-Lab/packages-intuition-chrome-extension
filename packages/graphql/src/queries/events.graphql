@@ -3,7 +3,7 @@ query GetEventsFeed(
   $limit: Int
   $offset: Int
   $addresses: [String!]!
-  $address: [String!]!
+  $address: String!
   $Where: events_bool_exp
 ) {
   total: events_aggregate(
@@ -52,7 +52,7 @@ query GetEventsFeed(
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
-          positions(where: { account: { id: { _in: $address } } }) {
+          positions(where: { account: { id: { _in: $addresses } } }) {
             account_id
             shares
             account {
@@ -116,7 +116,7 @@ query GetEventsFeed(
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
-          positions(where: { account: { id: { _in: $address } } }) {
+          positions(where: { account: { id: { _in: $addresses } } }) {
             account_id
             shares
             account {
@@ -139,7 +139,7 @@ query GetEventsFeed(
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
-          positions(where: { account: { id: { _in: $address } } }) {
+          positions(where: { account: { id: { _in: $addresses } } }) {
             account_id
             shares
             account {
@@ -163,7 +163,7 @@ query GetEventsFeed(
       vault {
         total_shares
         position_count
-        positions(where: { account: { id: { _in: $address } } }) {
+        positions(where: { account: { id: { _in: $addresses } } }) {
           account_id
           shares
           account {
