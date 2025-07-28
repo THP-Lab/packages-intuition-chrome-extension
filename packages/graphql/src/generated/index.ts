@@ -29,6 +29,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean }
   Int: { input: number; output: number }
   Float: { input: number; output: number }
+  _text: { input: any; output: any }
   account_type: { input: any; output: any }
   atom_type: { input: any; output: any }
   bigint: { input: any; output: any }
@@ -4370,6 +4371,10 @@ export type Query_Root = {
   redemptions: Array<Redemptions>
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
+  /** execute function "search_positions_on_subject" which returns "position" */
+  search_positions_on_subject: Array<Positions>
+  /** execute function "search_positions_on_subject" and query aggregates on result of table type "position" */
+  search_positions_on_subject_aggregate: Positions_Aggregate
   /** execute function "search_term" which returns "term" */
   search_term: Array<Terms>
   /** execute function "search_term" and query aggregates on result of table type "term" */
@@ -4378,13 +4383,13 @@ export type Query_Root = {
   search_term_from_following: Array<Terms>
   /** execute function "search_term_from_following" and query aggregates on result of table type "term" */
   search_term_from_following_aggregate: Terms_Aggregate
-  /** fetch data from the table: "share_price_change_stats_daily" */
+  /** An array relationship */
   share_price_change_stats_daily: Array<Share_Price_Change_Stats_Daily>
-  /** fetch data from the table: "share_price_change_stats_hourly" */
+  /** An array relationship */
   share_price_change_stats_hourly: Array<Share_Price_Change_Stats_Hourly>
-  /** fetch data from the table: "share_price_change_stats_monthly" */
+  /** An array relationship */
   share_price_change_stats_monthly: Array<Share_Price_Change_Stats_Monthly>
-  /** fetch data from the table: "share_price_change_stats_weekly" */
+  /** An array relationship */
   share_price_change_stats_weekly: Array<Share_Price_Change_Stats_Weekly>
   /** An array relationship */
   share_price_changes: Array<Share_Price_Changes>
@@ -4810,6 +4815,24 @@ export type Query_RootRedemptions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Redemptions_Order_By>>
   where?: InputMaybe<Redemptions_Bool_Exp>
+}
+
+export type Query_RootSearch_Positions_On_SubjectArgs = {
+  args: Search_Positions_On_Subject_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
+export type Query_RootSearch_Positions_On_Subject_AggregateArgs = {
+  args: Search_Positions_On_Subject_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
 }
 
 export type Query_RootSearch_TermArgs = {
@@ -5534,6 +5557,11 @@ export type Redemptions_Variance_Order_By = {
   term_id?: InputMaybe<Order_By>
 }
 
+export type Search_Positions_On_Subject_Args = {
+  addresses?: InputMaybe<Scalars['_text']['input']>
+  search_fields?: InputMaybe<Scalars['jsonb']['input']>
+}
+
 export type Search_Term_Args = {
   query?: InputMaybe<Scalars['String']['input']>
 }
@@ -5557,6 +5585,31 @@ export type Share_Price_Change_Stats_Daily = {
   term_id?: Maybe<Scalars['numeric']['output']>
 }
 
+/** order by aggregate values of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Aggregate_Order_By = {
+  avg?: InputMaybe<Share_Price_Change_Stats_Daily_Avg_Order_By>
+  count?: InputMaybe<Order_By>
+  max?: InputMaybe<Share_Price_Change_Stats_Daily_Max_Order_By>
+  min?: InputMaybe<Share_Price_Change_Stats_Daily_Min_Order_By>
+  stddev?: InputMaybe<Share_Price_Change_Stats_Daily_Stddev_Order_By>
+  stddev_pop?: InputMaybe<Share_Price_Change_Stats_Daily_Stddev_Pop_Order_By>
+  stddev_samp?: InputMaybe<Share_Price_Change_Stats_Daily_Stddev_Samp_Order_By>
+  sum?: InputMaybe<Share_Price_Change_Stats_Daily_Sum_Order_By>
+  var_pop?: InputMaybe<Share_Price_Change_Stats_Daily_Var_Pop_Order_By>
+  var_samp?: InputMaybe<Share_Price_Change_Stats_Daily_Var_Samp_Order_By>
+  variance?: InputMaybe<Share_Price_Change_Stats_Daily_Variance_Order_By>
+}
+
+/** order by avg() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Avg_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** Boolean expression to filter rows from the table "share_price_change_stats_daily". All fields are combined with a logical 'AND'. */
 export type Share_Price_Change_Stats_Daily_Bool_Exp = {
   _and?: InputMaybe<Array<Share_Price_Change_Stats_Daily_Bool_Exp>>
@@ -5570,6 +5623,28 @@ export type Share_Price_Change_Stats_Daily_Bool_Exp = {
   last_share_price?: InputMaybe<Numeric_Comparison_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
   term_id?: InputMaybe<Numeric_Comparison_Exp>
+}
+
+/** order by max() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Max_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by min() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Min_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "share_price_change_stats_daily". */
@@ -5601,6 +5676,36 @@ export type Share_Price_Change_Stats_Daily_Select_Column =
   /** column name */
   | 'term_id'
 
+/** order by stddev() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Stddev_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_pop() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Stddev_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_samp() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Stddev_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** Streaming cursor of the table "share_price_change_stats_daily" */
 export type Share_Price_Change_Stats_Daily_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -5620,6 +5725,46 @@ export type Share_Price_Change_Stats_Daily_Stream_Cursor_Value_Input = {
   term_id?: InputMaybe<Scalars['numeric']['input']>
 }
 
+/** order by sum() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Sum_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_pop() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Var_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_samp() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Var_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by variance() on columns of table "share_price_change_stats_daily" */
+export type Share_Price_Change_Stats_Daily_Variance_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** columns and relationships of "share_price_change_stats_hourly" */
 export type Share_Price_Change_Stats_Hourly = {
   __typename?: 'share_price_change_stats_hourly'
@@ -5632,6 +5777,31 @@ export type Share_Price_Change_Stats_Hourly = {
   /** An object relationship */
   term?: Maybe<Terms>
   term_id?: Maybe<Scalars['numeric']['output']>
+}
+
+/** order by aggregate values of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Aggregate_Order_By = {
+  avg?: InputMaybe<Share_Price_Change_Stats_Hourly_Avg_Order_By>
+  count?: InputMaybe<Order_By>
+  max?: InputMaybe<Share_Price_Change_Stats_Hourly_Max_Order_By>
+  min?: InputMaybe<Share_Price_Change_Stats_Hourly_Min_Order_By>
+  stddev?: InputMaybe<Share_Price_Change_Stats_Hourly_Stddev_Order_By>
+  stddev_pop?: InputMaybe<Share_Price_Change_Stats_Hourly_Stddev_Pop_Order_By>
+  stddev_samp?: InputMaybe<Share_Price_Change_Stats_Hourly_Stddev_Samp_Order_By>
+  sum?: InputMaybe<Share_Price_Change_Stats_Hourly_Sum_Order_By>
+  var_pop?: InputMaybe<Share_Price_Change_Stats_Hourly_Var_Pop_Order_By>
+  var_samp?: InputMaybe<Share_Price_Change_Stats_Hourly_Var_Samp_Order_By>
+  variance?: InputMaybe<Share_Price_Change_Stats_Hourly_Variance_Order_By>
+}
+
+/** order by avg() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Avg_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "share_price_change_stats_hourly". All fields are combined with a logical 'AND'. */
@@ -5647,6 +5817,28 @@ export type Share_Price_Change_Stats_Hourly_Bool_Exp = {
   last_share_price?: InputMaybe<Numeric_Comparison_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
   term_id?: InputMaybe<Numeric_Comparison_Exp>
+}
+
+/** order by max() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Max_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by min() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Min_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "share_price_change_stats_hourly". */
@@ -5678,6 +5870,36 @@ export type Share_Price_Change_Stats_Hourly_Select_Column =
   /** column name */
   | 'term_id'
 
+/** order by stddev() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Stddev_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_pop() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Stddev_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_samp() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Stddev_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** Streaming cursor of the table "share_price_change_stats_hourly" */
 export type Share_Price_Change_Stats_Hourly_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -5697,6 +5919,46 @@ export type Share_Price_Change_Stats_Hourly_Stream_Cursor_Value_Input = {
   term_id?: InputMaybe<Scalars['numeric']['input']>
 }
 
+/** order by sum() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Sum_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_pop() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Var_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_samp() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Var_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by variance() on columns of table "share_price_change_stats_hourly" */
+export type Share_Price_Change_Stats_Hourly_Variance_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** columns and relationships of "share_price_change_stats_monthly" */
 export type Share_Price_Change_Stats_Monthly = {
   __typename?: 'share_price_change_stats_monthly'
@@ -5709,6 +5971,31 @@ export type Share_Price_Change_Stats_Monthly = {
   /** An object relationship */
   term?: Maybe<Terms>
   term_id?: Maybe<Scalars['numeric']['output']>
+}
+
+/** order by aggregate values of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Aggregate_Order_By = {
+  avg?: InputMaybe<Share_Price_Change_Stats_Monthly_Avg_Order_By>
+  count?: InputMaybe<Order_By>
+  max?: InputMaybe<Share_Price_Change_Stats_Monthly_Max_Order_By>
+  min?: InputMaybe<Share_Price_Change_Stats_Monthly_Min_Order_By>
+  stddev?: InputMaybe<Share_Price_Change_Stats_Monthly_Stddev_Order_By>
+  stddev_pop?: InputMaybe<Share_Price_Change_Stats_Monthly_Stddev_Pop_Order_By>
+  stddev_samp?: InputMaybe<Share_Price_Change_Stats_Monthly_Stddev_Samp_Order_By>
+  sum?: InputMaybe<Share_Price_Change_Stats_Monthly_Sum_Order_By>
+  var_pop?: InputMaybe<Share_Price_Change_Stats_Monthly_Var_Pop_Order_By>
+  var_samp?: InputMaybe<Share_Price_Change_Stats_Monthly_Var_Samp_Order_By>
+  variance?: InputMaybe<Share_Price_Change_Stats_Monthly_Variance_Order_By>
+}
+
+/** order by avg() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Avg_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "share_price_change_stats_monthly". All fields are combined with a logical 'AND'. */
@@ -5724,6 +6011,28 @@ export type Share_Price_Change_Stats_Monthly_Bool_Exp = {
   last_share_price?: InputMaybe<Numeric_Comparison_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
   term_id?: InputMaybe<Numeric_Comparison_Exp>
+}
+
+/** order by max() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Max_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by min() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Min_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "share_price_change_stats_monthly". */
@@ -5755,6 +6064,36 @@ export type Share_Price_Change_Stats_Monthly_Select_Column =
   /** column name */
   | 'term_id'
 
+/** order by stddev() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Stddev_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_pop() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Stddev_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_samp() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Stddev_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** Streaming cursor of the table "share_price_change_stats_monthly" */
 export type Share_Price_Change_Stats_Monthly_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -5774,6 +6113,46 @@ export type Share_Price_Change_Stats_Monthly_Stream_Cursor_Value_Input = {
   term_id?: InputMaybe<Scalars['numeric']['input']>
 }
 
+/** order by sum() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Sum_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_pop() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Var_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_samp() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Var_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by variance() on columns of table "share_price_change_stats_monthly" */
+export type Share_Price_Change_Stats_Monthly_Variance_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** columns and relationships of "share_price_change_stats_weekly" */
 export type Share_Price_Change_Stats_Weekly = {
   __typename?: 'share_price_change_stats_weekly'
@@ -5786,6 +6165,31 @@ export type Share_Price_Change_Stats_Weekly = {
   /** An object relationship */
   term?: Maybe<Terms>
   term_id?: Maybe<Scalars['numeric']['output']>
+}
+
+/** order by aggregate values of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Aggregate_Order_By = {
+  avg?: InputMaybe<Share_Price_Change_Stats_Weekly_Avg_Order_By>
+  count?: InputMaybe<Order_By>
+  max?: InputMaybe<Share_Price_Change_Stats_Weekly_Max_Order_By>
+  min?: InputMaybe<Share_Price_Change_Stats_Weekly_Min_Order_By>
+  stddev?: InputMaybe<Share_Price_Change_Stats_Weekly_Stddev_Order_By>
+  stddev_pop?: InputMaybe<Share_Price_Change_Stats_Weekly_Stddev_Pop_Order_By>
+  stddev_samp?: InputMaybe<Share_Price_Change_Stats_Weekly_Stddev_Samp_Order_By>
+  sum?: InputMaybe<Share_Price_Change_Stats_Weekly_Sum_Order_By>
+  var_pop?: InputMaybe<Share_Price_Change_Stats_Weekly_Var_Pop_Order_By>
+  var_samp?: InputMaybe<Share_Price_Change_Stats_Weekly_Var_Samp_Order_By>
+  variance?: InputMaybe<Share_Price_Change_Stats_Weekly_Variance_Order_By>
+}
+
+/** order by avg() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Avg_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Boolean expression to filter rows from the table "share_price_change_stats_weekly". All fields are combined with a logical 'AND'. */
@@ -5801,6 +6205,28 @@ export type Share_Price_Change_Stats_Weekly_Bool_Exp = {
   last_share_price?: InputMaybe<Numeric_Comparison_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
   term_id?: InputMaybe<Numeric_Comparison_Exp>
+}
+
+/** order by max() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Max_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by min() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Min_Order_By = {
+  bucket?: InputMaybe<Order_By>
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** Ordering options when selecting data from "share_price_change_stats_weekly". */
@@ -5832,6 +6258,36 @@ export type Share_Price_Change_Stats_Weekly_Select_Column =
   /** column name */
   | 'term_id'
 
+/** order by stddev() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Stddev_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_pop() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Stddev_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by stddev_samp() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Stddev_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
 /** Streaming cursor of the table "share_price_change_stats_weekly" */
 export type Share_Price_Change_Stats_Weekly_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -5849,6 +6305,46 @@ export type Share_Price_Change_Stats_Weekly_Stream_Cursor_Value_Input = {
   first_share_price?: InputMaybe<Scalars['numeric']['input']>
   last_share_price?: InputMaybe<Scalars['numeric']['input']>
   term_id?: InputMaybe<Scalars['numeric']['input']>
+}
+
+/** order by sum() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Sum_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_pop() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Var_Pop_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by var_samp() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Var_Samp_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
+}
+
+/** order by variance() on columns of table "share_price_change_stats_weekly" */
+export type Share_Price_Change_Stats_Weekly_Variance_Order_By = {
+  change_count?: InputMaybe<Order_By>
+  curve_id?: InputMaybe<Order_By>
+  difference?: InputMaybe<Order_By>
+  first_share_price?: InputMaybe<Order_By>
+  last_share_price?: InputMaybe<Order_By>
+  term_id?: InputMaybe<Order_By>
 }
 
 /** columns and relationships of "share_price_change" */
@@ -7267,6 +7763,10 @@ export type Subscription_Root = {
   redemptions_aggregate: Redemptions_Aggregate
   /** fetch data from the table in a streaming manner: "redemption" */
   redemptions_stream: Array<Redemptions>
+  /** execute function "search_positions_on_subject" which returns "position" */
+  search_positions_on_subject: Array<Positions>
+  /** execute function "search_positions_on_subject" and query aggregates on result of table type "position" */
+  search_positions_on_subject_aggregate: Positions_Aggregate
   /** execute function "search_term" which returns "term" */
   search_term: Array<Terms>
   /** execute function "search_term" and query aggregates on result of table type "term" */
@@ -7275,19 +7775,19 @@ export type Subscription_Root = {
   search_term_from_following: Array<Terms>
   /** execute function "search_term_from_following" and query aggregates on result of table type "term" */
   search_term_from_following_aggregate: Terms_Aggregate
-  /** fetch data from the table: "share_price_change_stats_daily" */
+  /** An array relationship */
   share_price_change_stats_daily: Array<Share_Price_Change_Stats_Daily>
   /** fetch data from the table in a streaming manner: "share_price_change_stats_daily" */
   share_price_change_stats_daily_stream: Array<Share_Price_Change_Stats_Daily>
-  /** fetch data from the table: "share_price_change_stats_hourly" */
+  /** An array relationship */
   share_price_change_stats_hourly: Array<Share_Price_Change_Stats_Hourly>
   /** fetch data from the table in a streaming manner: "share_price_change_stats_hourly" */
   share_price_change_stats_hourly_stream: Array<Share_Price_Change_Stats_Hourly>
-  /** fetch data from the table: "share_price_change_stats_monthly" */
+  /** An array relationship */
   share_price_change_stats_monthly: Array<Share_Price_Change_Stats_Monthly>
   /** fetch data from the table in a streaming manner: "share_price_change_stats_monthly" */
   share_price_change_stats_monthly_stream: Array<Share_Price_Change_Stats_Monthly>
-  /** fetch data from the table: "share_price_change_stats_weekly" */
+  /** An array relationship */
   share_price_change_stats_weekly: Array<Share_Price_Change_Stats_Weekly>
   /** fetch data from the table in a streaming manner: "share_price_change_stats_weekly" */
   share_price_change_stats_weekly_stream: Array<Share_Price_Change_Stats_Weekly>
@@ -7847,6 +8347,24 @@ export type Subscription_RootRedemptions_StreamArgs = {
   where?: InputMaybe<Redemptions_Bool_Exp>
 }
 
+export type Subscription_RootSearch_Positions_On_SubjectArgs = {
+  args: Search_Positions_On_Subject_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
+export type Subscription_RootSearch_Positions_On_Subject_AggregateArgs = {
+  args: Search_Positions_On_Subject_Args
+  distinct_on?: InputMaybe<Array<Positions_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Positions_Order_By>>
+  where?: InputMaybe<Positions_Bool_Exp>
+}
+
 export type Subscription_RootSearch_TermArgs = {
   args: Search_Term_Args
   distinct_on?: InputMaybe<Array<Terms_Select_Column>>
@@ -8290,6 +8808,14 @@ export type Terms = {
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
   /** An array relationship */
+  share_price_change_stats_daily: Array<Share_Price_Change_Stats_Daily>
+  /** An array relationship */
+  share_price_change_stats_hourly: Array<Share_Price_Change_Stats_Hourly>
+  /** An array relationship */
+  share_price_change_stats_monthly: Array<Share_Price_Change_Stats_Monthly>
+  /** An array relationship */
+  share_price_change_stats_weekly: Array<Share_Price_Change_Stats_Weekly>
+  /** An array relationship */
   share_price_changes: Array<Share_Price_Changes>
   /** An aggregate relationship */
   share_price_changes_aggregate: Share_Price_Changes_Aggregate
@@ -8363,6 +8889,44 @@ export type TermsRedemptions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Redemptions_Order_By>>
   where?: InputMaybe<Redemptions_Bool_Exp>
+}
+
+/** columns and relationships of "term" */
+export type TermsShare_Price_Change_Stats_DailyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Daily_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Daily_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Daily_Bool_Exp>
+}
+
+/** columns and relationships of "term" */
+export type TermsShare_Price_Change_Stats_HourlyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Hourly_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Hourly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Hourly_Bool_Exp>
+}
+
+/** columns and relationships of "term" */
+export type TermsShare_Price_Change_Stats_MonthlyArgs = {
+  distinct_on?: InputMaybe<
+    Array<Share_Price_Change_Stats_Monthly_Select_Column>
+  >
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Monthly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Monthly_Bool_Exp>
+}
+
+/** columns and relationships of "term" */
+export type TermsShare_Price_Change_Stats_WeeklyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Weekly_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Weekly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Weekly_Bool_Exp>
 }
 
 /** columns and relationships of "term" */
@@ -8472,6 +9036,10 @@ export type Terms_Bool_Exp = {
   positions_aggregate?: InputMaybe<Positions_Aggregate_Bool_Exp>
   redemptions?: InputMaybe<Redemptions_Bool_Exp>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Bool_Exp>
+  share_price_change_stats_daily?: InputMaybe<Share_Price_Change_Stats_Daily_Bool_Exp>
+  share_price_change_stats_hourly?: InputMaybe<Share_Price_Change_Stats_Hourly_Bool_Exp>
+  share_price_change_stats_monthly?: InputMaybe<Share_Price_Change_Stats_Monthly_Bool_Exp>
+  share_price_change_stats_weekly?: InputMaybe<Share_Price_Change_Stats_Weekly_Bool_Exp>
   share_price_changes?: InputMaybe<Share_Price_Changes_Bool_Exp>
   share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Bool_Exp>
   signals?: InputMaybe<Signals_Bool_Exp>
@@ -8517,6 +9085,10 @@ export type Terms_Order_By = {
   id?: InputMaybe<Order_By>
   positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Order_By>
+  share_price_change_stats_daily_aggregate?: InputMaybe<Share_Price_Change_Stats_Daily_Aggregate_Order_By>
+  share_price_change_stats_hourly_aggregate?: InputMaybe<Share_Price_Change_Stats_Hourly_Aggregate_Order_By>
+  share_price_change_stats_monthly_aggregate?: InputMaybe<Share_Price_Change_Stats_Monthly_Aggregate_Order_By>
+  share_price_change_stats_weekly_aggregate?: InputMaybe<Share_Price_Change_Stats_Weekly_Aggregate_Order_By>
   share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Order_By>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Order_By>
   total_assets?: InputMaybe<Order_By>
@@ -9584,6 +10156,18 @@ export type Vaults = {
   /** An aggregate relationship */
   redemptions_aggregate: Redemptions_Aggregate
   /** An array relationship */
+  share_price_change_stats_daily: Array<Share_Price_Change_Stats_Daily>
+  /** An array relationship */
+  share_price_change_stats_hourly: Array<Share_Price_Change_Stats_Hourly>
+  /** An array relationship */
+  share_price_change_stats_monthly: Array<Share_Price_Change_Stats_Monthly>
+  /** An array relationship */
+  share_price_change_stats_weekly: Array<Share_Price_Change_Stats_Weekly>
+  /** An array relationship */
+  share_price_changes: Array<Share_Price_Changes>
+  /** An aggregate relationship */
+  share_price_changes_aggregate: Share_Price_Changes_Aggregate
+  /** An array relationship */
   signals: Array<Signals>
   /** An aggregate relationship */
   signals_aggregate: Signals_Aggregate
@@ -9647,6 +10231,62 @@ export type VaultsRedemptions_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>
   order_by?: InputMaybe<Array<Redemptions_Order_By>>
   where?: InputMaybe<Redemptions_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_Change_Stats_DailyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Daily_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Daily_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Daily_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_Change_Stats_HourlyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Hourly_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Hourly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Hourly_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_Change_Stats_MonthlyArgs = {
+  distinct_on?: InputMaybe<
+    Array<Share_Price_Change_Stats_Monthly_Select_Column>
+  >
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Monthly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Monthly_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_Change_Stats_WeeklyArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Change_Stats_Weekly_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Change_Stats_Weekly_Order_By>>
+  where?: InputMaybe<Share_Price_Change_Stats_Weekly_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_ChangesArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
+  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
+}
+
+/** columns and relationships of "vault" */
+export type VaultsShare_Price_Changes_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Share_Price_Changes_Select_Column>>
+  limit?: InputMaybe<Scalars['Int']['input']>
+  offset?: InputMaybe<Scalars['Int']['input']>
+  order_by?: InputMaybe<Array<Share_Price_Changes_Order_By>>
+  where?: InputMaybe<Share_Price_Changes_Bool_Exp>
 }
 
 /** columns and relationships of "vault" */
@@ -9761,6 +10401,12 @@ export type Vaults_Bool_Exp = {
   positions_aggregate?: InputMaybe<Positions_Aggregate_Bool_Exp>
   redemptions?: InputMaybe<Redemptions_Bool_Exp>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Bool_Exp>
+  share_price_change_stats_daily?: InputMaybe<Share_Price_Change_Stats_Daily_Bool_Exp>
+  share_price_change_stats_hourly?: InputMaybe<Share_Price_Change_Stats_Hourly_Bool_Exp>
+  share_price_change_stats_monthly?: InputMaybe<Share_Price_Change_Stats_Monthly_Bool_Exp>
+  share_price_change_stats_weekly?: InputMaybe<Share_Price_Change_Stats_Weekly_Bool_Exp>
+  share_price_changes?: InputMaybe<Share_Price_Changes_Bool_Exp>
+  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Bool_Exp>
   signals?: InputMaybe<Signals_Bool_Exp>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Bool_Exp>
   term?: InputMaybe<Terms_Bool_Exp>
@@ -9834,6 +10480,11 @@ export type Vaults_Order_By = {
   position_count?: InputMaybe<Order_By>
   positions_aggregate?: InputMaybe<Positions_Aggregate_Order_By>
   redemptions_aggregate?: InputMaybe<Redemptions_Aggregate_Order_By>
+  share_price_change_stats_daily_aggregate?: InputMaybe<Share_Price_Change_Stats_Daily_Aggregate_Order_By>
+  share_price_change_stats_hourly_aggregate?: InputMaybe<Share_Price_Change_Stats_Hourly_Aggregate_Order_By>
+  share_price_change_stats_monthly_aggregate?: InputMaybe<Share_Price_Change_Stats_Monthly_Aggregate_Order_By>
+  share_price_change_stats_weekly_aggregate?: InputMaybe<Share_Price_Change_Stats_Weekly_Aggregate_Order_By>
+  share_price_changes_aggregate?: InputMaybe<Share_Price_Changes_Aggregate_Order_By>
   signals_aggregate?: InputMaybe<Signals_Aggregate_Order_By>
   term?: InputMaybe<Terms_Order_By>
   term_id?: InputMaybe<Order_By>
@@ -13726,7 +14377,7 @@ export type GetAtomsByCreatorQuery = {
   }>
 }
 
-export type GetEventsQueryVariables = Exact<{
+export type GetEventsFeedQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>
   offset?: InputMaybe<Scalars['Int']['input']>
   orderBy?: InputMaybe<Array<Events_Order_By> | Events_Order_By>
@@ -13736,7 +14387,7 @@ export type GetEventsQueryVariables = Exact<{
   >
 }>
 
-export type GetEventsQuery = {
+export type GetEventsFeedQuery = {
   __typename?: 'query_root'
   total: {
     __typename?: 'events_aggregate'
@@ -13815,6 +14466,7 @@ export type GetEventsQuery = {
     triple?: {
       __typename?: 'triples'
       term_id: any
+      counter_term_id: any
       creator?: {
         __typename?: 'accounts'
         label: string
@@ -13948,6 +14600,13 @@ export type GetEventsQuery = {
       }
       term?: {
         __typename?: 'terms'
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
         vaults: Array<{
           __typename?: 'vaults'
           total_shares: any
@@ -13967,6 +14626,13 @@ export type GetEventsQuery = {
       } | null
       counter_term?: {
         __typename?: 'terms'
+        positions_aggregate: {
+          __typename?: 'positions_aggregate'
+          aggregate?: {
+            __typename?: 'positions_aggregate_fields'
+            count: number
+          } | null
+        }
         vaults: Array<{
           __typename?: 'vaults'
           total_shares: any
@@ -13990,7 +14656,12 @@ export type GetEventsQuery = {
       sender_id: string
       shares_for_receiver: any
       sender_assets_after_total_fees: any
-      sender?: { __typename?: 'accounts'; id: string } | null
+      sender?: {
+        __typename?: 'accounts'
+        id: string
+        label: string
+        image?: string | null
+      } | null
       vault?: {
         __typename?: 'vaults'
         total_shares: any
@@ -14011,7 +14682,12 @@ export type GetEventsQuery = {
     redemption?: {
       __typename?: 'redemptions'
       sender_id: string
-      sender?: { __typename?: 'accounts'; id: string } | null
+      sender?: {
+        __typename?: 'accounts'
+        id: string
+        label: string
+        image?: string | null
+      } | null
     } | null
   }>
 }
@@ -14357,72 +15033,6 @@ export type GetEventsWithAggregatesQuery = {
       } | null
     }>
   }
-}
-
-export type GetEventsCountQueryVariables = Exact<{
-  where?: InputMaybe<Events_Bool_Exp>
-}>
-
-export type GetEventsCountQuery = {
-  __typename?: 'query_root'
-  events_aggregate: {
-    __typename?: 'events_aggregate'
-    aggregate?: { __typename?: 'events_aggregate_fields'; count: number } | null
-  }
-}
-
-export type GetEventsDataQueryVariables = Exact<{
-  where?: InputMaybe<Events_Bool_Exp>
-}>
-
-export type GetEventsDataQuery = {
-  __typename?: 'query_root'
-  events_aggregate: {
-    __typename?: 'events_aggregate'
-    aggregate?: {
-      __typename?: 'events_aggregate_fields'
-      count: number
-      max?: {
-        __typename?: 'events_max_fields'
-        created_at?: any | null
-        block_number?: any | null
-      } | null
-      min?: {
-        __typename?: 'events_min_fields'
-        created_at?: any | null
-        block_number?: any | null
-      } | null
-      avg?: {
-        __typename?: 'events_avg_fields'
-        block_number?: number | null
-      } | null
-    } | null
-  }
-}
-
-export type GetDebugEventsQueryVariables = Exact<{
-  addresses?: InputMaybe<
-    Array<Scalars['String']['input']> | Scalars['String']['input']
-  >
-}>
-
-export type GetDebugEventsQuery = {
-  __typename?: 'query_root'
-  debug_events: Array<{
-    __typename?: 'events'
-    id: string
-    atom?: {
-      __typename?: 'atoms'
-      term: {
-        __typename?: 'terms'
-        positions: Array<{
-          __typename?: 'positions'
-          account_id: string
-          shares: any
-        }>
-      }
-    } | null
-  }>
 }
 
 export type GetFollowingPositionsQueryVariables = Exact<{
@@ -36762,13 +37372,13 @@ export type GetAtomsByCreatorQueryResult = Apollo.QueryResult<
   GetAtomsByCreatorQuery,
   GetAtomsByCreatorQueryVariables
 >
-export const GetEventsDocument = {
+export const GetEventsFeedDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'GetEvents' },
+      name: { kind: 'Name', value: 'GetEventsFeed' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -36889,8 +37499,14 @@ export const GetEventsDocument = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'order_by' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'orderBy' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'block_number' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
                 },
               },
               {
@@ -37117,10 +37733,6 @@ export const GetEventsDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'creator' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -37293,10 +37905,42 @@ export const GetEventsDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'term' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'positions_aggregate',
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'aggregate' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'count',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
@@ -37466,10 +38110,42 @@ export const GetEventsDocument = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'counter_term_id' },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'counter_term' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'positions_aggregate',
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'aggregate' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'count',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
@@ -37660,6 +38336,14 @@ export const GetEventsDocument = {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'id' },
                             },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
+                            },
                           ],
                         },
                       },
@@ -37807,6 +38491,14 @@ export const GetEventsDocument = {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'id' },
                             },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
+                            },
                           ],
                         },
                       },
@@ -37947,16 +38639,16 @@ export const GetEventsDocument = {
 } as unknown as DocumentNode
 
 /**
- * __useGetEventsQuery__
+ * __useGetEventsFeedQuery__
  *
- * To run a query within a React component, call `useGetEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetEventsFeedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetEventsFeedQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetEventsQuery({
+ * const { data, loading, error } = useGetEventsFeedQuery({
  *   variables: {
  *      limit: // value for 'limit'
  *      offset: // value for 'offset'
@@ -37966,54 +38658,59 @@ export const GetEventsDocument = {
  *   },
  * });
  */
-export function useGetEventsQuery(
+export function useGetEventsFeedQuery(
   baseOptions?: Apollo.QueryHookOptions<
-    GetEventsQuery,
-    GetEventsQueryVariables
+    GetEventsFeedQuery,
+    GetEventsFeedQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetEventsQuery, GetEventsQueryVariables>(
-    GetEventsDocument,
+  return Apollo.useQuery<GetEventsFeedQuery, GetEventsFeedQueryVariables>(
+    GetEventsFeedDocument,
     options,
   )
 }
-export function useGetEventsLazyQuery(
+export function useGetEventsFeedLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetEventsQuery,
-    GetEventsQueryVariables
+    GetEventsFeedQuery,
+    GetEventsFeedQueryVariables
   >,
 ) {
   const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetEventsQuery, GetEventsQueryVariables>(
-    GetEventsDocument,
+  return Apollo.useLazyQuery<GetEventsFeedQuery, GetEventsFeedQueryVariables>(
+    GetEventsFeedDocument,
     options,
   )
 }
-export function useGetEventsSuspenseQuery(
+export function useGetEventsFeedSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetEventsQuery, GetEventsQueryVariables>,
+    | Apollo.SuspenseQueryHookOptions<
+        GetEventsFeedQuery,
+        GetEventsFeedQueryVariables
+      >,
 ) {
   const options =
     baseOptions === Apollo.skipToken
       ? baseOptions
       : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<GetEventsQuery, GetEventsQueryVariables>(
-    GetEventsDocument,
-    options,
-  )
+  return Apollo.useSuspenseQuery<
+    GetEventsFeedQuery,
+    GetEventsFeedQueryVariables
+  >(GetEventsFeedDocument, options)
 }
-export type GetEventsQueryHookResult = ReturnType<typeof useGetEventsQuery>
-export type GetEventsLazyQueryHookResult = ReturnType<
-  typeof useGetEventsLazyQuery
+export type GetEventsFeedQueryHookResult = ReturnType<
+  typeof useGetEventsFeedQuery
 >
-export type GetEventsSuspenseQueryHookResult = ReturnType<
-  typeof useGetEventsSuspenseQuery
+export type GetEventsFeedLazyQueryHookResult = ReturnType<
+  typeof useGetEventsFeedLazyQuery
 >
-export type GetEventsQueryResult = Apollo.QueryResult<
-  GetEventsQuery,
-  GetEventsQueryVariables
+export type GetEventsFeedSuspenseQueryHookResult = ReturnType<
+  typeof useGetEventsFeedSuspenseQuery
+>
+export type GetEventsFeedQueryResult = Apollo.QueryResult<
+  GetEventsFeedQuery,
+  GetEventsFeedQueryVariables
 >
 export const GetEventsWithAggregatesDocument = {
   kind: 'Document',
@@ -39267,497 +39964,6 @@ export type GetEventsWithAggregatesSuspenseQueryHookResult = ReturnType<
 export type GetEventsWithAggregatesQueryResult = Apollo.QueryResult<
   GetEventsWithAggregatesQuery,
   GetEventsWithAggregatesQueryVariables
->
-export const GetEventsCountDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetEventsCount' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'events_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetEventsCountQuery__
- *
- * To run a query within a React component, call `useGetEventsCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEventsCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetEventsCountQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetEventsCountQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetEventsCountQuery,
-    GetEventsCountQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetEventsCountQuery, GetEventsCountQueryVariables>(
-    GetEventsCountDocument,
-    options,
-  )
-}
-export function useGetEventsCountLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetEventsCountQuery,
-    GetEventsCountQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetEventsCountQuery, GetEventsCountQueryVariables>(
-    GetEventsCountDocument,
-    options,
-  )
-}
-export function useGetEventsCountSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetEventsCountQuery,
-        GetEventsCountQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetEventsCountQuery,
-    GetEventsCountQueryVariables
-  >(GetEventsCountDocument, options)
-}
-export type GetEventsCountQueryHookResult = ReturnType<
-  typeof useGetEventsCountQuery
->
-export type GetEventsCountLazyQueryHookResult = ReturnType<
-  typeof useGetEventsCountLazyQuery
->
-export type GetEventsCountSuspenseQueryHookResult = ReturnType<
-  typeof useGetEventsCountSuspenseQuery
->
-export type GetEventsCountQueryResult = Apollo.QueryResult<
-  GetEventsCountQuery,
-  GetEventsCountQueryVariables
->
-export const GetEventsDataDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetEventsData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'events_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'max' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'created_at' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'min' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'created_at' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'avg' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetEventsDataQuery__
- *
- * To run a query within a React component, call `useGetEventsDataQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetEventsDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetEventsDataQuery({
- *   variables: {
- *      where: // value for 'where'
- *   },
- * });
- */
-export function useGetEventsDataQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetEventsDataQuery,
-    GetEventsDataQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetEventsDataQuery, GetEventsDataQueryVariables>(
-    GetEventsDataDocument,
-    options,
-  )
-}
-export function useGetEventsDataLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetEventsDataQuery,
-    GetEventsDataQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetEventsDataQuery, GetEventsDataQueryVariables>(
-    GetEventsDataDocument,
-    options,
-  )
-}
-export function useGetEventsDataSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetEventsDataQuery,
-        GetEventsDataQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetEventsDataQuery,
-    GetEventsDataQueryVariables
-  >(GetEventsDataDocument, options)
-}
-export type GetEventsDataQueryHookResult = ReturnType<
-  typeof useGetEventsDataQuery
->
-export type GetEventsDataLazyQueryHookResult = ReturnType<
-  typeof useGetEventsDataLazyQuery
->
-export type GetEventsDataSuspenseQueryHookResult = ReturnType<
-  typeof useGetEventsDataSuspenseQuery
->
-export type GetEventsDataQueryResult = Apollo.QueryResult<
-  GetEventsDataQuery,
-  GetEventsDataQueryVariables
->
-export const GetDebugEventsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetDebugEvents' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'addresses' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'String' },
-              },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'debug_events' },
-            name: { kind: 'Name', value: 'events' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'atom' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_in',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'addresses',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'account_id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-
-/**
- * __useGetDebugEventsQuery__
- *
- * To run a query within a React component, call `useGetDebugEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetDebugEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetDebugEventsQuery({
- *   variables: {
- *      addresses: // value for 'addresses'
- *   },
- * });
- */
-export function useGetDebugEventsQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    GetDebugEventsQuery,
-    GetDebugEventsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useQuery<GetDebugEventsQuery, GetDebugEventsQueryVariables>(
-    GetDebugEventsDocument,
-    options,
-  )
-}
-export function useGetDebugEventsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    GetDebugEventsQuery,
-    GetDebugEventsQueryVariables
-  >,
-) {
-  const options = { ...defaultOptions, ...baseOptions }
-  return Apollo.useLazyQuery<GetDebugEventsQuery, GetDebugEventsQueryVariables>(
-    GetDebugEventsDocument,
-    options,
-  )
-}
-export function useGetDebugEventsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        GetDebugEventsQuery,
-        GetDebugEventsQueryVariables
-      >,
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions }
-  return Apollo.useSuspenseQuery<
-    GetDebugEventsQuery,
-    GetDebugEventsQueryVariables
-  >(GetDebugEventsDocument, options)
-}
-export type GetDebugEventsQueryHookResult = ReturnType<
-  typeof useGetDebugEventsQuery
->
-export type GetDebugEventsLazyQueryHookResult = ReturnType<
-  typeof useGetDebugEventsLazyQuery
->
-export type GetDebugEventsSuspenseQueryHookResult = ReturnType<
-  typeof useGetDebugEventsSuspenseQuery
->
-export type GetDebugEventsQueryResult = Apollo.QueryResult<
-  GetDebugEventsQuery,
-  GetDebugEventsQueryVariables
 >
 export const GetFollowingPositionsDocument = {
   kind: 'Document',
@@ -78306,13 +78512,13 @@ export const GetAtomsByCreator = {
     },
   ],
 } as unknown as DocumentNode
-export const GetEvents = {
+export const GetEventsFeed = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'GetEvents' },
+      name: { kind: 'Name', value: 'GetEventsFeed' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -78433,8 +78639,14 @@ export const GetEvents = {
                 kind: 'Argument',
                 name: { kind: 'Name', value: 'order_by' },
                 value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'orderBy' },
+                  kind: 'ObjectValue',
+                  fields: [
+                    {
+                      kind: 'ObjectField',
+                      name: { kind: 'Name', value: 'block_number' },
+                      value: { kind: 'EnumValue', value: 'desc' },
+                    },
+                  ],
                 },
               },
               {
@@ -78661,10 +78873,6 @@ export const GetEvents = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'term_id' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'creator' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -78837,10 +79045,42 @@ export const GetEvents = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'term_id' },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'term' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'positions_aggregate',
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'aggregate' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'count',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
@@ -79010,10 +79250,42 @@ export const GetEvents = {
                       },
                       {
                         kind: 'Field',
+                        name: { kind: 'Name', value: 'counter_term_id' },
+                      },
+                      {
+                        kind: 'Field',
                         name: { kind: 'Name', value: 'counter_term' },
                         selectionSet: {
                           kind: 'SelectionSet',
                           selections: [
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'positions_aggregate',
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'aggregate' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'count',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'vaults' },
@@ -79204,6 +79476,14 @@ export const GetEvents = {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'id' },
                             },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
+                            },
                           ],
                         },
                       },
@@ -79350,6 +79630,14 @@ export const GetEvents = {
                             {
                               kind: 'Field',
                               name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'label' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'image' },
                             },
                           ],
                         },
@@ -80652,284 +80940,6 @@ export const GetEventsWithAggregates = {
                             {
                               kind: 'FragmentSpread',
                               name: { kind: 'Name', value: 'PositionFields' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetEventsCount = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetEventsCount' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'events_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetEventsData = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetEventsData' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'where' },
-          },
-          type: {
-            kind: 'NamedType',
-            name: { kind: 'Name', value: 'events_bool_exp' },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'events_aggregate' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'where' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'where' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'aggregate' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'count' } },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'max' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'created_at' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'min' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'created_at' },
-                            },
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'avg' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'block_number' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode
-export const GetDebugEvents = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'GetDebugEvents' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'addresses' },
-          },
-          type: {
-            kind: 'ListType',
-            type: {
-              kind: 'NonNullType',
-              type: {
-                kind: 'NamedType',
-                name: { kind: 'Name', value: 'String' },
-              },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            alias: { kind: 'Name', value: 'debug_events' },
-            name: { kind: 'Name', value: 'events' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'atom' },
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'term' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'positions' },
-                              arguments: [
-                                {
-                                  kind: 'Argument',
-                                  name: { kind: 'Name', value: 'where' },
-                                  value: {
-                                    kind: 'ObjectValue',
-                                    fields: [
-                                      {
-                                        kind: 'ObjectField',
-                                        name: {
-                                          kind: 'Name',
-                                          value: 'account_id',
-                                        },
-                                        value: {
-                                          kind: 'ObjectValue',
-                                          fields: [
-                                            {
-                                              kind: 'ObjectField',
-                                              name: {
-                                                kind: 'Name',
-                                                value: '_in',
-                                              },
-                                              value: {
-                                                kind: 'Variable',
-                                                name: {
-                                                  kind: 'Name',
-                                                  value: 'addresses',
-                                                },
-                                              },
-                                            },
-                                          ],
-                                        },
-                                      },
-                                    ],
-                                  },
-                                },
-                              ],
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'account_id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'shares' },
-                                  },
-                                ],
-                              },
                             },
                           ],
                         },

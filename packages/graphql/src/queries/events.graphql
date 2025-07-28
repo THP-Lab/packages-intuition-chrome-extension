@@ -1,5 +1,5 @@
 # Main pagination query
-query GetEvents(
+query GetEventsFeed(
   $limit: Int
   $offset: Int
   $orderBy: [events_order_by!]
@@ -11,7 +11,7 @@ query GetEvents(
       count
     }
   }
-  events(limit: $limit, offset: $offset, order_by: $orderBy, where: $where) {
+  events(limit: $limit, offset: $offset, order_by: { block_number: desc }, where: $where) {
     id
     block_number
     created_at
@@ -40,7 +40,6 @@ query GetEvents(
       }
     }
     triple {
-      term_id
       creator {
         ...AccountMetadata
       }
@@ -80,7 +79,11 @@ query GetEvents(
           ...AccountMetadata
         }
       }
+      term_id
       term {
+        positions_aggregate {
+          aggregate { count }
+        }
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
@@ -95,7 +98,11 @@ query GetEvents(
           }
         }
       }
+      counter_term_id
       counter_term {
+        positions_aggregate {
+          aggregate { count }
+        }
         vaults(where: { curve_id: { _eq: "1" } }) {
           total_shares
           position_count
@@ -115,6 +122,8 @@ query GetEvents(
       sender_id
       sender {
         id
+        label
+        image
       }
       shares_for_receiver
       sender_assets_after_total_fees
@@ -136,6 +145,8 @@ query GetEvents(
       sender_id
       sender {
         id
+        label
+        image
       }
     }
   }
@@ -172,44 +183,3 @@ query GetEventsWithAggregates(
   }
 }
 
-query GetEventsCount($where: events_bool_exp) {
-  events_aggregate(where: $where) {
-    aggregate {
-      count
-    }
-  }
-}
-
-query GetEventsData($where: events_bool_exp) {
-  events_aggregate(where: $where) {
-    aggregate {
-      count
-      max {
-        created_at
-        block_number
-      }
-      min {
-        created_at
-        block_number
-      }
-      avg {
-        block_number
-      }
-    }
-  }
-}
-
-# Debug query with explicit address and position filtering
-query GetDebugEvents($addresses: [String!]) {
-  debug_events: events {
-    id
-    atom {
-      term {
-        positions(where: { account_id: { _in: $addresses } }) {
-          account_id
-          shares
-        }
-      }
-    }
-  }
-}
